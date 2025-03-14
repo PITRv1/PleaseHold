@@ -6,12 +6,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-public class ReadCSV : MonoBehaviour
+public class saveCSV : MonoBehaviour
 {
+    public static saveCSV Instance {
+        private set;
+        get;
+    }
+
     public List<List<string>> fileList;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     private void Awake()
     {
+        Instance = this;
         fileList = ReadFromCSV(@"D:\csvs\buildings_1.csv");
     }
     private List<List<string>> ReadFromCSV(string filePath) {

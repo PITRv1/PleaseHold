@@ -4,13 +4,23 @@ using System;
 using Unity.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
-public class TestWriteInto : MonoBehaviour
+public class saveCSV : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static saveCSV Instance {
+        private set;
+        get;
+    }
+
+    public List<List<string>> fileList;
+    
+    private void Awake()
     {
-        string filePath = @"D:\csvs\buildings_1.csv";
+        Instance = this;
+        fileList = ReadFromCSV(@"D:\csvs\buildings_1.csv");
+    }
+    private List<List<string>> ReadFromCSV(string filePath) {
 
         List<List<string>> fileList = new List<List<string>>();
 
@@ -36,10 +46,7 @@ public class TestWriteInto : MonoBehaviour
                 fileList.Add(values);
             }
         }
-        foreach (List<string> file in fileList)
-            foreach (string str in file) {
-                Debug.Log(str);
-            }
 
+        return fileList;
     }
 }

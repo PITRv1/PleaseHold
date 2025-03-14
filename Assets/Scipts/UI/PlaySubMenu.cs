@@ -36,7 +36,7 @@ public class PlaySubMenu : SubMenu
             return filePath;
         } catch
         {
-            print("File was not selected");
+            Debug.Log("File was not selected");
             return filePath;
         }
     }

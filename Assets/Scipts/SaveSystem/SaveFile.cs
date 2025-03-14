@@ -5,24 +5,58 @@ using Unity.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEngine.Rendering;
 
-public class saveCSV : MonoBehaviour
-{
+public class saveCSV : MonoBehaviour {
+
+    public enum Columns {
+        Id,
+        Name,
+        Type,
+        Year,
+        Size,
+    }
     public static saveCSV Instance {
         private set;
         get;
     }
 
-    public List<List<string>> fileList;
+    private List<List<string>> fileList;
+
+    private string filePath;
     
     private void Awake()
     {
         Instance = this;
-        fileList = ReadFromCSV(@"D:\csvs\buildings_1.csv");
     }
-    private List<List<string>> ReadFromCSV(string filePath) {
 
-        List<List<string>> fileList = new List<List<string>>();
+    private void Start() {
+        SetFilePath(@"D:\csvs\buildings_1.csv");
+        ReadFromCSV();
+        //string[] lines = { "11,Napfény Lakópark,lakóház,2026,120", "12,Kossuth Gimnázium,iskola,2027,2500", "13,Panoráma Ház,tömbház,2028,1800" };
+
+        //WriteNewLinesIntoCSV(lines);
+
+        WriteIntoCSV(2, Columns.Name, "Dr House");
+    }
+
+    private List<string> ReadLinesFromCSV() {
+
+        List<string> listLines = new List<string>();
+
+        using (StreamReader reader = new StreamReader(filePath)) {
+            string line;
+
+            while ((line = reader.ReadLine()) != null) {
+                listLines.Add(line);
+            }
+        }
+
+        return listLines;
+    }
+    private void ReadFromCSV() {
+
+        fileList = new List<List<string>>();
 
         using (StreamReader reader = new StreamReader(filePath)) {
             string line;
@@ -46,7 +80,40 @@ public class saveCSV : MonoBehaviour
                 fileList.Add(values);
             }
         }
-
-        return fileList;
     }
+
+    private void WriteIntoCSV(int id, Columns value, string newValue) {
+
+        List<string> listLines = ReadLinesFromCSV();
+
+        List<string> originalLine = listLines[id].Split(',').ToList();
+
+        originalLine[(int)value] = newValue;
+
+        string changedLine = string.Join(",", originalLine);
+
+        listLines[id] = changedLine;
+
+        File.WriteAllLines(filePath, listLines);
+
+        ReadFromCSV();
+    }
+
+    private void WriteNewLinesIntoCSV(string[] lines) {
+        List<string> listLines = ReadLinesFromCSV();
+
+        foreach (string line in lines) {
+            listLines.Add(line);
+        }
+
+        File.WriteAllLines(filePath, listLines);
+
+        ReadFromCSV();
+    }
+
+    private void SetFilePath(string givenPath) {
+        filePath = givenPath;
+    }
+
+
 }

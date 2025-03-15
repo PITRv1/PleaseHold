@@ -12,7 +12,10 @@ public class GameParamSaver : GameParameters
     private void MainMenuInputFieldManager_OnSimulationStarted(object sender, PlaySubMenuInputManager.GameParametersEventArgs e)
     {
         GameParameters.Instance.SetGameParameters(
-            e.StartingFilePath,
+            e.BuildingsPath,
+            e.PeoplePath,
+            e.ServicesPath,
+
             e.InitialBudget,
             e.StartingPopulationHappiness,
             e.MinPopulationHappiness,

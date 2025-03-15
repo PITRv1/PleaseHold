@@ -5,7 +5,10 @@ public class GameParameters : MonoBehaviour
 {
     public static GameParameters Instance { get; private set; }
 
-    private string startingFilePath;
+    private string buildingsPath;
+    private string peoplePath;
+    private string servicesPath;
+
     private float initialBudget;
     private float startingPopulationHappiness;
     private float minPopulationHappiness;
@@ -17,9 +20,17 @@ public class GameParameters : MonoBehaviour
         Instance = this;
     }
 
-    public void SetGameParameters(string startingFilePath, float initialBudget, float startingPopulationHappiness, float minPopulationHappiness, int simulationLength, string startDate)
+    public void SetGameParameters(
+        string buildingsPath,
+        string peoplePath,
+        string servicesPath,
+        float initialBudget, float startingPopulationHappiness, float minPopulationHappiness, int simulationLength, string startDate)
+
     {
-        Instance.startingFilePath = startingFilePath;
+        Instance.buildingsPath = buildingsPath;
+        Instance.peoplePath = peoplePath;
+        Instance.servicesPath = servicesPath;
+
         Instance.initialBudget = initialBudget;
         Instance.startingPopulationHappiness = startingPopulationHappiness;
         Instance.minPopulationHappiness = minPopulationHappiness;

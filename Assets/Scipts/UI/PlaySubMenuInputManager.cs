@@ -11,16 +11,20 @@ public class PlaySubMenuInputManager : MonoBehaviour
     public event EventHandler<GameParametersEventArgs> OnSimulationStarted;
     public class GameParametersEventArgs : EventArgs
     {
-        public string StartingFilePath { get; }
+        public string BuildingsPath { get; }
+        public string PeoplePath { get; }
+        public string ServicesPath { get; }
         public string StartDate { get; }
         public int SimulationLength { get; }
         public int MinPopulationHappiness { get; }
         public int StartingPopulationHappiness { get; }
         public int InitialBudget { get; }
 
-        public GameParametersEventArgs(string startingFilePath, string startDate, int simulationLength, int minHappiness, int startingHappiness, int initialBudget)
+        public GameParametersEventArgs(string buildingsPath, string peoplePath, string servicesPath, string startDate, int simulationLength, int minHappiness, int startingHappiness, int initialBudget)
         {
-            StartingFilePath = startingFilePath;
+            BuildingsPath = buildingsPath;
+            PeoplePath = peoplePath;
+            ServicesPath = servicesPath;
             StartDate = startDate;
             SimulationLength = simulationLength;
             MinPopulationHappiness = minHappiness;
@@ -35,8 +39,9 @@ public class PlaySubMenuInputManager : MonoBehaviour
 
     [SerializeField] private PlaySubMenu playSubMenu;
 
-    [SerializeField] private Button initialInputFileButton;
-    [SerializeField] private TextMeshProUGUI pathDisplayText;
+    [SerializeField] private Button inputBuildingsButton;
+    [SerializeField] private Button inputPeopleButton;
+    [SerializeField] private Button inputServicesButton;
 
     [SerializeField] private TMP_InputField yearInputField;
     [SerializeField] private TMP_InputField monthInputField;
@@ -50,15 +55,26 @@ public class PlaySubMenuInputManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI errorText;
 
+    private TMP_Text inputBuildingsText;
+    private TMP_Text inputPeopleText;
+    private TMP_Text inputServicesText;
+
+
+
     private int minHappiness = 1;
     private const int MAX_HAPPINESS = 99;
     private bool gameCanStart = false;
     private void Awake()
     {
-        initialInputFileButton.onClick.AddListener(() =>
-        {
-            pathDisplayText.text = GetSelectedFilePath();
-        });
+        inputBuildingsText = inputBuildingsButton.GetComponentInChildren<TMP_Text>();
+        inputPeopleText = inputPeopleButton.GetComponentInChildren<TMP_Text>();
+        inputServicesText = inputServicesButton.GetComponentInChildren<TMP_Text>();
+
+
+        inputBuildingsButton.onClick.AddListener(OpenBuildingsFilePath);
+        inputPeopleButton.onClick.AddListener(OpenPeopleFilePath);
+        inputServicesButton.onClick.AddListener(OpenServicesFilePath);
+
 
         yearInputField.onEndEdit.AddListener(ValidateYear);
         monthInputField.onEndEdit.AddListener(ValidateMonth);
@@ -78,6 +94,7 @@ public class PlaySubMenuInputManager : MonoBehaviour
         UpdatePercentageText();
     }
 
+
     private void Start()
     {
         playSubMenu.OnSimStarted += PlaySubMenu_OnSimStarted;
@@ -88,10 +105,32 @@ public class PlaySubMenuInputManager : MonoBehaviour
         SaveSimulationParameters();
     }
 
+
+    //Only have 3 version cause I cant pass arguments into eventlisteners
+    private void OpenBuildingsFilePath() {
+        print(inputPeopleText);
+        inputBuildingsText.text = GetSelectedFilePath();
+        print(inputBuildingsText.text);
+    }
+    private void OpenPeopleFilePath()
+    {
+        inputPeopleText.text = GetSelectedFilePath();
+        print(inputPeopleText.text);
+
+    }
+    private void OpenServicesFilePath()
+    {
+        inputServicesText.text = GetSelectedFilePath();
+    }
+
+
     private void SaveSimulationParameters()
     {
         // Check if any input field is empty
-        if (pathDisplayText.text == "PATH" || pathDisplayText.text == "" ||
+        if (inputBuildingsText.text == "PATH" || inputBuildingsText.text == "" ||
+            inputPeopleText.text == "PATH" || inputPeopleText.text == "" ||
+            inputServicesText.text == "PATH" || inputServicesText.text == "" ||
+
             string.IsNullOrWhiteSpace(yearInputField.text) ||
             string.IsNullOrWhiteSpace(monthInputField.text) ||
             string.IsNullOrWhiteSpace(simulationLengthInputField.text) ||
@@ -106,7 +145,10 @@ public class PlaySubMenuInputManager : MonoBehaviour
 
         errorText.gameObject.SetActive(false);
         // Collect values
-        string startingFilePath = pathDisplayText.text;
+        string buildingsPath = inputBuildingsText.text;
+        string peoplePath = inputPeopleText.text;
+        string servicesPath = inputServicesText.text;
+
         string startDate = $"{yearInputField.text}-{monthInputField.text}";
         int simulationLength = int.Parse(simulationLengthInputField.text);
         int minHappiness = int.Parse(minPopulationHappinessInputField.text);
@@ -114,8 +156,9 @@ public class PlaySubMenuInputManager : MonoBehaviour
         int initialBudget = int.Parse(initialBudgetField.text);
 
         // Fire event with collected values
-        OnSimulationStarted?.Invoke(this, new GameParametersEventArgs(startingFilePath, startDate, simulationLength, minHappiness, startingHappiness, initialBudget));
+        OnSimulationStarted?.Invoke(this, new GameParametersEventArgs(buildingsPath, peoplePath, servicesPath, startDate, simulationLength, minHappiness, startingHappiness, initialBudget));
     }
+
 
     private string GetSelectedFilePath()
     {
@@ -135,6 +178,11 @@ public class PlaySubMenuInputManager : MonoBehaviour
             Debug.Log("File was not selected");
             return filePath;
         }
+    }
+
+    public bool CanGameStart()
+    {
+        return gameCanStart;
     }
 
     private void ValidateMonth(string input)
@@ -227,8 +275,4 @@ public class PlaySubMenuInputManager : MonoBehaviour
         }
     }
 
-    public bool CanGameStart()
-    {
-        return gameCanStart;
-    }
 }

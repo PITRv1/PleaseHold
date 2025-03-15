@@ -30,7 +30,7 @@ public class SaveCSV : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
-        SetFilePath(@"D:\csvs\buildings_1.csv");
+        SetFilePath(@"C:\UnityProjects\Please_Hold\Assets\InputCSVFiles\StartCSVFiles\buildings_1.csv");
         ReadFromCSV();
     }
 

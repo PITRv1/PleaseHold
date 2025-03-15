@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameParameterSettings : MonoBehaviour
+public class GameParameters : MonoBehaviour
 {
     private float initialBudget;
     private float initialPopulationHappiness;

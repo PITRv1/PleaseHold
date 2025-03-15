@@ -7,7 +7,7 @@ public class SubMenuManagerUI : MonoBehaviour
     [SerializeField] private OptionsSubMenu optionsSubMenu;
     [SerializeField] private CreditsSubMenu creditsSubMenu;
 
-    private void Start()
+    private void Awake()
     {
         MainButtonUI.Instance.OnPlayMenuButtonClick += MainButtonUI_OnPlayMenuButtonClick;
         MainButtonUI.Instance.OnOptionsMenuButtonClick += MainButtonUI_OnOptionsMenuButtonClick;

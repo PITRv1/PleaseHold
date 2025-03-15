@@ -3,41 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using SFB;
 using NUnit.Framework;
+using System;
 
 public class PlaySubMenu : SubMenu
 {
-    [SerializeField] private Button initialInputFileButton;
-    [SerializeField] private TextMeshProUGUI pathDisplayText;
+    public event EventHandler OnSimStarted;
 
 
-    private ExtensionFilter[] extensions = new[] { 
-        new ExtensionFilter("Input Data Files", "csv") 
-    };
+    [SerializeField] private Button simulationStartButton;
 
-    private void Awake()
+    public void Awake()
     {
-        initialInputFileButton.onClick.AddListener(() =>
+        simulationStartButton.onClick.AddListener(() =>
         {
-            pathDisplayText.text = GetSelectedFilePath();
+            OnSimStarted?.Invoke(this, EventArgs.Empty);
         });
     }
 
-    private string GetSelectedFilePath()
-    {
-        string filePath = "";
-        try
-        {
-            var paths = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, false);
-            if (paths[0] != null)
-            {
-                filePath = paths[0];
-            }
-
-            return filePath;
-        } catch
-        {
-            Debug.Log("File was not selected");
-            return filePath;
-        }
-    }
 }

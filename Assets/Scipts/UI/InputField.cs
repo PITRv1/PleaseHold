@@ -16,6 +16,7 @@ public class InputFieldBackground : MonoBehaviour {
     [SerializeField] TMP_InputField buildingArea;
 
     [SerializeField] Button acceptButton;
+    [SerializeField] Button exitButton;
 
     private string buildingNameText;
     private string buildingTypeText;
@@ -31,6 +32,9 @@ public class InputFieldBackground : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
+        exitButton.onClick.AddListener(() => {
+            Hide();
+        });
         acceptButton.onClick.AddListener(() => {
             buildingNameText = buildingName.text;
             buildingTypeText = buildingType.text;
@@ -96,6 +100,10 @@ public class InputFieldBackground : MonoBehaviour {
     private void Hide() {
         CameraSystem.Instance.EnableInput();
         gameObject.SetActive(false);
+        buildingName.text = "";
+        buildingType.text = "";
+        buildingYear.text = "";
+        buildingArea.text = "";
     }
     private void Show() {
         CameraSystem.Instance.DisableInput();

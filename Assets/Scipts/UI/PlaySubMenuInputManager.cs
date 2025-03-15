@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 
-public class MainMenuInputFieldManager : MonoBehaviour
+public class PlaySubMenuInputManager : MonoBehaviour
 {
     public event EventHandler<GameParametersEventArgs> OnSimulationStarted;
     public class GameParametersEventArgs : EventArgs
@@ -52,7 +52,7 @@ public class MainMenuInputFieldManager : MonoBehaviour
 
     private int minHappiness = 1;
     private const int MAX_HAPPINESS = 99;
-
+    private bool gameCanStart = false;
     private void Awake()
     {
         initialInputFileButton.onClick.AddListener(() =>
@@ -98,9 +98,11 @@ public class MainMenuInputFieldManager : MonoBehaviour
             string.IsNullOrWhiteSpace(minPopulationHappinessInputField.text) ||
             string.IsNullOrWhiteSpace(initialBudgetField.text))
         {
+            gameCanStart = false;
             errorText.gameObject.SetActive(true);
             return;
         }
+        gameCanStart = true;
 
         errorText.gameObject.SetActive(false);
         // Collect values
@@ -223,5 +225,10 @@ public class MainMenuInputFieldManager : MonoBehaviour
         {
             initialBudgetField.text = "1";
         }
+    }
+
+    public bool CanGameStart()
+    {
+        return gameCanStart;
     }
 }

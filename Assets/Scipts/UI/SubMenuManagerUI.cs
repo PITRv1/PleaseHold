@@ -7,37 +7,53 @@ public class SubMenuManagerUI : MonoBehaviour
     [SerializeField] private OptionsSubMenu optionsSubMenu;
     [SerializeField] private CreditsSubMenu creditsSubMenu;
 
+    private FadeControllerUI playSubMenuFadeController;
+    private FadeControllerUI optionsSubMenuFadeController;
+    private FadeControllerUI creditsSubMenuFadeController;
+
+
     private void Awake()
     {
+        playSubMenuFadeController = playSubMenu.GetComponent<FadeControllerUI>();
+        optionsSubMenuFadeController = optionsSubMenu.GetComponent<FadeControllerUI>();
+        creditsSubMenuFadeController = creditsSubMenu.GetComponent<FadeControllerUI>();
+
         MainButtonUI.Instance.OnPlayMenuButtonClick += MainButtonUI_OnPlayMenuButtonClick;
         MainButtonUI.Instance.OnOptionsMenuButtonClick += MainButtonUI_OnOptionsMenuButtonClick;
         MainButtonUI.Instance.OnCreditsMenuButtonClick += MainButtonUI_OnCreditsMenuButtonClick;
 
-        HideAllSubMenus();
+        
+    }
+
+    private void Start()
+    {
+        playSubMenu.gameObject.SetActive(false);
+        optionsSubMenu.gameObject.SetActive(false);
+        creditsSubMenu.gameObject.SetActive(false);
     }
 
     private void MainButtonUI_OnCreditsMenuButtonClick(object sender, System.EventArgs e)
     {
         HideAllSubMenus();
-        creditsSubMenu.gameObject.SetActive(true);
+        creditsSubMenuFadeController.FadeIn(.3f);
     }
 
     private void MainButtonUI_OnOptionsMenuButtonClick(object sender, System.EventArgs e)
     {
         HideAllSubMenus();
-        optionsSubMenu.gameObject.SetActive(true);
+        optionsSubMenuFadeController.FadeIn(.3f);
     }
 
     private void MainButtonUI_OnPlayMenuButtonClick(object sender, System.EventArgs e)
     {
         HideAllSubMenus();
-        playSubMenu.gameObject.SetActive(true);
+        playSubMenuFadeController.FadeIn(.3f);
     }
 
     private void HideAllSubMenus()
     {
-        playSubMenu.gameObject.SetActive(false);
-        optionsSubMenu.gameObject.SetActive(false);
-        creditsSubMenu.gameObject.SetActive(false);
+        playSubMenuFadeController.FadeOut(.2f);
+        creditsSubMenuFadeController.FadeOut(.2f);
+        optionsSubMenuFadeController.FadeOut(.2f);
     }
 }

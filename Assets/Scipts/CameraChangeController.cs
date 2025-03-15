@@ -9,15 +9,7 @@ public class CameraChangeController : MonoBehaviour
 
     private bool isCamAActive = true;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SwitchCamera();
-        }
-    }
-
-    public void SwitchCamera()
+    public void Transition()
     {
         if (isCamAActive)
         {

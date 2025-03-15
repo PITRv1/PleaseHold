@@ -11,13 +11,32 @@ public class PlaySubMenu : SubMenu
 
 
     [SerializeField] private Button simulationStartButton;
+    [SerializeField] private PlaySubMenuInputManager inputManager;
+    [SerializeField] private CameraChangeController cameraChangeController;
+    [SerializeField] private FadeControllerUI fadeControllerUI;
 
     public void Awake()
     {
-        simulationStartButton.onClick.AddListener(() =>
+        simulationStartButton.onClick.AddListener(StartSimulation);
+    }
+
+    private void StartSimulation()
+    {
+        OnSimStarted?.Invoke(this, EventArgs.Empty);
+
+        if (inputManager.CanGameStart())
         {
-            OnSimStarted?.Invoke(this, EventArgs.Empty);
-        });
+            print("time to play");
+            cameraChangeController.Transition();
+        }
+    }
+
+    private void Update()
+    {
+        if (inputManager.CanGameStart())
+        {
+            fadeControllerUI.FadeOut(2f);
+        }
     }
 
 }

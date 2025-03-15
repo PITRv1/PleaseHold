@@ -7,7 +7,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine.Rendering;
 
-public class saveCSV : MonoBehaviour {
+public class SaveCSV : MonoBehaviour {
+
+    //public event EventHandler ShowInputField;
 
     public enum Columns {
         Id,
@@ -16,7 +18,7 @@ public class saveCSV : MonoBehaviour {
         Year,
         Size,
     }
-    public static saveCSV Instance {
+    public static SaveCSV Instance {
         private set;
         get;
     }
@@ -28,19 +30,11 @@ public class saveCSV : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Start() {
         SetFilePath(@"D:\csvs\buildings_1.csv");
         ReadFromCSV();
-        //string[] lines = { "11,Napfény Lakópark,lakóház,2026,120", "12,Kossuth Gimnázium,iskola,2027,2500", "13,Panoráma Ház,tömbház,2028,1800" };
-
-        //WriteNewLinesIntoCSV(lines);
-
-        WriteIntoCSV(2, Columns.Name, "Dr House");
     }
 
-    private List<string> ReadLinesFromCSV() {
+    public List<string> ReadLinesFromCSV() {
 
         List<string> listLines = new List<string>();
 
@@ -54,7 +48,7 @@ public class saveCSV : MonoBehaviour {
 
         return listLines;
     }
-    private void ReadFromCSV() {
+    public void ReadFromCSV() {
 
         fileList = new List<List<string>>();
 
@@ -82,7 +76,7 @@ public class saveCSV : MonoBehaviour {
         }
     }
 
-    private void WriteIntoCSV(int id, Columns value, string newValue) {
+    public void WriteIntoCSV(int id, Columns value, string newValue) {
 
         List<string> listLines = ReadLinesFromCSV();
 
@@ -99,7 +93,7 @@ public class saveCSV : MonoBehaviour {
         ReadFromCSV();
     }
 
-    private void WriteNewLinesIntoCSV(string[] lines) {
+    public void WriteNewLinesIntoCSV(string[] lines) {
         List<string> listLines = ReadLinesFromCSV();
 
         foreach (string line in lines) {
@@ -111,8 +105,12 @@ public class saveCSV : MonoBehaviour {
         ReadFromCSV();
     }
 
-    private void SetFilePath(string givenPath) {
+    public void SetFilePath(string givenPath) {
         filePath = givenPath;
+    }
+
+    public List<List<string>> GetFileList() {
+        return fileList;
     }
 
 

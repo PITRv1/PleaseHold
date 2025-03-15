@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 public class LoadFile : MonoBehaviour {
 
     [SerializeField] Transform flatPrefab;
-
     public enum Columns {
         Id,
         Name,
@@ -32,7 +31,7 @@ public class LoadFile : MonoBehaviour {
         List<Transform> avaliablePlotList = PlotHandler.Instance.GetAvailablePlotList();
 
 
-        fileList = SaveCSV.Instance.GetFileList();
+        fileList = SaveCSV.Instance.GetBuildingFileList();
 
         foreach (List<string> file in fileList) {
             switch (file[(int)Columns.Type]){

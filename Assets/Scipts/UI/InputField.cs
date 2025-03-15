@@ -46,10 +46,10 @@ public class InputFieldBackground : MonoBehaviour {
             buildingYear.text = "";
             buildingArea.text = "";
 
-            string buildingId = SaveCSV.Instance.ReadLinesFromCSV().Count.ToString();
+            string buildingId = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath()).Count.ToString();
             string[] newLine = { $"{buildingId}, {buildingNameText}, {buildingTypeText}, {buildingYearText}, {buildingAreaText}" };
 
-            SaveCSV.Instance.WriteNewLinesIntoCSV(newLine);
+            SaveCSV.Instance.WriteNewLinesIntoCSV(SaveCSV.Instance.GetBuildingFilePath(), newLine);
 
             Transform flat = Instantiate(flatPrefab, givenGameObject.transform);
 

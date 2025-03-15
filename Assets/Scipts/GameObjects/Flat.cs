@@ -1,6 +1,12 @@
+using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using static UnityEngine.Rendering.DebugUI;
 
-public class Flat : Buildings {
+public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+
+    [SerializeField] Flat flat;
+    private Transform buildingPlot;
 
     private int buildingid;
     private string buildingName;
@@ -8,40 +14,44 @@ public class Flat : Buildings {
     private int buildingYear;
     private float buildingArea;
 
-    public void SetBuildingId(int newBuildingId) {
-        buildingid = newBuildingId;
+    public void Initialize(int id, string name, string type, int year, float area, Transform plot) {
+        buildingid = id;
+        buildingName = name;
+        buildingType = type;
+        buildingYear = year;
+        buildingArea = area;
+        buildingPlot = plot;
+
+    }
+    public void OnPointerClick(PointerEventData eventData) {
+        Debug.Log(buildingid);
+        Debug.Log(buildingName);
+        Debug.Log(buildingType);
+        Debug.Log(buildingYear);
+        Debug.Log(buildingArea);
     }
 
-    public int GetBuildingId() {
-        return buildingid;
-    }
-    public void SetBuildingName(string newBuildingName) {
-        buildingName = newBuildingName;
+    public void OnPointerDown(PointerEventData eventData) {
     }
 
-    public string GetBuildingName() {
-        return buildingName;
-    }
-    public void SetBuildingType(string newBuildingType) {
-        buildingType = newBuildingType;
+    public void OnPointerEnter(PointerEventData eventData) {
+        EventHandlerScript.Instance.SendOnFlatEnter(transform);
     }
 
-    public string GetBuildingType() {
-        return buildingType;
-    }
-    public void SetBuildingYear(int newBuildingYear) {
-        buildingYear = newBuildingYear;
+    public void OnPointerExit(PointerEventData eventData) {
+        EventHandlerScript.Instance.SendOnFlatExit(transform);
     }
 
-    public int GetBuildingYear() {
-        return buildingYear;
-    }
-    public void SetBuildingArea(float newBuildingArea) {
-        buildingArea = newBuildingArea;
+    public void OnPointerUp(PointerEventData eventData) {
     }
 
-    public float GetBuildingArea() {
-        return buildingArea;
+    public void SetPlot(Transform plot) {
+        buildingPlot = plot;
     }
 
+    public int GetBuildingId() { return buildingid; }
+    public string GetBuildingName() { return buildingName; }
+    public string GetBuildingType() { return buildingType; }
+    public int GetBuildingYear() { return buildingYear; }
+    public float GetBuildingArea() { return buildingArea; }
 }

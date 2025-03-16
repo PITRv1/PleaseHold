@@ -15,7 +15,7 @@ public class GameParamSaver : MonoBehaviour
         SaveObject saveObject = new SaveObject
         {
             buildingsPath = e.BuildingsPath,
-            peoplePath = e.PeoplePath,
+            residentsPath = e.PeoplePath,
             servicesPath = e.ServicesPath,
             initialBudget = e.InitialBudget,
             startingPopulationHappiness = e.StartingPopulationHappiness,
@@ -31,7 +31,7 @@ public class GameParamSaver : MonoBehaviour
     private class SaveObject
     {
         public string buildingsPath;
-        public string peoplePath;
+        public string residentsPath;
         public string servicesPath;
 
         public float initialBudget;

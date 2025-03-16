@@ -25,8 +25,8 @@ public class GameHandler : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
-        cameraInputActions = new CameraInput_Actions();
-        cameraInputActions.Camera.addToTurn.performed += AddToTurn_performed;
+        //cameraInputActions = new CameraInput_Actions();
+        //cameraInputActions.Camera.addToTurn.performed += AddToTurn_performed;
     }
 
     private void AddToTurn_performed(UnityEngine.InputSystem.InputAction.CallbackContext context) {

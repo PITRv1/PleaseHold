@@ -39,11 +39,11 @@ public class SaveCSV : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
-        SetResidentFilePath(@"C:\UnityProjects\Please_Hold\Assets\InputCSVFiles\StartCSVFiles\residentsCSV.csv");
-        SetBuildingFilePath(@"C:\UnityProjects\Please_Hold\Assets\InputCSVFiles\StartCSVFiles\buildingsCSV.csv");
-        SetServiceFilePath(@"C:\UnityProjects\Please_Hold\Assets\InputCSVFiles\StartCSVFiles\servicesCSV.csv");
+        SetResidentFilePath(@"D:\csvs\residentsCSV.csv");
+        SetBuildingFilePath(@"D:\csvs\buildingsCSV.csv");
+        SetServiceFilePath(@"D:\csvs\servicesCSV.csv");
         ReloadAllCSV();
-        DeleteFromCSV(fileResidentPath, 3);
+        //DeleteFromCSV(fileResidentPath, 3);
     }
 
     public List<string> ReadLinesFromCSV(string filePath) {

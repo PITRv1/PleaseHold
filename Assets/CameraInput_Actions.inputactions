@@ -58,7 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-
+                },
+                {
+                    "name": "addToTurn",
+                    "type": "Button",
+                    "id": "9d125ca0-b979-4851-9461-224d0f2f68ec",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -108,7 +116,6 @@
                 },
                 {
                     "name": "",
-
                     "id": "0062818a-99d4-400e-83b1-beed18381dfd",
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
@@ -126,7 +133,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ZoomOut",
-
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18d52dc5-dd6f-492b-b02e-52ea2dfd63cd",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "addToTurn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

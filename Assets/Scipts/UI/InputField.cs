@@ -46,24 +46,7 @@ public class InputFieldBackground : MonoBehaviour {
             buildingYear.text = "";
             buildingArea.text = "";
 
-            string buildingId = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath()).Count.ToString();
-            string[] newLine = { $"{buildingId}, {buildingNameText}, {buildingTypeText}, {buildingYearText}, {buildingAreaText}" };
-
-            SaveCSV.Instance.WriteNewLinesIntoCSV(SaveCSV.Instance.GetBuildingFilePath(), newLine);
-
-            Transform flat = Instantiate(flatPrefab, givenGameObject.transform);
-
-            Flat flatScript = flat.GetComponent<Flat>();
-            Plot plotScript = givenGameObject.GetComponent<Plot>();
-
-            int id = Int32.Parse(buildingId);
-            string name = buildingNameText;
-            string type = buildingTypeText;
-            int year = Int32.Parse(buildingYearText);
-            float area = float.Parse(buildingAreaText);
-
-            flatScript.Initialize(id, name, type, year, area, givenGameObject);
-            plotScript.isReserved = true;
+            
 
             Hide();
         });

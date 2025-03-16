@@ -1,6 +1,7 @@
+using System.IO;
 using UnityEngine;
 
-public class GameParamSaver : GameParameters
+public class GameParamSaver : MonoBehaviour
 {
     [SerializeField] private PlaySubMenuInputManager mainMenuInputFieldManager;
 
@@ -11,15 +12,32 @@ public class GameParamSaver : GameParameters
 
     private void MainMenuInputFieldManager_OnSimulationStarted(object sender, PlaySubMenuInputManager.GameParametersEventArgs e)
     {
-        GameParameters.Instance.SetGameParameters(
-            e.BuildingsPath,
-            e.PeoplePath,
-            e.ServicesPath,
+        SaveObject saveObject = new SaveObject
+        {
+            buildingsPath = e.BuildingsPath,
+            peoplePath = e.PeoplePath,
+            servicesPath = e.ServicesPath,
+            initialBudget = e.InitialBudget,
+            startingPopulationHappiness = e.StartingPopulationHappiness,
+            minPopulationHappiness = e.MinPopulationHappiness,
+            simulationLength = e.SimulationLength,
+            startDate = e.StartDate
+        };
+        string json = JsonUtility.ToJson(saveObject);
 
-            e.InitialBudget,
-            e.StartingPopulationHappiness,
-            e.MinPopulationHappiness,
-            e.SimulationLength,
-            e.StartDate);
+        File.WriteAllText(Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt", json);
+    }
+
+    private class SaveObject
+    {
+        public string buildingsPath;
+        public string peoplePath;
+        public string servicesPath;
+
+        public float initialBudget;
+        public float startingPopulationHappiness;
+        public float minPopulationHappiness;
+        public int simulationLength;
+        public string startDate;
     }
 }

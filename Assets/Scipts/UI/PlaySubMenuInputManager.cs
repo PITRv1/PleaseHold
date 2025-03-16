@@ -107,16 +107,13 @@ public class PlaySubMenuInputManager : MonoBehaviour
 
 
     //Only have 3 version cause I cant pass arguments into eventlisteners
-    private void OpenBuildingsFilePath() {
-        print(inputPeopleText);
+    private void OpenBuildingsFilePath()
+    {
         inputBuildingsText.text = GetSelectedFilePath();
-        print(inputBuildingsText.text);
     }
     private void OpenPeopleFilePath()
     {
         inputPeopleText.text = GetSelectedFilePath();
-        print(inputPeopleText.text);
-
     }
     private void OpenServicesFilePath()
     {

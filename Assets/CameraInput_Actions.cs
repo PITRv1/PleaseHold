@@ -92,156 +92,88 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             ""id"": ""7cbc06db-40ec-40cf-831e-06341ec01eab"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""96802b00-40c6-441e-8dd0-7fa7635a75d7"",
-                    ""expectedControlType"": ""Vector3"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Rotation"",
-                    ""type"": ""Value"",
-                    ""id"": ""20ea93ea-9992-4e8c-a269-12ec2b4cadaa"",
+                    ""id"": ""8187a4b5-2f7e-4a07-92f0-ec9eaca94b59"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Orbit"",
+                    ""type"": ""Value"",
+                    ""id"": ""f5a17dd6-15e4-415f-9a8c-0652a65fde89"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Focus"",
+                    ""type"": ""Button"",
+                    ""id"": ""c552a64d-41a3-47af-a5e4-33dea0bdc5c7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""3D Vector"",
-                    ""id"": ""87b3924a-3ecb-40a0-b821-e92b4fb55187"",
-                    ""path"": ""3DVector"",
+                    ""name"": ""One Modifier"",
+                    ""id"": ""5b0977a1-4e88-4943-ba39-b23af0bfc33b"",
+                    ""path"": ""OneModifier"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""bd33845d-b4a8-4779-9151-c50abc878fb0"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""f038ef3b-9249-4e40-8cd8-cc337b405fe8"",
+                    ""name"": ""Modifier"",
+                    ""id"": ""04a577d9-2c1d-4a16-878a-527508799462"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""8c2b698c-291d-4de7-9bf5-34cc7a2d1236"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""name"": ""Binding"",
+                    ""id"": ""2a0d8e76-b854-40d2-88c0-fd94b5641699"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""ec0eb592-d722-44ff-b822-5e9a5231a648"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
+                    ""name"": """",
+                    ""id"": ""397e02b8-d122-4482-bd4b-9e3aa880ff4f"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Orbit"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""forward"",
-                    ""id"": ""5d9d2b99-0b1d-4404-96e5-d3562dacaa7d"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""backward"",
-                    ""id"": ""d31af861-01f4-4936-9bf0-425d2edbc6ab"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""d418b18b-9315-4066-9459-535dfd3ed708"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""78b3ff8e-5f94-494e-b1e1-632e1a86c47c"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""name"": """",
+                    ""id"": ""a6b82416-c974-45be-8928-28fd57cf9ec4"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Focus"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""bb2a853e-d33a-4241-a557-06e1256e8539"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""8c1ea04b-18d9-4c6c-abf5-3b15ae64dfb6"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""37b53b16-7806-42b4-988d-27594ab011c0"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -250,8 +182,9 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
 }");
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-        m_Camera_Movement = m_Camera.FindAction("Movement", throwIfNotFound: true);
-        m_Camera_Rotation = m_Camera.FindAction("Rotation", throwIfNotFound: true);
+        m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
+        m_Camera_Orbit = m_Camera.FindAction("Orbit", throwIfNotFound: true);
+        m_Camera_Focus = m_Camera.FindAction("Focus", throwIfNotFound: true);
     }
 
     ~@CameraInput_Actions()
@@ -332,8 +265,9 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
     // Camera
     private readonly InputActionMap m_Camera;
     private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
-    private readonly InputAction m_Camera_Movement;
-    private readonly InputAction m_Camera_Rotation;
+    private readonly InputAction m_Camera_Move;
+    private readonly InputAction m_Camera_Orbit;
+    private readonly InputAction m_Camera_Focus;
     /// <summary>
     /// Provides access to input actions defined in input action map "Camera".
     /// </summary>
@@ -346,13 +280,17 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public CameraActions(@CameraInput_Actions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Camera/Movement".
+        /// Provides access to the underlying input action "Camera/Move".
         /// </summary>
-        public InputAction @Movement => m_Wrapper.m_Camera_Movement;
+        public InputAction @Move => m_Wrapper.m_Camera_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Camera/Rotation".
+        /// Provides access to the underlying input action "Camera/Orbit".
         /// </summary>
-        public InputAction @Rotation => m_Wrapper.m_Camera_Rotation;
+        public InputAction @Orbit => m_Wrapper.m_Camera_Orbit;
+        /// <summary>
+        /// Provides access to the underlying input action "Camera/Focus".
+        /// </summary>
+        public InputAction @Focus => m_Wrapper.m_Camera_Focus;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -379,12 +317,15 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CameraActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CameraActionsCallbackInterfaces.Add(instance);
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
-            @Rotation.started += instance.OnRotation;
-            @Rotation.performed += instance.OnRotation;
-            @Rotation.canceled += instance.OnRotation;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Orbit.started += instance.OnOrbit;
+            @Orbit.performed += instance.OnOrbit;
+            @Orbit.canceled += instance.OnOrbit;
+            @Focus.started += instance.OnFocus;
+            @Focus.performed += instance.OnFocus;
+            @Focus.canceled += instance.OnFocus;
         }
 
         /// <summary>
@@ -396,12 +337,15 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="CameraActions" />
         private void UnregisterCallbacks(ICameraActions instance)
         {
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
-            @Rotation.started -= instance.OnRotation;
-            @Rotation.performed -= instance.OnRotation;
-            @Rotation.canceled -= instance.OnRotation;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Orbit.started -= instance.OnOrbit;
+            @Orbit.performed -= instance.OnOrbit;
+            @Orbit.canceled -= instance.OnOrbit;
+            @Focus.started -= instance.OnFocus;
+            @Focus.performed -= instance.OnFocus;
+            @Focus.canceled -= instance.OnFocus;
         }
 
         /// <summary>
@@ -443,18 +387,25 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
     public interface ICameraActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMovement(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Rotation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Orbit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotation(InputAction.CallbackContext context);
+        void OnOrbit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Focus" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFocus(InputAction.CallbackContext context);
     }
 }

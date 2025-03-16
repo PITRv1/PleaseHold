@@ -60,6 +60,15 @@ public class SaveCSV : MonoBehaviour {
 
         return listLines;
     }
+
+    public List<string> GetSettingsFromJson() {
+        List<string> returnList = new List<string>();
+
+
+
+        return returnList;
+    }
+
     public void ReadFromBuildingCSV() {
 
         fileBuildingList = new List<List<string>>();

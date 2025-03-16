@@ -117,6 +117,15 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""addToTurn"",
+                    ""type"": ""Button"",
+                    ""id"": ""42b5e627-7521-4512-9148-d469911a15be"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +183,17 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Focus"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d00f5fde-7470-460b-8a9a-baba75c514f6"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""addToTurn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
         m_Camera_Orbit = m_Camera.FindAction("Orbit", throwIfNotFound: true);
         m_Camera_Focus = m_Camera.FindAction("Focus", throwIfNotFound: true);
+        m_Camera_addToTurn = m_Camera.FindAction("addToTurn", throwIfNotFound: true);
     }
 
     ~@CameraInput_Actions()
@@ -268,6 +289,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Camera_Move;
     private readonly InputAction m_Camera_Orbit;
     private readonly InputAction m_Camera_Focus;
+    private readonly InputAction m_Camera_addToTurn;
     /// <summary>
     /// Provides access to input actions defined in input action map "Camera".
     /// </summary>
@@ -291,6 +313,10 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Camera/Focus".
         /// </summary>
         public InputAction @Focus => m_Wrapper.m_Camera_Focus;
+        /// <summary>
+        /// Provides access to the underlying input action "Camera/addToTurn".
+        /// </summary>
+        public InputAction @addToTurn => m_Wrapper.m_Camera_addToTurn;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -326,6 +352,9 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @Focus.started += instance.OnFocus;
             @Focus.performed += instance.OnFocus;
             @Focus.canceled += instance.OnFocus;
+            @addToTurn.started += instance.OnAddToTurn;
+            @addToTurn.performed += instance.OnAddToTurn;
+            @addToTurn.canceled += instance.OnAddToTurn;
         }
 
         /// <summary>
@@ -346,6 +375,9 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @Focus.started -= instance.OnFocus;
             @Focus.performed -= instance.OnFocus;
             @Focus.canceled -= instance.OnFocus;
+            @addToTurn.started -= instance.OnAddToTurn;
+            @addToTurn.performed -= instance.OnAddToTurn;
+            @addToTurn.canceled -= instance.OnAddToTurn;
         }
 
         /// <summary>
@@ -407,5 +439,12 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFocus(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "addToTurn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAddToTurn(InputAction.CallbackContext context);
     }
 }

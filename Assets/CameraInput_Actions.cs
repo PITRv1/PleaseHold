@@ -93,17 +93,26 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""8187a4b5-2f7e-4a07-92f0-ec9eaca94b59"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Orbit"",
+                    ""name"": ""MiddleMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7e0cb81-4a32-4b10-be7b-d75897d6a238"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveMouse"",
                     ""type"": ""Value"",
-                    ""id"": ""f5a17dd6-15e4-415f-9a8c-0652a65fde89"",
+                    ""id"": ""4a582a22-34d3-4944-a8ec-dc79c2792934"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -112,66 +121,95 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Focus"",
                     ""type"": ""Button"",
-                    ""id"": ""c552a64d-41a3-47af-a5e4-33dea0bdc5c7"",
+                    ""id"": ""9b855f5b-37a3-4b29-9bae-a46a2a6bda7a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ZoomIn"",
+                    ""type"": ""Value"",
+                    ""id"": ""0bdec4c1-80fc-49f7-9ff5-d6b3c09ef5c2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ZoomOut"",
+                    ""type"": ""Value"",
+                    ""id"": ""699d840c-977b-46fb-997f-4f9f92327b64"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""5b0977a1-4e88-4943-ba39-b23af0bfc33b"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Modifier"",
-                    ""id"": ""04a577d9-2c1d-4a16-878a-527508799462"",
+                    ""name"": """",
+                    ""id"": ""aee5b662-f308-485a-a599-ae7eaedbc64e"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Binding"",
-                    ""id"": ""2a0d8e76-b854-40d2-88c0-fd94b5641699"",
+                    ""name"": """",
+                    ""id"": ""7148e452-fd1f-48a9-b8d5-8e9f025e8109"",
                     ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""397e02b8-d122-4482-bd4b-9e3aa880ff4f"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Orbit"",
+                    ""action"": ""MiddleMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a6b82416-c974-45be-8928-28fd57cf9ec4"",
+                    ""id"": ""d206a806-6cca-4652-85d2-71a1f29adb13"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9fc307e-f13a-42ea-80b0-95a5068c7040"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Focus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0062818a-99d4-400e-83b1-beed18381dfd"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomIn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d4d512c-9add-45f9-b15d-50dee166ef73"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ZoomOut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -183,8 +221,11 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
-        m_Camera_Orbit = m_Camera.FindAction("Orbit", throwIfNotFound: true);
+        m_Camera_MiddleMouse = m_Camera.FindAction("MiddleMouse", throwIfNotFound: true);
+        m_Camera_MoveMouse = m_Camera.FindAction("MoveMouse", throwIfNotFound: true);
         m_Camera_Focus = m_Camera.FindAction("Focus", throwIfNotFound: true);
+        m_Camera_ZoomIn = m_Camera.FindAction("ZoomIn", throwIfNotFound: true);
+        m_Camera_ZoomOut = m_Camera.FindAction("ZoomOut", throwIfNotFound: true);
     }
 
     ~@CameraInput_Actions()
@@ -266,8 +307,11 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Camera;
     private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
     private readonly InputAction m_Camera_Move;
-    private readonly InputAction m_Camera_Orbit;
+    private readonly InputAction m_Camera_MiddleMouse;
+    private readonly InputAction m_Camera_MoveMouse;
     private readonly InputAction m_Camera_Focus;
+    private readonly InputAction m_Camera_ZoomIn;
+    private readonly InputAction m_Camera_ZoomOut;
     /// <summary>
     /// Provides access to input actions defined in input action map "Camera".
     /// </summary>
@@ -284,13 +328,25 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Camera_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Camera/Orbit".
+        /// Provides access to the underlying input action "Camera/MiddleMouse".
         /// </summary>
-        public InputAction @Orbit => m_Wrapper.m_Camera_Orbit;
+        public InputAction @MiddleMouse => m_Wrapper.m_Camera_MiddleMouse;
+        /// <summary>
+        /// Provides access to the underlying input action "Camera/MoveMouse".
+        /// </summary>
+        public InputAction @MoveMouse => m_Wrapper.m_Camera_MoveMouse;
         /// <summary>
         /// Provides access to the underlying input action "Camera/Focus".
         /// </summary>
         public InputAction @Focus => m_Wrapper.m_Camera_Focus;
+        /// <summary>
+        /// Provides access to the underlying input action "Camera/ZoomIn".
+        /// </summary>
+        public InputAction @ZoomIn => m_Wrapper.m_Camera_ZoomIn;
+        /// <summary>
+        /// Provides access to the underlying input action "Camera/ZoomOut".
+        /// </summary>
+        public InputAction @ZoomOut => m_Wrapper.m_Camera_ZoomOut;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -320,12 +376,21 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Orbit.started += instance.OnOrbit;
-            @Orbit.performed += instance.OnOrbit;
-            @Orbit.canceled += instance.OnOrbit;
+            @MiddleMouse.started += instance.OnMiddleMouse;
+            @MiddleMouse.performed += instance.OnMiddleMouse;
+            @MiddleMouse.canceled += instance.OnMiddleMouse;
+            @MoveMouse.started += instance.OnMoveMouse;
+            @MoveMouse.performed += instance.OnMoveMouse;
+            @MoveMouse.canceled += instance.OnMoveMouse;
             @Focus.started += instance.OnFocus;
             @Focus.performed += instance.OnFocus;
             @Focus.canceled += instance.OnFocus;
+            @ZoomIn.started += instance.OnZoomIn;
+            @ZoomIn.performed += instance.OnZoomIn;
+            @ZoomIn.canceled += instance.OnZoomIn;
+            @ZoomOut.started += instance.OnZoomOut;
+            @ZoomOut.performed += instance.OnZoomOut;
+            @ZoomOut.canceled += instance.OnZoomOut;
         }
 
         /// <summary>
@@ -340,12 +405,21 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Orbit.started -= instance.OnOrbit;
-            @Orbit.performed -= instance.OnOrbit;
-            @Orbit.canceled -= instance.OnOrbit;
+            @MiddleMouse.started -= instance.OnMiddleMouse;
+            @MiddleMouse.performed -= instance.OnMiddleMouse;
+            @MiddleMouse.canceled -= instance.OnMiddleMouse;
+            @MoveMouse.started -= instance.OnMoveMouse;
+            @MoveMouse.performed -= instance.OnMoveMouse;
+            @MoveMouse.canceled -= instance.OnMoveMouse;
             @Focus.started -= instance.OnFocus;
             @Focus.performed -= instance.OnFocus;
             @Focus.canceled -= instance.OnFocus;
+            @ZoomIn.started -= instance.OnZoomIn;
+            @ZoomIn.performed -= instance.OnZoomIn;
+            @ZoomIn.canceled -= instance.OnZoomIn;
+            @ZoomOut.started -= instance.OnZoomOut;
+            @ZoomOut.performed -= instance.OnZoomOut;
+            @ZoomOut.canceled -= instance.OnZoomOut;
         }
 
         /// <summary>
@@ -394,12 +468,19 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Orbit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "MiddleMouse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnOrbit(InputAction.CallbackContext context);
+        void OnMiddleMouse(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MoveMouse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMoveMouse(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Focus" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -407,5 +488,19 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFocus(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ZoomIn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnZoomIn(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ZoomOut" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnZoomOut(InputAction.CallbackContext context);
     }
 }

@@ -98,7 +98,7 @@ public class InputFieldBackground : MonoBehaviour {
     }
 
     private void Hide() {
-        CameraSystem.Instance.EnableInput();
+        //CameraSystem.Instance.;
         gameObject.SetActive(false);
         buildingName.text = "";
         buildingType.text = "";
@@ -106,7 +106,7 @@ public class InputFieldBackground : MonoBehaviour {
         buildingArea.text = "";
     }
     private void Show() {
-        CameraSystem.Instance.DisableInput();
+        //CameraSystem.Instance.DisableInput();
         gameObject.SetActive(true);
     }
 }

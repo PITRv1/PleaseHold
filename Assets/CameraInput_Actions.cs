@@ -340,6 +340,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Focus => m_Wrapper.m_Camera_Focus;
         /// <summary>
+
         /// Provides access to the underlying input action "Camera/ZoomIn".
         /// </summary>
         public InputAction @ZoomIn => m_Wrapper.m_Camera_ZoomIn;
@@ -347,6 +348,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Camera/ZoomOut".
         /// </summary>
         public InputAction @ZoomOut => m_Wrapper.m_Camera_ZoomOut;
+
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -391,6 +393,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @ZoomOut.started += instance.OnZoomOut;
             @ZoomOut.performed += instance.OnZoomOut;
             @ZoomOut.canceled += instance.OnZoomOut;
+
         }
 
         /// <summary>
@@ -414,6 +417,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @Focus.started -= instance.OnFocus;
             @Focus.performed -= instance.OnFocus;
             @Focus.canceled -= instance.OnFocus;
+
             @ZoomIn.started -= instance.OnZoomIn;
             @ZoomIn.performed -= instance.OnZoomIn;
             @ZoomIn.canceled -= instance.OnZoomIn;
@@ -489,7 +493,9 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFocus(InputAction.CallbackContext context);
         /// <summary>
+
         /// Method invoked when associated input action "ZoomIn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />

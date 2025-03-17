@@ -8,6 +8,7 @@ public class InfoField : MonoBehaviour {
     [SerializeField] TextMeshProUGUI buildingTypeValue;
     [SerializeField] TextMeshProUGUI buildingYearValue;
     [SerializeField] TextMeshProUGUI buildingAreaValue;
+    [SerializeField] TextMeshProUGUI buildingStatusValue;
 
     private RectTransform rectTransform;
 
@@ -41,21 +42,33 @@ public class InfoField : MonoBehaviour {
         );
 
         float screenHeight = Screen.height;  // Get screen height
+        float screenWidth = Screen.width;  // Get screen width
         float mouseY = Input.mousePosition.y;  // Get mouse Y position
+        float mouseX = Input.mousePosition.x;  // Get mouse X position
+
+        float width = rectTransform.sizeDelta.x;
+        float height = rectTransform.sizeDelta.y;
+
+        Debug.Log(screenWidth);
+        Debug.Log(width);
+        Debug.Log(mouseX);
+        Debug.Log(screenWidth - width - mouseX);
+
+        if ((screenWidth - width - mouseX) < 0) width += screenWidth - width - mouseX;
 
         if (mouseY > screenHeight / 2) {
-            rectTransform.anchoredPosition = mousePos + new Vector2(250, -200);
+            rectTransform.anchoredPosition = mousePos + new Vector2(width / 2, -height / 2);
         } else {
-            rectTransform.anchoredPosition = mousePos + new Vector2(250, 200);
+            rectTransform.anchoredPosition = mousePos + new Vector2(width / 2, height / 2);
         }
         Flat flatScript = e.gameObject.GetComponent<Flat>();
-
-        Debug.Log(flatScript.GetBuildingName());
 
         buildingNameValue.text = flatScript.GetBuildingName();
         buildingTypeValue.text = flatScript.GetBuildingType();
         buildingYearValue.text = flatScript.GetBuildingYear().ToString();
         buildingAreaValue.text = flatScript.GetBuildingArea().ToString();
+        buildingStatusValue.text = flatScript.GetBuildingStatus();
+
         Show();
     }
 

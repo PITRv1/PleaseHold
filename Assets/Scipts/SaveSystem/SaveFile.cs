@@ -4,7 +4,6 @@ using System;
 using Unity.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 
 public class SaveCSV : MonoBehaviour {
 
@@ -22,7 +21,6 @@ public class SaveCSV : MonoBehaviour {
         Type,
         Year,
         Size,
-        Status,
     }
 
     public static SaveCSV Instance {
@@ -33,57 +31,19 @@ public class SaveCSV : MonoBehaviour {
     private List<List<string>> fileServiceList;
     private List<List<string>> fileResidentList;
     private List<List<string>> fileBuildingList;
-    private List<List<string>> fileProjectsList;
 
     private string fileResidentPath;
     private string fileBuildingPath;
     private string fileServicePath;
-    private string fileProjectsPath;
 
     private void Awake()
     {
         Instance = this;
-        MakeEditableCSVs();
-
-        SetResidentFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv");
-        SetBuildingFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv");
-        SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv");
-        SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
-
-        AddValueToLine(0, "status", fileBuildingPath);
-        AddRandomStatus(fileBuildingPath);
+        SetResidentFilePath(@"D:\csvs\residentsCSV.csv");
+        SetBuildingFilePath(@"D:\csvs\buildingsCSV.csv");
+        SetServiceFilePath(@"D:\csvs\servicesCSV.csv");
         ReloadAllCSV();
         //DeleteFromCSV(fileResidentPath, 3);
-
-        //string filePath = Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt";
-        //if (File.Exists(filePath)) {
-        //    //You need to run setup in main menu or manually change the path in the save file
-        //    //since this now reads out of the SaveFile
-
-        //    string json = File.ReadAllText(filePath);
-        //    GameParamSaver.SaveObject saveObject = JsonUtility.FromJson<GameParamSaver.SaveObject>(json);
-
-        //    SetBuildingFilePath(saveObject.buildingsPath);
-        //    SetResidentFilePath(saveObject.residentsPath);
-        //    SetServiceFilePath(saveObject.servicesPath);
-        //} else {
-        //    Debug.LogError("Save file not found!");
-        //}
-    }
-
-    public void AddRandomStatus(string filePath) {
-        // Delete this later
-
-        string[] statusType = { "good", "bad", "in need of repair", "excelent" };
-
-        int fileLength = GetCSVLength(filePath);
-
-        for (int i = 0; i < fileLength; i++) {
-            AddValueToLine(i, statusType[UnityEngine.Random.Range(0, 4)], filePath);
-        }
-
-        ReloadAllCSV();
-
     }
 
     public List<string> ReadLinesFromCSV(string filePath) {
@@ -101,32 +61,12 @@ public class SaveCSV : MonoBehaviour {
         return listLines;
     }
 
-    public int GetCSVLength(string filePath) {
-
-        List<string> listLines = ReadLinesFromCSV(filePath);
-
-        return listLines.Count();
-    }
-
     public List<string> GetSettingsFromJson() {
         List<string> returnList = new List<string>();
 
+
+
         return returnList;
-    }
-    
-    private void MakeEditableCSVs() {
-
-        string residentPath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\residentsCSV.csv";
-        string buildingPath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\buildingsCSV.csv";
-        string servicePath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\servicesCSV.csv";
-        string projectsPath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\projectsCSV.csv";
-
-
-        File.Copy(residentPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv", true);
-        File.Copy(buildingPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv", true);
-        File.Copy(servicePath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv", true);
-        File.Copy(projectsPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv", true);
-
     }
 
     public void ReadFromBuildingCSV() {
@@ -221,35 +161,24 @@ public class SaveCSV : MonoBehaviour {
 
     }
 
-    public void EditOneValueOnLine(int id, Columns selectValue, string filePath, string newValue) {
+    public void WriteIntoCSV(string filePath, int id, Columns value, string newValue) {
 
         List<string> listLines = ReadLinesFromCSV(filePath);
-        List<string> splitLine = listLines[id].Split(',').ToList();
 
-        splitLine[(int)selectValue] = newValue;
-        string changedLine = string.Join(",", splitLine);
+        List<string> originalLine = listLines[id].Split(',').ToList();
+
+        originalLine[(int)value] = newValue;
+
+        string changedLine = string.Join(",", originalLine);
 
         listLines[id] = changedLine;
+
         File.WriteAllLines(filePath, listLines);
+
         ReloadAllCSV();
     }
 
-    public void EditAllValuesOnLine(int id, string newLine, string filePath) {
-        List<string> listLines = ReadLinesFromCSV(filePath);
-        listLines[id] = newLine;
-        File.WriteAllLines(filePath, listLines);
-        ReloadAllCSV();
-    }
-
-    public void AddValueToLine(int id, string value, string filePath) {
-        // Just add the value without the ',', ok?
-        List<string> listLines = ReadLinesFromCSV(filePath);
-        listLines[id] += ","+value;
-        File.WriteAllLines(filePath, listLines);
-        ReloadAllCSV();
-    }
-
-    public void WriteNewLineIntoCSV(string filePath, string[] lines) {
+    public void WriteNewLinesIntoCSV(string filePath, string[] lines) {
         List<string> listLines = ReadLinesFromCSV(filePath);
 
         foreach (string line in lines) {
@@ -261,15 +190,6 @@ public class SaveCSV : MonoBehaviour {
         ReloadAllCSV();
     }
 
-    //Don't delete, this for checking if csv is good
-
-    //string date = GameHandler.Instance.GetDate();
-    //int currentYear = Int32.Parse(date.Split('-')[0]);
-    //int currentMonth = Int32.Parse(date.Split('-')[1]);
-    //float currentDate = currentYear + currentMonth / 100;
-
-    //if (currentDate)
-
     public void SetBuildingFilePath(string givenPath) {
         fileBuildingPath = givenPath;
     }
@@ -278,9 +198,6 @@ public class SaveCSV : MonoBehaviour {
     }
     public void SetServiceFilePath(string givenPath) {
         fileServicePath = givenPath;
-    }
-    public void SetProjectsFilePath(string givenPath) {
-        fileProjectsPath = givenPath;
     }
 
     public List<List<string>> GetBuildingFileList() {

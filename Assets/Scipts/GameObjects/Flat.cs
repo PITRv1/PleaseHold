@@ -13,16 +13,14 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
     private string buildingType;
     private int buildingYear;
     private float buildingArea;
-    private string buildingStatus;
 
-    public void Initialize(int id, string name, string type, int year, float area, Transform plot, string status) {
+    public void Initialize(int id, string name, string type, int year, float area, Transform plot) {
         buildingid = id;
         buildingName = name;
         buildingType = type;
         buildingYear = year;
         buildingArea = area;
         buildingPlot = plot;
-        buildingStatus = status;
 
     }
     public void OnPointerClick(PointerEventData eventData) {
@@ -56,5 +54,4 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
     public string GetBuildingType() { return buildingType; }
     public int GetBuildingYear() { return buildingYear; }
     public float GetBuildingArea() { return buildingArea; }
-    public string GetBuildingStatus() { return buildingStatus; }
 }

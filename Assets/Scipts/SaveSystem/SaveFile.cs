@@ -37,6 +37,7 @@ public class SaveCSV : MonoBehaviour {
     private string fileBuildingPath;
     private string fileServicePath;
 
+
     private void Awake()
     {
         Instance = this;

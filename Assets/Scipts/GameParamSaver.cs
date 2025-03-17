@@ -28,7 +28,7 @@ public class GameParamSaver : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt", json);
     }
 
-    private class SaveObject
+    public class SaveObject
     {
         public string buildingsPath;
         public string residentsPath;

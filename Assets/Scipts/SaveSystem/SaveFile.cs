@@ -4,6 +4,7 @@ using System;
 using Unity.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using static GameParamSaver;
 
 public class SaveCSV : MonoBehaviour {
 
@@ -39,9 +40,25 @@ public class SaveCSV : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
-        SetResidentFilePath(@"D:\csvs\residentsCSV.csv");
-        SetBuildingFilePath(@"D:\csvs\buildingsCSV.csv");
-        SetServiceFilePath(@"D:\csvs\servicesCSV.csv");
+
+        string filePath = Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt";
+        if (File.Exists(filePath))
+        {
+            //You need to run setup in main menu or manually change the path in the save file
+            //since this now reads out of the SaveFile
+
+            string json = File.ReadAllText(filePath);
+            SaveObject saveObject = JsonUtility.FromJson<SaveObject>(json);
+            
+            SetBuildingFilePath(saveObject.buildingsPath);
+            SetResidentFilePath(saveObject.residentsPath);
+            SetServiceFilePath(saveObject.servicesPath);
+        }
+        else
+        {
+            Debug.LogError("Save file not found!");
+        }
+
         ReloadAllCSV();
         //DeleteFromCSV(fileResidentPath, 3);
     }

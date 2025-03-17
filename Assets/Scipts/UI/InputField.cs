@@ -6,6 +6,25 @@ using static EventHandlerScript;
 
 public class InputFieldBackground : MonoBehaviour {
 
+    public event EventHandler<CreateNewBuildingProjectParams> CreateNewBuildingProject;
+
+    public class CreateNewBuildingProjectParams : EventArgs {
+
+        private string buildingNameText;
+        private string buildingTypeText;
+        private string buildingYearText;
+        private string buildingAreaText;
+        private string buildingTurnsToBuildText;
+
+        public CreateNewBuildingProjectParams(string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string buildingTurnsToBuildText) {
+            this.buildingNameText = buildingNameText;
+            this.buildingTypeText = buildingTypeText;
+            this.buildingYearText = buildingYearText;
+            this.buildingAreaText = buildingAreaText;
+            this.buildingTurnsToBuildText = buildingTurnsToBuildText;
+        }
+    }
+
     [SerializeField] private Transform flatPrefab;
 
     private RectTransform rectTransform;
@@ -14,6 +33,7 @@ public class InputFieldBackground : MonoBehaviour {
     [SerializeField] TMP_InputField buildingType;
     [SerializeField] TMP_InputField buildingYear;
     [SerializeField] TMP_InputField buildingArea;
+    [SerializeField] TMP_InputField buildingTurnsToBuild;
 
     [SerializeField] Button acceptButton;
     [SerializeField] Button exitButton;
@@ -22,6 +42,7 @@ public class InputFieldBackground : MonoBehaviour {
     private string buildingTypeText;
     private string buildingYearText;
     private string buildingAreaText;
+    private string buildingTurnsToBuildText;
 
     private Transform givenGameObject;
 
@@ -36,20 +57,41 @@ public class InputFieldBackground : MonoBehaviour {
             Hide();
         });
         acceptButton.onClick.AddListener(() => {
+
             buildingNameText = buildingName.text;
             buildingTypeText = buildingType.text;
             buildingYearText = buildingYear.text;
             buildingAreaText = buildingArea.text;
+            buildingTurnsToBuildText = buildingTurnsToBuild.text;
 
             buildingName.text = "";
             buildingType.text = "";
             buildingYear.text = "";
             buildingArea.text = "";
+            buildingTurnsToBuild.text = "";
 
-            
+            string date = GameHandler.Instance.GetDate();
+            int currentYear = Int32.Parse(date.Split('-')[0]);
+            int currentMonth = Int32.Parse(date.Split('-')[1]);
+            float currentDate = currentYear + currentMonth / 100;
+
+            buildingTurnsToBuildText = GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText));
+            CreateNewBuildingProject?.Invoke(this, new CreateNewBuildingProjectParams(buildingNameText, buildingTypeText, buildingYearText, buildingAreaText, buildingTurnsToBuildText));
 
             Hide();
         });
+    }
+    private string GetEndDate(int currentYear, int currentMonth, int turns) {
+        int year = currentYear;
+        int month = currentMonth;
+
+        month += turns;
+        int addYears = month / 12;
+        year += addYears;
+        int leftoverMonth = month % 12;
+        month = leftoverMonth;
+
+        return year.ToString() + '-' + month.ToString();
     }
 
     private void Start() {
@@ -70,12 +112,19 @@ public class InputFieldBackground : MonoBehaviour {
         );
 
         float screenHeight = Screen.height;  // Get screen height
+        float screenWidth = Screen.width;  // Get screen width
         float mouseY = Input.mousePosition.y;  // Get mouse Y position
+        float mouseX = Input.mousePosition.x;  // Get mouse X position
+
+        float width = rectTransform.sizeDelta.x;
+        float height = rectTransform.sizeDelta.y;
+
+        if ((screenWidth - width - mouseX) < 0) width += (screenWidth - width - mouseX) * 2;
 
         if (mouseY > screenHeight / 2) {
-            rectTransform.anchoredPosition = mousePos + new Vector2(250, -325);
+            rectTransform.anchoredPosition = mousePos + new Vector2(width / 2, -height / 2);
         } else {
-            rectTransform.anchoredPosition = mousePos + new Vector2(250, 325);
+            rectTransform.anchoredPosition = mousePos + new Vector2(width / 2, height / 2);
         }
         Show();
     }

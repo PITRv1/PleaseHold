@@ -1,5 +1,5 @@
 szolgáltatás azonosító,név,típus,kapcsolódó épület azonosítója
-1,Hulladékszállítás,Közmű,16;3;18
+1,Hulladékszállítás,Közmű,16
 2,Útkarbantartás,Karbantartás,1;4;19;3;11
 3,Postaszolgáltatás,Közmű,4;11;3
 4,Tűzvédelem,Alapszolgáltatás,10;18

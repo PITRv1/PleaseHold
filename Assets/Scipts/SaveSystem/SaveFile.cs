@@ -15,14 +15,32 @@ public class SaveCSV : MonoBehaviour {
         Resident,
     }
 
-    public enum Columns {
+    public enum BuildingColumns {
         Id,
         Name,
         Type,
         Year,
         Size,
         TurnsToFinish,
+        Turns,
         Status,
+    }
+
+    public enum ServiceColumns {
+        Id,
+        Name,
+        Type,
+        BuildingIds,
+        Cost,
+    }
+
+    public enum ProjectColumns {
+        Id,
+        Name,
+        Cost,
+        StartDate,
+        EndDate,
+        BuildingId,
     }
 
     public static SaveCSV Instance {
@@ -51,9 +69,13 @@ public class SaveCSV : MonoBehaviour {
         SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
 
         AddValueToLine(0, "turns to finish", fileBuildingPath);
+        AddValueToLine(0, "turns", fileBuildingPath);
         AddValueToLine(0, "status", fileBuildingPath);
+        AddValueToLine(0, "cost", fileServicePath);
+        AddTurnsToFinish(fileBuildingPath);
         AddTurnsToFinish(fileBuildingPath);
         AddRandomStatus(fileBuildingPath);
+        AddRandomCost(fileServicePath);
         ReloadAllCSV();
         //DeleteFromCSV(fileResidentPath, 3);
 
@@ -73,6 +95,17 @@ public class SaveCSV : MonoBehaviour {
         //}
     }
 
+    private void AddRandomCost(string filePath) {
+
+        int fileLength = GetCSVLength(filePath);
+
+        for (int i = 0; i < fileLength; i++) {
+            if (i == 0) continue;
+            AddValueToLine(i, UnityEngine.Random.Range(300, 801).ToString(), filePath);
+        }
+
+        ReloadAllCSV();
+    }
     private void AddTurnsToFinish(string filePath) {
 
         int fileLength = GetCSVLength(filePath);
@@ -211,7 +244,14 @@ public class SaveCSV : MonoBehaviour {
 
         listLines.RemoveAt(id);
 
-        Debug.Log(listLines);
+        File.WriteAllLines(filePath, listLines);
+        ReloadAllCSV();
+
+    }
+
+    public void UpdateIds(string filePath) {
+
+        List<string> listLines = ReadLinesFromCSV(filePath);
 
         for (int i = 0; i < listLines.Count; i++) {
 
@@ -219,11 +259,8 @@ public class SaveCSV : MonoBehaviour {
 
             List<string> splitLine = listLines[i].Split(',').ToList();
 
-            Debug.Log(splitLine);
 
-            splitLine[(int)Columns.Id] = i.ToString();
-
-            Debug.Log(splitLine[(int)Columns.Id]);
+            splitLine[(int)BuildingColumns.Id] = i.ToString();
 
             string changedLine = string.Join(",", splitLine);
 
@@ -233,10 +270,9 @@ public class SaveCSV : MonoBehaviour {
 
         File.WriteAllLines(filePath, listLines);
         ReloadAllCSV();
-
     }
 
-    public void EditOneValueOnLine(int id, Columns selectValue, string filePath, string newValue) {
+    public void EditOneValueOnLine(int id, BuildingColumns selectValue, string filePath, string newValue) {
 
         List<string> listLines = ReadLinesFromCSV(filePath);
         List<string> splitLine = listLines[id].Split(',').ToList();

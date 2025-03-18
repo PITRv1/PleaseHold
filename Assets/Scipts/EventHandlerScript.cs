@@ -8,6 +8,8 @@ public class EventHandlerScript : MonoBehaviour {
     public event EventHandler<BuildingEventArgs> OnFlatEnter;
     public event EventHandler<BuildingEventArgs> OnFlatExit;
 
+    public event EventHandler<BuildingEventArgs> OnFlatRightClick;
+
     public class BuildingEventArgs : EventArgs {
 
         public Transform gameObject;
@@ -26,6 +28,10 @@ public class EventHandlerScript : MonoBehaviour {
 
     public void SendOnPlotRightClick(Transform givenGameObject) {
         OnPlotRightClick?.Invoke(this, new BuildingEventArgs(givenGameObject));
+    }
+
+    public void SendOnFlatRightClick(Transform givenGameObject) {
+        OnFlatRightClick?.Invoke(this, new BuildingEventArgs(givenGameObject));
     }
 
     public void SendOnFlatEnter(Transform givenGameObject) {

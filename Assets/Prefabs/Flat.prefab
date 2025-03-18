@@ -478,3 +478,4 @@ MonoBehaviour:
   flat: {fileID: 2604319037017541803}
   Timer: {fileID: 8626191391611148654}
   HeadsUpDisplay: {fileID: 8564208043848665130}
+  buildingMesh: {fileID: 362994557027068109}

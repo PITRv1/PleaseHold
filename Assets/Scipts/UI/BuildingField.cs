@@ -6,31 +6,25 @@ using static EventHandlerScript;
 using System.Windows.Forms;
 using Button = UnityEngine.UI.Button;
 using static System.Net.WebRequestMethods;
+using System.Collections.Generic;
 
-public class InputFieldBackground : MonoBehaviour {
+public class BuildingField : MonoBehaviour {
 
     [SerializeField] private Transform flatPrefab;
 
     private RectTransform rectTransform;
 
-    [SerializeField] TMP_InputField buildingName;
-    [SerializeField] TMP_InputField buildingType;
-    [SerializeField] TMP_InputField buildingArea;
-    [SerializeField] TMP_InputField buildingTurnsToBuild;
+    [SerializeField] TMP_InputField repairCost;
+    [SerializeField] TMP_InputField repairTurnsToBuild;
 
     [SerializeField] Button acceptButton;
     [SerializeField] Button exitButton;
 
-    private string buildingNameText;
-    private string buildingTypeText;
-    private string buildingAreaText;
+    private string repairCostText;
     private string buildingTurnsToBuildText;
 
-    private int averageBuildCostUK = 2400;
-
     private Transform givenGameObject;
-
-    public static InputFieldBackground Instance {
+    public static BuildingField Instance {
         private set;
         get;
     }
@@ -42,29 +36,28 @@ public class InputFieldBackground : MonoBehaviour {
         });
         acceptButton.onClick.AddListener(() => {
 
-            string buildingNameText = buildingName.text;
-            string buildingAreaText = buildingArea.text;
-            string buildingTypeText = buildingType.text;
-            string buildingTurnsToBuildText = buildingTurnsToBuild.text;
+            repairCostText = repairCost.text;
+            buildingTurnsToBuildText = repairTurnsToBuild.text;
 
-            buildingName.text = "";
-            buildingType.text = "";
-            buildingArea.text = "";
-            buildingTurnsToBuild.text = "";
+            repairCost.text = "";
+            repairTurnsToBuild.text = "";
 
             string date = GameHandler.Instance.GetDate();
             int currentYear = Int32.Parse(date.Split('-')[0]);
             int currentMonth = Int32.Parse(date.Split('-')[1]);
             float currentDate = currentYear + currentMonth / 100;
+            Flat flatScript = givenGameObject.GetComponent<Flat>();
 
             GameHandler.Instance.CreateNewBuildingProject(
-                buildingNameText, 
-                (averageBuildCostUK * Int32.Parse(buildingAreaText)).ToString(), 
+                flatScript.GetBuildingName() + "-Repair",
+                repairCostText,
                 GameHandler.Instance.GetDate(),
-                GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText)), 
-                SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString());
+                GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText)),
+                flatScript.GetBuildingId().ToString());
 
-            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", givenGameObject);
+            List<string> lines = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath());
+            SaveCSV.Instance.EditOneValueOnLine(flatScript.GetBuildingId(), SaveCSV.BuildingColumns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), buildingTurnsToBuildText);
+            SaveCSV.Instance.EditOneValueOnLine(flatScript.GetBuildingId(), SaveCSV.BuildingColumns.Turns, SaveCSV.Instance.GetBuildingFilePath(), "0");
 
             Hide();
         });
@@ -88,12 +81,12 @@ public class InputFieldBackground : MonoBehaviour {
     }
 
     private void Start() {
-        EventHandlerScript.Instance.OnPlotRightClick += EventHandlerScript_OnPlotRightClick;
+        EventHandlerScript.Instance.OnFlatRightClick += EventHandlerScript_OnFlatRightClick;
         rectTransform = GetComponent<RectTransform>();
         Hide();
     }
 
-    private void EventHandlerScript_OnPlotRightClick(object sender, BuildingEventArgs e) {
+    private void EventHandlerScript_OnFlatRightClick(object sender, BuildingEventArgs e) {
         givenGameObject = e.gameObject;
 
         Vector2 mousePos;
@@ -125,9 +118,8 @@ public class InputFieldBackground : MonoBehaviour {
     private void Hide() {
         //CameraSystem.Instance.;
         gameObject.SetActive(false);
-        buildingName.text = "";
-        buildingType.text = "";
-        buildingArea.text = "";
+        repairCost.text = "";
+        repairTurnsToBuild.text = "";
     }
     private void Show() {
         //CameraSystem.Instance.DisableInput();

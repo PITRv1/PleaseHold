@@ -15,11 +15,6 @@ public class UpperBarContainer : MonoBehaviour {
     private void Awake() {
         Instance = this;
     }
-
-    private void Start() {
-        DateText.text = GameHandler.Instance.GetDate();
-    }
-
     public void ChangeDate(string newText) {
         DateText.text = newText;
     }

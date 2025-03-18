@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +12,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
     [SerializeField] Flat flat;
     [SerializeField] Image Timer;
     [SerializeField] Transform HeadsUpDisplay;
+    [SerializeField] Transform buildingMesh;
 
     private Transform buildingPlot;
 
@@ -17,7 +21,6 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         Built,
     }
 
-    private States state;
 
     private int buildingid;
     private string buildingName;
@@ -25,27 +28,61 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
     private int buildingYear;
     private float buildingArea;
     private string buildingStatus;
-    private int buildingTurnsWhenFinish;
+    private int buildingTurnsTillFinish;
+    private int turns;
 
     private void Start() {
         GameHandler.Instance.NewMonthEvent += GameHandler_NewMonthEvent;
+        turns = 0;
     }
 
     private void GameHandler_NewMonthEvent(object sender, System.EventArgs e) {
-        if (buildingTurnsWhenFinish > 0) {
-            buildingTurnsWhenFinish -= 1;
+        List<string> lines = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath());
+        buildingTurnsTillFinish = Int32.Parse(lines[buildingid].Split(',')[(int)SaveCSV.BuildingColumns.TurnsToFinish]);
+        turns = Int32.Parse(lines[buildingid].Split(',')[(int)SaveCSV.BuildingColumns.Turns]);
+        if (lines[buildingid].Split(',')[(int)SaveCSV.BuildingColumns.Status] == "in construction") {
+            if (turns < buildingTurnsTillFinish) {
+                turns += 1;
 
-            if (buildingTurnsWhenFinish <= 0) {
-                buildingStatus = "excelent";
-                SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.Columns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
-                state = States.Built;
+                if (turns >= buildingTurnsTillFinish) {
+                    buildingStatus = "excelent";
+                    SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
+                }
+                Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
+                SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), (buildingTurnsTillFinish).ToString());
+                SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Turns, SaveCSV.Instance.GetBuildingFilePath(), (turns).ToString());
+                if (buildingTurnsTillFinish - turns > 0) {
+                    buildingMesh.gameObject.SetActive(false);
+                } else {
+                    buildingMesh.gameObject.SetActive(true);
+                    HeadsUpDisplay.gameObject.SetActive(false);
+                    int newResidents = (int)buildingArea / 30;
+                    for (int i = 0; i < newResidents; i++) {
+                        GameHandler.Instance.NewResident(buildingid.ToString());
+                    }
+                }
             }
-            Timer.fillAmount = GameHandler.Instance.GetTurnCount() / buildingTurnsWhenFinish;
-            SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.Columns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), buildingTurnsWhenFinish.ToString());
-        }
+        } else if(lines[buildingid].Split(',')[(int)SaveCSV.BuildingColumns.Status] != "excelent") {
+            if (turns < buildingTurnsTillFinish) {
+                HeadsUpDisplay.gameObject.SetActive(true);
+                turns += 1;
+
+                if (turns >= buildingTurnsTillFinish) {
+                    buildingStatus = "excelent";
+                    SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
+                }
+                Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
+                SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), (buildingTurnsTillFinish).ToString());
+                SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Turns, SaveCSV.Instance.GetBuildingFilePath(), (turns).ToString());
+                if (buildingTurnsTillFinish - turns <= 0) {
+                    HeadsUpDisplay.gameObject.SetActive(false);
+                }
+            }
+        } 
+        
     }
 
-    public void Initialize(int id, string name, string type, int year, float area, int turnsTillFinish, string status, Transform plot) {
+    public void Initialize(int id, string name, string type, int year, float area, int turnsTillFinish, int turns, string status, Transform plot) {
         buildingid = id;
         buildingName = name;
         buildingType = type;
@@ -53,26 +90,19 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         buildingArea = area;
         buildingPlot = plot;
         buildingStatus = status;
-        buildingTurnsWhenFinish = turnsTillFinish;
-
-        if (buildingTurnsWhenFinish > 0) {
-            Timer.fillAmount = GameHandler.Instance.GetTurnCount() / buildingTurnsWhenFinish;
+        buildingTurnsTillFinish = turnsTillFinish;
+        Timer.fillAmount = 0;
+        if (buildingTurnsTillFinish > 0) {
+            buildingMesh.gameObject.SetActive(false);
         } else {
-            Timer.fillAmount = 0;
+            buildingMesh.gameObject.SetActive(true);
+            HeadsUpDisplay.gameObject.SetActive(false);
         }
-
-
-        if (buildingTurnsWhenFinish - GameHandler.Instance.GetTurnCount() > 0) {
-
-        }
-
     }
     public void OnPointerClick(PointerEventData eventData) {
-        Debug.Log(buildingid);
-        Debug.Log(buildingName);
-        Debug.Log(buildingType);
-        Debug.Log(buildingYear);
-        Debug.Log(buildingArea);
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            EventHandlerScript.Instance.SendOnFlatRightClick(transform);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData) {

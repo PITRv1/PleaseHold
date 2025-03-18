@@ -12,5 +12,4 @@ public class SkipTurn : MonoBehaviour {
             GameHandler.Instance.NewMonth();
         });
     }
-
 }

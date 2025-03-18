@@ -7,6 +7,14 @@ using UnityEngine;
 public class GameEventSystem : MonoBehaviour {
 
     private List<string> fileLines;
+
+    public static GameEventSystem Instance {
+        private set;
+        get;
+    }
+    private void Awake() {
+        Instance = this;
+    }
     private void Start() {
         GameHandler.Instance.NewMonthEvent += GameHandler_NewMonthEvent;
         fileLines = new List<string>();

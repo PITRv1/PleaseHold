@@ -11,7 +11,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData) {
         if (eventData.button == PointerEventData.InputButton.Right && !isReserved) {
-            EventHandlerScript.Instance.SendOnPlotRightClick(transform);
+            EventHandlerScript.Instance.SendOnPlotRightClick(this);
         }
     }
 }

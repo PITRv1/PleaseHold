@@ -48,7 +48,7 @@ public class BuildingField : MonoBehaviour {
             float currentDate = currentYear + currentMonth / 100;
             Flat flatScript = givenGameObject.GetComponent<Flat>();
 
-            GameHandler.Instance.CreateNewBuildingProject(
+            GameHandler.Instance.CreateNewProject(
                 flatScript.GetBuildingName() + "-Repair",
                 repairCostText,
                 GameHandler.Instance.GetDate(),
@@ -86,8 +86,8 @@ public class BuildingField : MonoBehaviour {
         Hide();
     }
 
-    private void EventHandlerScript_OnFlatRightClick(object sender, BuildingEventArgs e) {
-        givenGameObject = e.gameObject;
+    private void EventHandlerScript_OnFlatRightClick(object sender, BuildingEventArgsFlat e) {
+        givenGameObject = e.flat.transform;
 
         Vector2 mousePos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

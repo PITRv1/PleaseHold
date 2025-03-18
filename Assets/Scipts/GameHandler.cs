@@ -1,15 +1,17 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+using static GameParamSaver;
 
 public class GameHandler : MonoBehaviour {
 
-    [SerializeField] Transform flatPrefab;
+    [SerializeField] Flat flatPrefab;
 
     public event EventHandler NewMonthEvent;
 
@@ -25,12 +27,12 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
-    private int turnCount = 12;
-    private int simStartYear = 2025;
-    private int simStartMonth = 3;
-    private int simStartLength;
+    private int turnCount = 0;
+    private int simStartYear;
+    private int simStartMonth;
     private float populationStartHappiness;
-    private int initalBudget = 100000;
+    private float populationMinHappiness;
+    private int initalBudget;
     private int population;
 
     private int simLength;
@@ -39,13 +41,12 @@ public class GameHandler : MonoBehaviour {
 
     private string date;
 
-    private string[] firstNames = { "Varga", "Moln�r", "Kov�cs", "Tak�cs", "T�th", "Szab�", "Nagy" };
-    private string[] lastNames = { "Varga", "Moln�r", "Kov�cs", "Tak�cs", "T�th", "Szab�", "Nagy" };
+    private string[] firstNames = { "Varga", "Molnár", "Kovács", "Takács", "Tóth", "Szabó", "Nagy" };
+    private string[] lastNames = { "Varga", "Molnár", "Kovács", "Takács", "Tóth", "Szabó", "Nagy" };
     public static GameHandler Instance {
         private set;
         get;
     }
-
     private void Awake() {
         Instance = this;
         cameraInputActions = new CameraInput_Actions();
@@ -54,12 +55,21 @@ public class GameHandler : MonoBehaviour {
     }
 
     private void Start() {
+
+        simStartYear = Int32.Parse(SaveCSV.Instance.GetStartDate().Split('-')[0]);
+        simStartMonth = Int32.Parse(SaveCSV.Instance.GetStartDate().Split('-')[1]);
+        populationStartHappiness = float.Parse(SaveCSV.Instance.GetStartingPopulationHappiness());
+        populationMinHappiness = float.Parse(SaveCSV.Instance.GetMinPopulationHappiness());
+        initalBudget = (int) float.Parse(SaveCSV.Instance.GetInitialBudget());
+        simLength = Int32.Parse(SaveCSV.Instance.GetSimulationLength());
+
+        population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath()) - 1;
+
         budget = initalBudget;
-        population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath());
+
         UpdateDate();
         UpdateHUD();
     }
-
     public void NewMonth() {
         turnCount += 1;
         UpdateDate();
@@ -68,7 +78,37 @@ public class GameHandler : MonoBehaviour {
         NewMonthEvent?.Invoke(this, EventArgs.Empty);
         population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath());
         UpdateHUD();
+        SaveToJson();
     }
+
+    private void SaveToJson() {
+        SaveObject saveObject = new SaveObject {
+            buildingsPath = SaveCSV.Instance.GetBuildingFilePath(),
+            residentsPath = SaveCSV.Instance.GetResidentFilePath(),
+            servicesPath = SaveCSV.Instance.GetServiceFilePath(),
+            budget = budget,
+            populationHappiness = populationHappiness,
+            minPopulationHappiness = populationMinHappiness,
+            simulationLength = simLength,
+            date = date,
+        };
+        string json = JsonUtility.ToJson(saveObject);
+
+        File.WriteAllText(Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt", json);
+    }
+
+    public class SaveObject {
+        public string buildingsPath;
+        public string residentsPath;
+        public string servicesPath;
+
+        public float budget;
+        public float populationHappiness;
+        public float minPopulationHappiness;
+        public int simulationLength;
+        public string date;
+    }
+
 
     public void NewResident(string houseId) {
         string residentPath = SaveCSV.Instance.GetResidentFilePath();
@@ -81,14 +121,17 @@ public class GameHandler : MonoBehaviour {
         SaveCSV.Instance.WriteNewLineIntoCSV(residentPath, newLine);
     }
 
-    public void CreateNewBuildingProject(string buildingNameText, string cost, string startingDate, string endDate, string buildingId) {
+    public void CreateNewProject(string buildingNameText, string cost, string startingDate, string endDate, string buildingId) {
         string projectsCSVPath = SaveCSV.Instance.GetProjectsFilePath();
 
         string newLine = $"{SaveCSV.Instance.GetCSVLength(projectsCSVPath).ToString()},{buildingNameText},{cost},{startingDate},{endDate},{{{buildingId}}}";
         SaveCSV.Instance.WriteNewLineIntoCSV(projectsCSVPath, newLine);
+
+        GameEventSystem.Instance.AddToOutput("Létrejött egy új projekt " + buildingNameText + " néven");
+
     }
 
-    public void CreateNewBuilding(string name, string type, string date, string usefulArea, string turnsToBuild, string turns, string status, Transform plot) {
+    public void CreateNewBuilding(string name, string type, string date, string usefulArea, string turnsToBuild, string turns, string status, Plot plot) {
 
         string buildingsCSVPath = SaveCSV.Instance.GetBuildingFilePath();
         string id = SaveCSV.Instance.GetCSVLength(buildingsCSVPath).ToString();
@@ -114,6 +157,7 @@ public class GameHandler : MonoBehaviour {
             List<string> splitLine = projectCSV[i].Split(',').ToList();
 
             if (splitLine[(int)SaveCSV.ProjectColumns.EndDate] == date) {
+                GameEventSystem.Instance.AddToOutput("Befejeződött egy szolgáltatás " + SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetServiceFilePath())[i].Split(',')[(int)SaveCSV.ServiceColumns.Name] + " néven");
                 SaveCSV.Instance.DeleteFromCSV(projectPath, i);
             } else {
                 budget -= float.Parse(splitLine[(int)SaveCSV.ProjectColumns.Cost]);
@@ -137,8 +181,10 @@ public class GameHandler : MonoBehaviour {
     }
 
     private void DeleteService(string filePath, int id) {
+        GameEventSystem.Instance.AddToOutput("Befejeződött egy szolgáltatás " + SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetServiceFilePath())[id].Split(',')[(int)SaveCSV.ServiceColumns.Name] + " néven");
         SaveCSV.Instance.DeleteFromCSV(filePath, id);
         SaveCSV.Instance.UpdateIds(filePath);
+
     }
 
     private void UpdateDate() {
@@ -163,13 +209,10 @@ public class GameHandler : MonoBehaviour {
         UpperBarContainer.Instance.ChangeBudget(budget.ToString());
     }
 
-    private void CreateFlat(string buildCSVLen, string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string turnsToBuild, string turns, string status, Transform plot) {
+    private void CreateFlat(string buildCSVLen, string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string turnsToBuild, string turns, string status, Plot plot) {
 
         string buildingId = buildCSVLen;
-        Transform flat = Instantiate(flatPrefab, plot.transform);
-
-        Flat flatScript = flat.GetComponent<Flat>();
-        Plot plotScript = plot.GetComponent<Plot>();
+        Flat flat = Instantiate(flatPrefab, plot.transform);
 
         int id = Int32.Parse(buildingId);
         string name = buildingNameText;
@@ -177,8 +220,10 @@ public class GameHandler : MonoBehaviour {
         int year = Int32.Parse(buildingYearText.Split('-')[0]);
         float area = float.Parse(buildingAreaText);
 
-        flatScript.Initialize(id, name, type, year, area, Int32.Parse(turnsToBuild), Int32.Parse(turns), status, plot);
-        plotScript.isReserved = true;
+        flat.Initialize(id, name, type, year, area, Int32.Parse(turnsToBuild), Int32.Parse(turns), status, plot.transform);
+        plot.isReserved = true;
+        GameEventSystem.Instance.AddToOutput("Létrejött egy új épület " + buildingNameText + " néven");
+
     }
 
     public void CreateNewService(string name, string type, string buildingIds, string cost) {
@@ -188,6 +233,8 @@ public class GameHandler : MonoBehaviour {
         string newLine = $"{id},{name},{type},{buildingIds},{cost}";
 
         SaveCSV.Instance.WriteNewLineIntoCSV(servicePath, newLine);
+        GameEventSystem.Instance.AddToOutput("Létrejött egy új szolgáltatás " + name + " néven");
+
     }
 
     public string GetDate() {

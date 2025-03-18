@@ -4,17 +4,25 @@ using UnityEngine.EventSystems;
 
 public class EventHandlerScript : MonoBehaviour {
 
-    public event EventHandler<BuildingEventArgs> OnPlotRightClick;
-    public event EventHandler<BuildingEventArgs> OnFlatEnter;
-    public event EventHandler<BuildingEventArgs> OnFlatExit;
+    public event EventHandler<BuildingEventArgsPlot> OnPlotRightClick;
+    public event EventHandler<BuildingEventArgsFlat> OnFlatEnter;
+    public event EventHandler<BuildingEventArgsFlat> OnFlatExit;
 
-    public event EventHandler<BuildingEventArgs> OnFlatRightClick;
+    public event EventHandler<BuildingEventArgsFlat> OnFlatRightClick;
 
-    public class BuildingEventArgs : EventArgs {
+    public class BuildingEventArgsPlot : EventArgs {
 
-        public Transform gameObject;
-        public BuildingEventArgs(Transform givenGameObject) {
-            gameObject = givenGameObject;
+        public Plot plot;
+        public BuildingEventArgsPlot(Plot plot) {
+            this.plot = plot;
+        }
+    }
+
+    public class BuildingEventArgsFlat : EventArgs {
+
+        public Flat flat;
+        public BuildingEventArgsFlat(Flat flat) {
+            this.flat = flat;
         }
     }
 
@@ -26,20 +34,20 @@ public class EventHandlerScript : MonoBehaviour {
         Instance = this;
     }
 
-    public void SendOnPlotRightClick(Transform givenGameObject) {
-        OnPlotRightClick?.Invoke(this, new BuildingEventArgs(givenGameObject));
+    public void SendOnPlotRightClick(Plot plot) {
+        OnPlotRightClick?.Invoke(this, new BuildingEventArgsPlot(plot));
     }
 
-    public void SendOnFlatRightClick(Transform givenGameObject) {
-        OnFlatRightClick?.Invoke(this, new BuildingEventArgs(givenGameObject));
+    public void SendOnFlatRightClick(Flat flat) {
+        OnFlatRightClick?.Invoke(this, new BuildingEventArgsFlat(flat));
     }
 
-    public void SendOnFlatEnter(Transform givenGameObject) {
-        OnFlatEnter?.Invoke(this, new BuildingEventArgs(givenGameObject));
+    public void SendOnFlatEnter(Flat flat) {
+        OnFlatEnter?.Invoke(this, new BuildingEventArgsFlat(flat));
     }
 
-    public void SendOnFlatExit(Transform givenGameObject) {
-        OnFlatExit?.Invoke(this, new BuildingEventArgs(givenGameObject));
+    public void SendOnFlatExit(Flat flat) {
+        OnFlatExit?.Invoke(this, new BuildingEventArgsFlat(flat));
     }
 
 }

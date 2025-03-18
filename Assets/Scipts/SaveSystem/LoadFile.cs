@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class LoadFile : MonoBehaviour {
 
-    [SerializeField] Transform flatPrefab;
+    [SerializeField] Flat flatPrefab;
     public enum Columns {
         Id,
         Name,
@@ -40,11 +40,9 @@ public class LoadFile : MonoBehaviour {
             switch (file[(int)Columns.Type]){
                 case "lakóház":
 
-                    Transform flat = Instantiate(flatPrefab, avaliablePlotList[0]);
-
-                    Flat flatScript = flat.GetComponent<Flat>();
+                    string buildingId = file[(int)Columns.Id];
+                    Flat flat = Instantiate(flatPrefab, avaliablePlotList[0]);
                     Plot plotScript = avaliablePlotList[0].GetComponent<Plot>();
-
 
                     int id = Int32.Parse(file[(int)Columns.Id]);
                     string name = file[(int)Columns.Name];
@@ -53,7 +51,10 @@ public class LoadFile : MonoBehaviour {
                     float area = float.Parse(file[(int)Columns.Size]);
                     string status = file[(int)Columns.Status];
 
-                    flatScript.Initialize(id, name, type, year, area, 0, 0, status, avaliablePlotList[0]);
+                    int TurnsTillFinish = Int32.Parse(file[(int)Columns.TurnsToFinish]);
+                    int turns = Int32.Parse(file[(int)Columns.Turns]);
+
+                    flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, avaliablePlotList[0]);
                     plotScript.isReserved = true;
                     avaliablePlotList.RemoveAt(0);
 

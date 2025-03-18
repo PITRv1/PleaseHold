@@ -11,11 +11,6 @@ public class ServiceInputUI : MonoBehaviour
         costInputField.onEndEdit.AddListener(ValidateInput);
     }
 
-    private void Start()
-    {
-        serviceName.text = "ServiceName";
-    }
-
     public void SetName(string name)
     {
         this.name = name;
@@ -35,8 +30,8 @@ public class ServiceInputUI : MonoBehaviour
         }
     }
 
-    public float GetInputValue()
+    public string GetInputValue()
     {
-        return float.Parse(costInputField.text);
+        return costInputField.text;
     }
 }

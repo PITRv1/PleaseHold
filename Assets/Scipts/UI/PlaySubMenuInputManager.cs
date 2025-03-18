@@ -19,8 +19,10 @@ public class PlaySubMenuInputManager : MonoBehaviour
         public int MinPopulationHappiness { get; }
         public int StartingPopulationHappiness { get; }
         public int InitialBudget { get; }
+        public string HouseConditions { get; }
+        public string ServiceCosts { get; }
 
-        public GameParametersEventArgs(string buildingsPath, string peoplePath, string servicesPath, string startDate, int simulationLength, int minHappiness, int startingHappiness, int initialBudget)
+        public GameParametersEventArgs(string buildingsPath, string peoplePath, string servicesPath, string startDate, int simulationLength, int minHappiness, int startingHappiness, int initialBudget, string houseCondition, string serviceCosts)
         {
             BuildingsPath = buildingsPath;
             PeoplePath = peoplePath;
@@ -30,6 +32,8 @@ public class PlaySubMenuInputManager : MonoBehaviour
             MinPopulationHappiness = minHappiness;
             StartingPopulationHappiness = startingHappiness;
             InitialBudget = initialBudget;
+            HouseConditions = houseCondition;
+            ServiceCosts = serviceCosts;
         }
     }
 
@@ -54,6 +58,9 @@ public class PlaySubMenuInputManager : MonoBehaviour
     [SerializeField] private TMP_InputField initialBudgetField;
 
     [SerializeField] private TextMeshProUGUI errorText;
+
+    [SerializeField] private ServiceContainerUI serviceContainerUI;
+    [SerializeField] private MainMenuHouseHealthContainerUI mainMenuHouseHealthContainerUI;
 
     private TMP_Text inputBuildingsText;
     private TMP_Text inputPeopleText;
@@ -152,8 +159,11 @@ public class PlaySubMenuInputManager : MonoBehaviour
         int startingHappiness = (int)initialPopulationHappinessSlider.value;
         int initialBudget = int.Parse(initialBudgetField.text);
 
+        string serviceCosts = serviceContainerUI.GetServiceCost();
+        string houseConditions = mainMenuHouseHealthContainerUI.GetHouseContidions();
+
         // Fire event with collected values
-        OnSimulationStarted?.Invoke(this, new GameParametersEventArgs(buildingsPath, peoplePath, servicesPath, startDate, simulationLength, minHappiness, startingHappiness, initialBudget));
+        OnSimulationStarted?.Invoke(this, new GameParametersEventArgs(buildingsPath, peoplePath, servicesPath, startDate, simulationLength, minHappiness, startingHappiness, initialBudget, houseConditions, serviceCosts));
     }
 
 

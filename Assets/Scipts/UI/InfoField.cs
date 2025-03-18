@@ -28,11 +28,11 @@ public class InfoField : MonoBehaviour {
         Hide();
     }
 
-    private void Flat_OnFlatExit(object sender, EventHandlerScript.BuildingEventArgs e) {
+    private void Flat_OnFlatExit(object sender, EventHandlerScript.BuildingEventArgsFlat e) {
         Hide();
     }
 
-    private void Flat_OnFlatEnter(object sender, EventHandlerScript.BuildingEventArgs e) {
+    private void Flat_OnFlatEnter(object sender, EventHandlerScript.BuildingEventArgsFlat e) {
         Vector2 mousePos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             transform.parent as RectTransform,
@@ -56,13 +56,12 @@ public class InfoField : MonoBehaviour {
         } else {
             rectTransform.anchoredPosition = mousePos + new Vector2(width / 2, height / 2);
         }
-        Flat flatScript = e.gameObject.GetComponent<Flat>();
 
-        buildingNameValue.text = flatScript.GetBuildingName();
-        buildingTypeValue.text = flatScript.GetBuildingType();
-        buildingYearValue.text = flatScript.GetBuildingYear().ToString();
-        buildingAreaValue.text = flatScript.GetBuildingArea().ToString();
-        buildingStatusValue.text = flatScript.GetBuildingStatus();
+        buildingNameValue.text = e.flat.GetBuildingName();
+        buildingTypeValue.text = e.flat.GetBuildingType();
+        buildingYearValue.text = e.flat.GetBuildingYear().ToString();
+        buildingAreaValue.text = e.flat.GetBuildingArea().ToString();
+        buildingStatusValue.text = e.flat.GetBuildingStatus();
 
         Show();
     }

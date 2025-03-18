@@ -4,11 +4,10 @@ using System;
 using Unity.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using static GameParamSaver;
 
 public class SaveCSV : MonoBehaviour {
-
-    //public event EventHandler ShowInputField;
-
     public enum FileTypes {
         Building,
         Service,
@@ -58,54 +57,149 @@ public class SaveCSV : MonoBehaviour {
     private string fileServicePath;
     private string fileProjectsPath;
 
+    private string initialBudget;
+    private string startingPopulationHappiness;
+    private string minPopulationHappiness;
+    private string simulationLength;
+    private string startDate;
+    private string houseConditions;
+    private string serviceCosts;
+
     private void Awake()
     {
         Instance = this;
-        MakeEditableCSVs();
 
-        SetResidentFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv");
-        SetBuildingFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv");
-        SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv");
-        SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
+        string buildPath = "";
+        string residentPath = "";
+        string servicePath = "";
 
-        AddValueToLine(0, "turns to finish", fileBuildingPath);
-        AddValueToLine(0, "turns", fileBuildingPath);
-        AddValueToLine(0, "status", fileBuildingPath);
-        AddValueToLine(0, "cost", fileServicePath);
-        AddTurnsToFinish(fileBuildingPath);
-        AddTurnsToFinish(fileBuildingPath);
-        AddRandomStatus(fileBuildingPath);
-        AddRandomCost(fileServicePath);
-        ReloadAllCSV();
-        //DeleteFromCSV(fileResidentPath, 3);
+        string filePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
+        if (File.Exists(filePath)) {
+            //You need to run setup in main menu or manually change the path in the save file
+            //since this now reads out of the SaveFile
 
-        //string filePath = Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt";
-        //if (File.Exists(filePath)) {
-        //    //You need to run setup in main menu or manually change the path in the save file
-        //    //since this now reads out of the SaveFile
+            string json = File.ReadAllText(filePath);
+            GameHandler.SaveObject saveObject = JsonUtility.FromJson<GameHandler.SaveObject>(json);
 
-        //    string json = File.ReadAllText(filePath);
-        //    GameParamSaver.SaveObject saveObject = JsonUtility.FromJson<GameParamSaver.SaveObject>(json);
+            buildPath = saveObject.buildingsPath;
+            residentPath = saveObject.residentsPath;
+            servicePath = saveObject.servicesPath;
 
-        //    SetBuildingFilePath(saveObject.buildingsPath);
-        //    SetResidentFilePath(saveObject.residentsPath);
-        //    SetServiceFilePath(saveObject.servicesPath);
-        //} else {
-        //    Debug.LogError("Save file not found!");
-        //}
-    }
+            initialBudget = saveObject.budget.ToString();
+            startingPopulationHappiness = saveObject.populationHappiness.ToString();
+            minPopulationHappiness = saveObject.minPopulationHappiness.ToString();
+            simulationLength = saveObject.simulationLength.ToString();
+            startDate = saveObject.date;
+            houseConditions = null;
+            serviceCosts = null;
+        } else {
+            filePath = Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt";
+            if (File.Exists(filePath)) {
+                //You need to run setup in main menu or manually change the path in the save file
+                //since this now reads out of the SaveFile
 
-    private void AddRandomCost(string filePath) {
+                string json = File.ReadAllText(filePath);
+                GameParamSaver.SaveObject saveObject = JsonUtility.FromJson<GameParamSaver.SaveObject>(json);
 
-        int fileLength = GetCSVLength(filePath);
+                buildPath = saveObject.buildingsPath;
+                residentPath = saveObject.residentsPath;
+                servicePath = saveObject.servicesPath;
 
-        for (int i = 0; i < fileLength; i++) {
-            if (i == 0) continue;
-            AddValueToLine(i, UnityEngine.Random.Range(300, 801).ToString(), filePath);
+                initialBudget = saveObject.initialBudget.ToString();
+                startingPopulationHappiness = saveObject.startingPopulationHappiness.ToString();
+                minPopulationHappiness = saveObject.minPopulationHappiness.ToString();
+                simulationLength = saveObject.simulationLength.ToString();
+                startDate = saveObject.startDate;
+                houseConditions = saveObject.houseConditions;
+                serviceCosts = saveObject.serviceCosts;
+            } else {
+                Debug.LogError("Save file not found!");
+            }
+        }
+
+        if (!Directory.EnumerateFileSystemEntries($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles").Any()) {
+
+            MakeEditableCSVs(residentPath, buildPath, servicePath, Application.dataPath + "/InputCSVFiles/SaveCSVFiles/projectsCSV.csv");
+
+            SetResidentFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv");
+            SetBuildingFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv");
+            SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv");
+            SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
+
+            AddValueToLine(0, "turns to finish", fileBuildingPath);
+            AddValueToLine(0, "turns", fileBuildingPath);
+            AddValueToLine(0, "status", fileBuildingPath);
+            AddValueToLine(0, "cost", fileServicePath);
+
+            AddTurnsToFinish(fileBuildingPath);
+            AddTurnsToFinish(fileBuildingPath);
+
+            if (houseConditions != null && serviceCosts != null) {
+                string[] houseConditionsArray = houseConditions.Split(',');
+                string[] serviceCostsArray = serviceCosts.Split(',');
+
+                for (int i = 0; i < houseConditionsArray.Length; i++) {
+                    switch (houseConditionsArray[i]) {
+                        case "0":
+                            AddValueToLine(i + 1, "Awful", fileBuildingPath);
+                            break;
+                        case "1":
+                            AddValueToLine(i + 1, "Bad", fileBuildingPath);
+                            break;
+                        case "2":
+                            AddValueToLine(i + 1, "Average", fileBuildingPath);
+                            break;
+                        case "3":
+                            AddValueToLine(i + 1, "Good", fileBuildingPath);
+                            break;
+                        case "4":
+                            AddValueToLine(i + 1, "Perfect", fileBuildingPath);
+                            break;
+                    }
+
+                }
+                for (int i = 0; i < serviceCostsArray.Length; i++) {
+                    AddValueToLine(i + 1, serviceCostsArray[i], fileServicePath);
+                }
+            }
+
+            
+
+            int sYear = Int32.Parse(startDate.Split('-')[0]);
+
+            foreach (string line in ReadLinesFromCSV(fileBuildingPath)) {
+                if (sYear < line[(int)BuildingColumns.Year]) Debug.LogError("One of the building is built in the future");
+            }
+
+        } else {
+
+            SetResidentFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv");
+            SetBuildingFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv");
+            SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv");
+            SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
+
         }
 
         ReloadAllCSV();
+
     }
+
+    public string GetInitialBudget() {
+        return initialBudget;
+    }
+    public string GetStartingPopulationHappiness() {
+        return startingPopulationHappiness;
+    }
+    public string GetMinPopulationHappiness() {
+        return minPopulationHappiness;
+    }
+    public string GetSimulationLength() {
+        return simulationLength;
+    }
+    public string GetStartDate() {
+        return startDate;
+    }
+
     private void AddTurnsToFinish(string filePath) {
 
         int fileLength = GetCSVLength(filePath);
@@ -116,22 +210,6 @@ public class SaveCSV : MonoBehaviour {
         }
 
         ReloadAllCSV();
-    }
-
-    public void AddRandomStatus(string filePath) {
-        // Delete this later
-
-        string[] statusType = { "good", "bad", "in need of repair", "excelent" };
-
-        int fileLength = GetCSVLength(filePath);
-
-        for (int i = 0; i < fileLength; i++) {
-            if (i == 0) continue;
-            AddValueToLine(i, statusType[UnityEngine.Random.Range(0, 4)], filePath);
-        }
-
-        ReloadAllCSV();
-
     }
 
     public List<string> ReadLinesFromCSV(string filePath) {
@@ -162,19 +240,18 @@ public class SaveCSV : MonoBehaviour {
         return returnList;
     }
     
-    private void MakeEditableCSVs() {
+    private void MakeEditableCSVs(string resPath, string buildPath, string servPath, string projPath) {
 
-        string residentPath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\residentsCSV.csv";
-        string buildingPath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\buildingsCSV.csv";
-        string servicePath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\servicesCSV.csv";
-        string projectsPath = $@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\projectsCSV.csv";
+        string residentPath = $@"{resPath}";
+        string buildingPath = $@"{buildPath}";
+        string servicePath = $@"{servPath}";
+        string projectsPath = $@"{projPath}";
 
 
         File.Copy(residentPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv", true);
         File.Copy(buildingPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv", true);
         File.Copy(servicePath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv", true);
         File.Copy(projectsPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv", true);
-
     }
 
     public void ReadFromBuildingCSV() {

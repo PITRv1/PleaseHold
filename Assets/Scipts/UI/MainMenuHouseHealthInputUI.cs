@@ -5,11 +5,10 @@ public class MainMenuHouseHealthInputUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TMP_Dropdown dropdown;
-
-    private void Start()
-    {
-        nameText.text = "BuildingName";
-    }
+    //private void Start()
+    //{
+    //    nameText.text = "BuildingName";
+    //}
 
     public void SetName(string name)
     {

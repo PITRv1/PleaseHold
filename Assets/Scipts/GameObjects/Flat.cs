@@ -33,7 +33,6 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
 
     private void Start() {
         GameHandler.Instance.NewMonthEvent += GameHandler_NewMonthEvent;
-        turns = 0;
     }
 
     private void GameHandler_NewMonthEvent(object sender, System.EventArgs e) {
@@ -45,7 +44,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                 turns += 1;
 
                 if (turns >= buildingTurnsTillFinish) {
-                    buildingStatus = "excelent";
+                    buildingStatus = "Perfect";
                     SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
                 }
                 Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
@@ -62,13 +61,13 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                     }
                 }
             }
-        } else if(lines[buildingid].Split(',')[(int)SaveCSV.BuildingColumns.Status] != "excelent") {
+        } else if(lines[buildingid].Split(',')[(int)SaveCSV.BuildingColumns.Status] != "Perfect") {
             if (turns < buildingTurnsTillFinish) {
                 HeadsUpDisplay.gameObject.SetActive(true);
                 turns += 1;
 
                 if (turns >= buildingTurnsTillFinish) {
-                    buildingStatus = "excelent";
+                    buildingStatus = "Perfect";
                     SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
                 }
                 Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
@@ -90,18 +89,28 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         buildingArea = area;
         buildingPlot = plot;
         buildingStatus = status;
+        this.turns = turns;
         buildingTurnsTillFinish = turnsTillFinish;
-        Timer.fillAmount = 0;
-        if (buildingTurnsTillFinish > 0) {
+
+        if (status == "in construction") {
+
+            Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
             buildingMesh.gameObject.SetActive(false);
+            HeadsUpDisplay.gameObject.SetActive(true);
         } else {
-            buildingMesh.gameObject.SetActive(true);
-            HeadsUpDisplay.gameObject.SetActive(false);
+            if (buildingTurnsTillFinish - turns > 0) {
+                Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
+                buildingMesh.gameObject.SetActive(true);
+                HeadsUpDisplay.gameObject.SetActive(true);
+            } else {
+                buildingMesh.gameObject.SetActive(true);
+                HeadsUpDisplay.gameObject.SetActive(false);
+            }
         }
     }
     public void OnPointerClick(PointerEventData eventData) {
         if (eventData.button == PointerEventData.InputButton.Right) {
-            EventHandlerScript.Instance.SendOnFlatRightClick(transform);
+            EventHandlerScript.Instance.SendOnFlatRightClick(this);
         }
     }
 
@@ -109,11 +118,11 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        EventHandlerScript.Instance.SendOnFlatEnter(transform);
+        EventHandlerScript.Instance.SendOnFlatEnter(this);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        EventHandlerScript.Instance.SendOnFlatExit(transform);
+        EventHandlerScript.Instance.SendOnFlatExit(this);
     }
 
     public void OnPointerUp(PointerEventData eventData) {

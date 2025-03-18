@@ -21,7 +21,9 @@ public class GameParamSaver : MonoBehaviour
             startingPopulationHappiness = e.StartingPopulationHappiness,
             minPopulationHappiness = e.MinPopulationHappiness,
             simulationLength = e.SimulationLength,
-            startDate = e.StartDate
+            startDate = e.StartDate,
+            houseConditions = e.HouseConditions,
+            serviceCosts = e.ServiceCosts
         };
         string json = JsonUtility.ToJson(saveObject);
 
@@ -39,5 +41,8 @@ public class GameParamSaver : MonoBehaviour
         public float minPopulationHappiness;
         public int simulationLength;
         public string startDate;
+
+        public string houseConditions;
+        public string serviceCosts;
     }
 }

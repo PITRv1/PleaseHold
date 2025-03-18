@@ -28,7 +28,7 @@ public class InputFieldBackground : MonoBehaviour {
 
     private int averageBuildCostUK = 2400;
 
-    private Transform givenGameObject;
+    private Plot plot;
 
     public static InputFieldBackground Instance {
         private set;
@@ -57,14 +57,14 @@ public class InputFieldBackground : MonoBehaviour {
             int currentMonth = Int32.Parse(date.Split('-')[1]);
             float currentDate = currentYear + currentMonth / 100;
 
-            GameHandler.Instance.CreateNewBuildingProject(
+            GameHandler.Instance.CreateNewProject(
                 buildingNameText, 
                 (averageBuildCostUK * Int32.Parse(buildingAreaText)).ToString(), 
                 GameHandler.Instance.GetDate(),
                 GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText)), 
                 SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString());
 
-            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", givenGameObject);
+            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", plot);
 
             Hide();
         });
@@ -93,8 +93,8 @@ public class InputFieldBackground : MonoBehaviour {
         Hide();
     }
 
-    private void EventHandlerScript_OnPlotRightClick(object sender, BuildingEventArgs e) {
-        givenGameObject = e.gameObject;
+    private void EventHandlerScript_OnPlotRightClick(object sender, BuildingEventArgsPlot e) {
+        plot = e.plot;
 
         Vector2 mousePos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

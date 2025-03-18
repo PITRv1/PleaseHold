@@ -49,11 +49,6 @@ public class InfoField : MonoBehaviour {
         float width = rectTransform.sizeDelta.x;
         float height = rectTransform.sizeDelta.y;
 
-        Debug.Log(screenWidth);
-        Debug.Log(width);
-        Debug.Log(mouseX);
-        Debug.Log(screenWidth - width - mouseX);
-
         if ((screenWidth - width - mouseX) < 0) width += screenWidth - width - mouseX;
 
         if (mouseY > screenHeight / 2) {

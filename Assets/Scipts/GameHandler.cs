@@ -2,8 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class GameHandler : MonoBehaviour {
+
+    [SerializeField] Transform flatPrefab;
+
+    public event EventHandler NewMonthEvent;
 
     private CameraInput_Actions cameraInputActions;
 
@@ -43,13 +48,26 @@ public class GameHandler : MonoBehaviour {
         cameraInputActions.Camera.addToTurn.performed += AddToTurn_performed;
     }
 
-    private void Start() {
-        InputFieldBackground.Instance.CreateNewBuildingProject += InputField_CreateNewBuildingProject;
+    public void NewMonth() {
+        turnCount += 1;
+        UpdateDate();
     }
 
-    private void InputField_CreateNewBuildingProject(object sender, InputFieldBackground.CreateNewBuildingProjectParams e) {
-        //string projectsCSV = SaveCSV.Instance.GetPro
-        //SaveCSV.Instance.WriteNewLineIntoCSV()
+    public void CreateNewBuildingProject(string buildingNameText, string cost, string startingDate, string endDate, string buildingId) {
+        string projectsCSVPath = SaveCSV.Instance.GetProjectsFilePath();
+
+        string newLine = $"{SaveCSV.Instance.GetCSVLength(projectsCSVPath).ToString()},{buildingNameText},{cost},{startingDate},{endDate},{{{buildingId}}}";
+        SaveCSV.Instance.WriteNewLineIntoCSV(projectsCSVPath, newLine);
+    }
+
+    public void CreateNewBuilding(string name, string type, string date, string usefulArea, string turnsToBuild, string status, Transform plot) {
+
+        string buildingsCSVPath = SaveCSV.Instance.GetBuildingFilePath();
+        string id = SaveCSV.Instance.GetCSVLength(buildingsCSVPath).ToString();
+        string newLine = $"{id},{name},{type},{date},{usefulArea},{turnsToBuild + turnCount},in construction";
+
+        SaveCSV.Instance.WriteNewLineIntoCSV(buildingsCSVPath, newLine);
+        CreateFlat(id, name, type, date, usefulArea, turnsToBuild + turnCount, status, plot);
     }
 
     private void AddToTurn_performed(UnityEngine.InputSystem.InputAction.CallbackContext context) {
@@ -62,38 +80,40 @@ public class GameHandler : MonoBehaviour {
         int month = simStartMonth;
 
         month += turnCount;
-        int addYears = month / 12;
-        year += addYears;
-        int leftoverMonth = month % 12;
-        month = leftoverMonth;
+        int years = (month - 1) / 12;  // Subtract 1 to handle the 0th month issue
+        int leftoverMonths = (month - 1) % 12 + 1; // Ensure months are in range 1-12
+        year += years;
+        month = leftoverMonths;
 
         date = year.ToString() + '-' + month.ToString();
+
+        UpperBarContainer.Instance.ChangeDate(date);
     }
 
-    private void CreateFlat() {
+    private void CreateFlat(string buildCSVLen, string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string turnsToBuild, string status, Transform plot) {
 
-        //string buildingId = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath()).Count.ToString();
-        //string[] newLine = { $"{buildingId}, {buildingNameText}, {buildingTypeText}, {buildingYearText}, {buildingAreaText}" };
+        string buildingId = buildCSVLen;
+        Transform flat = Instantiate(flatPrefab, plot.transform);
 
-        //SaveCSV.Instance.WriteNewLinesIntoCSV(SaveCSV.Instance.GetBuildingFilePath(), newLine);
+        Flat flatScript = flat.GetComponent<Flat>();
+        Plot plotScript = plot.GetComponent<Plot>();
 
-        //Transform flat = Instantiate(flatPrefab, givenGameObject.transform);
+        int id = Int32.Parse(buildingId);
+        string name = buildingNameText;
+        string type = buildingTypeText;
+        int year = Int32.Parse(buildingYearText.Split('-')[0]);
+        float area = float.Parse(buildingAreaText);
 
-        //Flat flatScript = flat.GetComponent<Flat>();
-        //Plot plotScript = givenGameObject.GetComponent<Plot>();
-
-        //int id = Int32.Parse(buildingId);
-        //string name = buildingNameText;
-        //string type = buildingTypeText;
-        //int year = Int32.Parse(buildingYearText);
-        //float area = float.Parse(buildingAreaText);
-
-        //flatScript.Initialize(id, name, type, year, area, givenGameObject);
-        //plotScript.isReserved = true;
+        flatScript.Initialize(id, name, type, year, area, Int32.Parse(turnsToBuild), status, plot);
+        plotScript.isReserved = true;
     }
 
     public string GetDate() {
         UpdateDate();
         return date;
+    }
+    
+    public int GetTurnCount() {
+        return turnCount;
     }
 }

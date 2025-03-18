@@ -4,7 +4,6 @@ using System;
 using Unity.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 
 public class SaveCSV : MonoBehaviour {
 
@@ -22,6 +21,7 @@ public class SaveCSV : MonoBehaviour {
         Type,
         Year,
         Size,
+        TurnsToFinish,
         Status,
     }
 
@@ -50,7 +50,9 @@ public class SaveCSV : MonoBehaviour {
         SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv");
         SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
 
+        AddValueToLine(0, "turns to finish", fileBuildingPath);
         AddValueToLine(0, "status", fileBuildingPath);
+        AddTurnsToFinish(fileBuildingPath);
         AddRandomStatus(fileBuildingPath);
         ReloadAllCSV();
         //DeleteFromCSV(fileResidentPath, 3);
@@ -71,6 +73,18 @@ public class SaveCSV : MonoBehaviour {
         //}
     }
 
+    private void AddTurnsToFinish(string filePath) {
+
+        int fileLength = GetCSVLength(filePath);
+
+        for (int i = 0; i < fileLength; i++) {
+            if (i == 0) continue;
+            AddValueToLine(i, "0", filePath);
+        }
+
+        ReloadAllCSV();
+    }
+
     public void AddRandomStatus(string filePath) {
         // Delete this later
 
@@ -79,6 +93,7 @@ public class SaveCSV : MonoBehaviour {
         int fileLength = GetCSVLength(filePath);
 
         for (int i = 0; i < fileLength; i++) {
+            if (i == 0) continue;
             AddValueToLine(i, statusType[UnityEngine.Random.Range(0, 4)], filePath);
         }
 
@@ -249,12 +264,21 @@ public class SaveCSV : MonoBehaviour {
         ReloadAllCSV();
     }
 
-    public void WriteNewLineIntoCSV(string filePath, string[] lines) {
+    public void WriteNewLinesIntoCSV(string filePath, string[] lines) {
         List<string> listLines = ReadLinesFromCSV(filePath);
 
         foreach (string line in lines) {
             listLines.Add(line);
         }
+
+        File.WriteAllLines(filePath, listLines);
+
+        ReloadAllCSV();
+    }
+
+    public void WriteNewLineIntoCSV(string filePath, string line) {
+        List<string> listLines = ReadLinesFromCSV(filePath);
+        listLines.Add(line);
 
         File.WriteAllLines(filePath, listLines);
 
@@ -292,6 +316,9 @@ public class SaveCSV : MonoBehaviour {
     public List<List<string>> GetServiceFileList() {
         return fileServiceList;
     }
+    public List<List<string>> GetProjectFileList() {
+        return fileProjectsList;
+    }
 
     public string GetBuildingFilePath() {
         return fileBuildingPath;
@@ -301,6 +328,9 @@ public class SaveCSV : MonoBehaviour {
     }
     public string GetServiceFilePath() {
         return fileServicePath;
+    }
+    public string GetProjectsFilePath() {
+        return fileProjectsPath;
     }
 
 

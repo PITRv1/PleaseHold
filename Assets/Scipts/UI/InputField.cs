@@ -3,27 +3,11 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using static EventHandlerScript;
+using System.Windows.Forms;
+using Button = UnityEngine.UI.Button;
+using static System.Net.WebRequestMethods;
 
 public class InputFieldBackground : MonoBehaviour {
-
-    public event EventHandler<CreateNewBuildingProjectParams> CreateNewBuildingProject;
-
-    public class CreateNewBuildingProjectParams : EventArgs {
-
-        private string buildingNameText;
-        private string buildingTypeText;
-        private string buildingYearText;
-        private string buildingAreaText;
-        private string buildingTurnsToBuildText;
-
-        public CreateNewBuildingProjectParams(string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string buildingTurnsToBuildText) {
-            this.buildingNameText = buildingNameText;
-            this.buildingTypeText = buildingTypeText;
-            this.buildingYearText = buildingYearText;
-            this.buildingAreaText = buildingAreaText;
-            this.buildingTurnsToBuildText = buildingTurnsToBuildText;
-        }
-    }
 
     [SerializeField] private Transform flatPrefab;
 
@@ -31,7 +15,6 @@ public class InputFieldBackground : MonoBehaviour {
 
     [SerializeField] TMP_InputField buildingName;
     [SerializeField] TMP_InputField buildingType;
-    [SerializeField] TMP_InputField buildingYear;
     [SerializeField] TMP_InputField buildingArea;
     [SerializeField] TMP_InputField buildingTurnsToBuild;
 
@@ -40,9 +23,10 @@ public class InputFieldBackground : MonoBehaviour {
 
     private string buildingNameText;
     private string buildingTypeText;
-    private string buildingYearText;
     private string buildingAreaText;
     private string buildingTurnsToBuildText;
+
+    private int averageBuildCostUK = 2400;
 
     private Transform givenGameObject;
 
@@ -58,15 +42,13 @@ public class InputFieldBackground : MonoBehaviour {
         });
         acceptButton.onClick.AddListener(() => {
 
-            buildingNameText = buildingName.text;
-            buildingTypeText = buildingType.text;
-            buildingYearText = buildingYear.text;
-            buildingAreaText = buildingArea.text;
-            buildingTurnsToBuildText = buildingTurnsToBuild.text;
+            string buildingNameText = buildingName.text;
+            string buildingAreaText = buildingArea.text;
+            string buildingTypeText = buildingType.text;
+            string buildingTurnsToBuildText = buildingTurnsToBuild.text;
 
             buildingName.text = "";
             buildingType.text = "";
-            buildingYear.text = "";
             buildingArea.text = "";
             buildingTurnsToBuild.text = "";
 
@@ -75,21 +57,29 @@ public class InputFieldBackground : MonoBehaviour {
             int currentMonth = Int32.Parse(date.Split('-')[1]);
             float currentDate = currentYear + currentMonth / 100;
 
-            buildingTurnsToBuildText = GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText));
-            CreateNewBuildingProject?.Invoke(this, new CreateNewBuildingProjectParams(buildingNameText, buildingTypeText, buildingYearText, buildingAreaText, buildingTurnsToBuildText));
+            GameHandler.Instance.CreateNewBuildingProject(
+                buildingNameText, 
+                (averageBuildCostUK * Int32.Parse(buildingAreaText)).ToString(), 
+                GameHandler.Instance.GetDate(), 
+                GetEndDate(currentYear, currentMonth, 
+                Int32.Parse(buildingTurnsToBuildText), 
+                GameHandler.Instance.GetTurnCount()), 
+                SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString());
+
+            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "in construction", givenGameObject);
 
             Hide();
         });
     }
-    private string GetEndDate(int currentYear, int currentMonth, int turns) {
+    private string GetEndDate(int currentYear, int currentMonth, int turnsToBuild, int turnCount) {
         int year = currentYear;
         int month = currentMonth;
 
-        month += turns;
-        int addYears = month / 12;
-        year += addYears;
-        int leftoverMonth = month % 12;
-        month = leftoverMonth;
+        month += turnsToBuild + turnCount;
+        int years = (month - 1) / 12;  // Subtract 1 to handle the 0th month issue
+        int leftoverMonths = (month - 1) % 12 + 1; // Ensure months are in range 1-12
+        year += years;
+        month = leftoverMonths;
 
         return year.ToString() + '-' + month.ToString();
     }
@@ -111,8 +101,8 @@ public class InputFieldBackground : MonoBehaviour {
             out mousePos
         );
 
-        float screenHeight = Screen.height;  // Get screen height
-        float screenWidth = Screen.width;  // Get screen width
+        float screenHeight = UnityEngine.Screen.height;  // Get screen height
+        float screenWidth = UnityEngine.Screen.width;  // Get screen width
         float mouseY = Input.mousePosition.y;  // Get mouse Y position
         float mouseX = Input.mousePosition.x;  // Get mouse X position
 
@@ -134,7 +124,6 @@ public class InputFieldBackground : MonoBehaviour {
         gameObject.SetActive(false);
         buildingName.text = "";
         buildingType.text = "";
-        buildingYear.text = "";
         buildingArea.text = "";
     }
     private void Show() {

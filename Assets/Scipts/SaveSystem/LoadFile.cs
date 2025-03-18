@@ -13,6 +13,7 @@ public class LoadFile : MonoBehaviour {
         Type,
         Year,
         Size,
+        TurnsToFinish,
         Status,
     }
 
@@ -50,8 +51,9 @@ public class LoadFile : MonoBehaviour {
                     int year = Int32.Parse(file[(int)Columns.Year]);
                     float area = float.Parse(file[(int)Columns.Size]);
                     string status = file[(int)Columns.Status];
+                    string turnToBuild = "0";
 
-                    flatScript.Initialize(id, name, type, year, area, avaliablePlotList[0], status);
+                    flatScript.Initialize(id, name, type, year, area, Int32.Parse(turnToBuild), status, avaliablePlotList[0]);
                     plotScript.isReserved = true;
                     avaliablePlotList.RemoveAt(0);
 

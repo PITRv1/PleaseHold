@@ -1,11 +1,12 @@
-épület azonosító,név,típus,építés éve,hasznos terület,status,in need of repair
-1,Napfény Lakópark 1,lakóház,2026,100,good
-2,Kossuth Gimnázium 2,iskola,2027,200,good
-3,Panoráma Ház 3,tömbház,2028,300,excelent
-4,Rózsa Villa 4,irodaház,2029,400,good
-5,Duna Office Iroda 5,vendégház,2030,500,excelent
-6,Szent István Általános Iskola 6,panzió,2031,600,bad
-7,Béke Lakótelep 7,lakóház,2032,700,good
-8,Alkotás Udvar 8,iskola,2033,800,in need of repair
-9,Hegyalja Vendégház 9,tömbház,2034,900,in need of repair
-10,Aranypart Panzió 10,irodaház,2035,1000,bad
+épület azonosító,név,típus,építés éve,hasznos terület,turns to finish,status
+1,Napfény Lakópark 1,lakóház,2026,100,0,bad
+2,Kossuth Gimnázium 2,iskola,2027,200,0,excelent
+3,Panoráma Ház 3,tömbház,2028,300,0,excelent
+4,Rózsa Villa 4,irodaház,2029,400,0,excelent
+5,Duna Office Iroda 5,vendégház,2030,500,0,good
+6,Szent István Általános Iskola 6,panzió,2031,600,0,good
+7,Béke Lakótelep 7,lakóház,2032,700,0,bad
+8,Alkotás Udvar 8,iskola,2033,800,0,good
+9,Hegyalja Vendégház 9,tömbház,2034,900,0,in need of repair
+10,Aranypart Panzió 10,irodaház,2035,1000,0,good
+11,asd,asd,2026-3,12,1212,in construction

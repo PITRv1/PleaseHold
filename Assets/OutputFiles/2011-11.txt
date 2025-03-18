@@ -6,9 +6,9 @@
 	-Rózsa Villa 4: Good
 	-Duna Office Iroda 5: Bad
 	-Szent István Általános Iskola 6: Average
-	-Béke Lakótelep 7: Awful
+	-Béke Lakótelep 7: Perfect
 	-Alkotás Udvar 8: Awful
 	-Hegyalja Vendégház 9: Perfect
 	-Aranypart Panzió 10: Average
 
-Budget: 9.996321E+08
+Budget: 9.996339E+08

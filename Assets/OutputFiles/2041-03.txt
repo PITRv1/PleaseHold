@@ -1,0 +1,15 @@
+
+Épületek állapota:
+	-Napfény Lakópark 1: Bad
+	-Kossuth Gimnázium 2: Good
+	-Panoráma Ház 3: Good
+	-Rózsa Villa 4: Average
+	-Duna Office Iroda 5: Bad
+	-Szent István Általános Iskola 6: Awful
+	-Béke Lakótelep 7: Perfect
+	-Alkotás Udvar 8: Average
+	-Hegyalja Vendégház 9: Perfect
+	-Aranypart Panzió 10: Bad
+	-asd: Perfect
+
+Budget: 705148

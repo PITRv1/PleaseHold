@@ -23,6 +23,7 @@ public class SaveCSV : MonoBehaviour {
         TurnsToFinish,
         Turns,
         Status,
+        Plot,
     }
 
     public enum ServiceColumns {
@@ -129,6 +130,7 @@ public class SaveCSV : MonoBehaviour {
             AddValueToLine(0, "turns to finish", fileBuildingPath);
             AddValueToLine(0, "turns", fileBuildingPath);
             AddValueToLine(0, "status", fileBuildingPath);
+            AddValueToLine(0, "plot", fileBuildingPath);
             AddValueToLine(0, "cost", fileServicePath);
 
             AddTurnsToFinish(fileBuildingPath);
@@ -163,7 +165,7 @@ public class SaveCSV : MonoBehaviour {
                 }
             }
 
-            
+            AddHolderPlot(fileBuildingPath);
 
             int sYear = Int32.Parse(startDate.Split('-')[0]);
 
@@ -207,6 +209,18 @@ public class SaveCSV : MonoBehaviour {
         for (int i = 0; i < fileLength; i++) {
             if (i == 0) continue;
             AddValueToLine(i, "0", filePath);
+        }
+
+        ReloadAllCSV();
+    }
+
+    private void AddHolderPlot(string filePath) {
+
+        int fileLength = GetCSVLength(filePath);
+
+        for (int i = 0; i < fileLength; i++) {
+            if (i == 0) continue;
+            AddValueToLine(i, "-1", filePath);
         }
 
         ReloadAllCSV();

@@ -19,10 +19,22 @@ public class PlotHandler : MonoBehaviour {
     public void ReloadLists() {
         plotList = new List<Transform>();
         availablePlotList = new List<Transform>();
+
         foreach (Transform plot in transform) {
             plotList.Add(plot);
-            Plot flatScript = plot.GetComponent<Plot>();
-            if (flatScript.isReserved) continue;
+        }
+
+        List<string> buildings = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath());
+
+        foreach (string building in buildings) {
+            string[] line = building.Split(',');
+        }
+
+
+            foreach (Transform plot in transform) {
+            plotList.Add(plot);
+            Plot plotScript = plot.GetComponent<Plot>();
+            if (plotScript.isReserved) continue;
             availablePlotList.Add(plot);
         }
     }

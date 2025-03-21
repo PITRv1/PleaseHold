@@ -133,9 +133,11 @@ public class GameHandler : MonoBehaviour {
 
     public void CreateNewBuilding(string name, string type, string date, string usefulArea, string turnsToBuild, string turns, string status, Plot plot) {
 
+        List<Plot> plotList = PlotHandler.Instance.GetPlotList();
+
         string buildingsCSVPath = SaveCSV.Instance.GetBuildingFilePath();
         string id = SaveCSV.Instance.GetCSVLength(buildingsCSVPath).ToString();
-        string newLine = $"{id},{name},{type},{date},{usefulArea},{turnsToBuild},{turns},in construction";
+        string newLine = $"{id},{name},{type},{date.Split('-')[0]},{usefulArea},{turnsToBuild},{turns},in construction,{plotList.IndexOf(plot)}";
 
         SaveCSV.Instance.WriteNewLineIntoCSV(buildingsCSVPath, newLine);
         CreateFlat(id, name, type, date, usefulArea, turnsToBuild, turns, status, plot);

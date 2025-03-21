@@ -21,8 +21,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         Built,
     }
 
-
-    private int buildingid;
+    private int buildingid = 3;
     private string buildingName;
     private string buildingType;
     private int buildingYear;

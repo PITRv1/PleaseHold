@@ -1,49 +1,56 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlotHandler : MonoBehaviour {
 
-    private List<Transform> plotList = new List<Transform>();
-    private List<Transform> availablePlotList = new List<Transform>();
+    private List<Plot> plotList = new List<Plot>();
+    private List<Plot> availablePlotList = new List<Plot>();
     public static PlotHandler Instance {
         private set;
         get;
     }
     private void Awake() {
         Instance = this;
+    }
+
+    private void Start() {
         ReloadLists();
     }
 
     public void ReloadLists() {
-        plotList = new List<Transform>();
-        availablePlotList = new List<Transform>();
+        plotList = new List<Plot>();
+        availablePlotList = new List<Plot>();
 
-        foreach (Transform plot in transform) {
+        Plot[] plotArray = transform.GetComponentsInChildren<Plot>();
+
+        foreach (Plot plot in plotArray) {
             plotList.Add(plot);
         }
 
         List<string> buildings = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath());
+        buildings.RemoveAt(0);
 
         foreach (string building in buildings) {
             string[] line = building.Split(',');
+            if (Int32.Parse(line[(int)SaveCSV.BuildingColumns.Plot]) >= 0) {
+                plotList[Int32.Parse(line[(int)SaveCSV.BuildingColumns.Plot])].isReserved = true;
+            }
         }
 
-
-            foreach (Transform plot in transform) {
-            plotList.Add(plot);
-            Plot plotScript = plot.GetComponent<Plot>();
-            if (plotScript.isReserved) continue;
-            availablePlotList.Add(plot);
+        foreach (Plot plot in plotList) {
+            if (plot.isReserved == true) continue;
+               availablePlotList.Add(plot);
         }
     }
 
-    public List<Transform> GetPlotList() {
+    public List<Plot> GetPlotList() {
         return plotList;
     }
-    public List<Transform> GetAvailablePlotList() {
-        return plotList;
+    public List<Plot> GetAvailablePlotList() {
+        return availablePlotList;
     }
 
 }

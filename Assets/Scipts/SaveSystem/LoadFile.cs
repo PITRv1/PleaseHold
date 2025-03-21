@@ -31,8 +31,8 @@ public class LoadFile : MonoBehaviour {
 
     private void Start() {
 
-        List<Transform> plotList = PlotHandler.Instance.GetPlotList();
-        List<Transform> avaliablePlotList = PlotHandler.Instance.GetAvailablePlotList();
+        List<Plot> plotList = PlotHandler.Instance.GetPlotList();
+        List<Plot> avaliablePlotList = PlotHandler.Instance.GetAvailablePlotList();
 
 
         fileList = SaveCSV.Instance.GetBuildingFileList();
@@ -44,8 +44,8 @@ public class LoadFile : MonoBehaviour {
                 int index = Int32.Parse(file[(int)Columns.Plot]);
 
                 string buildingId = file[(int)Columns.Id];
-                Flat flat = Instantiate(flatPrefab, avaliablePlotList[index]);
-                Plot plotScript = avaliablePlotList[index].GetComponent<Plot>();
+                Flat flat = Instantiate(flatPrefab, plotList[index].transform);
+                Plot plotScript = plotList[index].GetComponent<Plot>();
 
                 int id = Int32.Parse(file[(int)Columns.Id]);
                 string name = file[(int)Columns.Name];
@@ -57,7 +57,7 @@ public class LoadFile : MonoBehaviour {
                 int TurnsTillFinish = Int32.Parse(file[(int)Columns.TurnsToFinish]);
                 int turns = Int32.Parse(file[(int)Columns.Turns]);
 
-                flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, avaliablePlotList[index]);
+                flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, plotList[index].transform);
                 plotScript.isReserved = true;
 
             }
@@ -65,6 +65,8 @@ public class LoadFile : MonoBehaviour {
         }
 
         PlotHandler.Instance.ReloadLists();
+        plotList = PlotHandler.Instance.GetPlotList();
+        avaliablePlotList = PlotHandler.Instance.GetAvailablePlotList();
 
 
         foreach (List<string> file in fileList) {
@@ -72,7 +74,7 @@ public class LoadFile : MonoBehaviour {
             if (file[(int)Columns.Plot] == "-1") {
 
                 string buildingId = file[(int)Columns.Id];
-                    Flat flat = Instantiate(flatPrefab, avaliablePlotList[0]);
+                    Flat flat = Instantiate(flatPrefab, avaliablePlotList[0].transform);
                     Plot plotScript = avaliablePlotList[0].GetComponent<Plot>();
 
                     int id = Int32.Parse(file[(int)Columns.Id]);
@@ -85,7 +87,7 @@ public class LoadFile : MonoBehaviour {
                     int TurnsTillFinish = Int32.Parse(file[(int)Columns.TurnsToFinish]);
                     int turns = Int32.Parse(file[(int)Columns.Turns]);
 
-                    flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, avaliablePlotList[0]);
+                    flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, avaliablePlotList[0].transform);
                     plotScript.isReserved = true;
 
                     SaveCSV.Instance.EditOneValueOnLine(Int32.Parse(buildingId), SaveCSV.BuildingColumns.Plot, SaveCSV.Instance.GetBuildingFilePath(), plotList.IndexOf(avaliablePlotList[0]).ToString());

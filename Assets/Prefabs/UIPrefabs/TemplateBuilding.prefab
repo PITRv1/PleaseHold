@@ -247,7 +247,7 @@ MonoBehaviour:
     - m_Text: Bad
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Avarage
+    - m_Text: Average
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: Good

@@ -47,9 +47,11 @@ public class PlotHandler : MonoBehaviour {
     }
 
     public List<Plot> GetPlotList() {
+        ReloadLists();
         return plotList;
     }
     public List<Plot> GetAvailablePlotList() {
+        ReloadLists();
         return availablePlotList;
     }
 

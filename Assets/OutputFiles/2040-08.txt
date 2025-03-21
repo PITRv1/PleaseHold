@@ -1,17 +1,15 @@
-Létrejött egy új projekt asd néven
-Létrejött egy új épület asd néven
 
 Épületek állapota:
-	-Napfény Lakópark 1: Bad
-	-Kossuth Gimnázium 2: Good
-	-Panoráma Ház 3: Good
-	-Rózsa Villa 4: Average
+	-Napfény Lakópark 1: Awful
+	-Kossuth Gimnázium 2: Perfect
+	-Panoráma Ház 3: Bad
+	-Rózsa Villa 4: Good
 	-Duna Office Iroda 5: Bad
-	-Szent István Általános Iskola 6: Awful
-	-Béke Lakótelep 7: Perfect
-	-Alkotás Udvar 8: Average
-	-Hegyalja Vendégház 9: Perfect
-	-Aranypart Panzió 10: Bad
+	-Szent István Általános Iskola 6: Perfect
+	-Béke Lakótelep 7: Good
+	-Alkotás Udvar 8: Good
+	-Hegyalja Vendégház 9: Bad
+	-Aranypart Panzió 10: Awful
 	-asd: in construction
 
-Budget: 927151
+Budget: 853884

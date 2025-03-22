@@ -19,22 +19,18 @@ public class EndServiceTabUI : MonoBehaviour
     {
         fadeControllerUI = GetComponent<FadeControllerUI>();
 
-        exitButton.onClick.AddListener(() => {
-            if (isShowing == true)
-            {
-                Hide();
-            }
-            else
-            {
-                Show();
-            }
-        });
+        exitButton.onClick.AddListener(Hide);
     }
 
 
     private void Start()
     {
         UpdateServiceContainer();
+
+        // Set self to inactive instantly upon start
+        CameraSystem.Instance.EnableCamInputs();
+        isShowing = false;
+        gameObject.SetActive(false);
     }
 
     private void UpdateServiceContainer()
@@ -50,25 +46,25 @@ public class EndServiceTabUI : MonoBehaviour
         {
             string serviceName = serviceNameList[i];
 
-            string[] parameters = serviceName.Split(";");
+            string[] parameters = serviceName.Split(",");
 
             EndServicePrefabUI instance = Instantiate(servicePrefab, serviceContainer.transform);
 
 
-            //instance.SetName(parameters[0]);
-            //instance.SetName(parameters[(int)SaveCSV.ServiceColumns.Name]);
-            //instance.SetCost(parameters[(int)SaveCSV.ServiceColumns.Cost]);
+            instance.SetName(parameters[(int)SaveCSV.ServiceColumns.Name]);
+            instance.SetCost(parameters[(int)SaveCSV.ServiceColumns.Cost]);
+            instance.SetId(parameters[(int)SaveCSV.ServiceColumns.Id]);
         }
     }
 
 
-    private void Hide()
+    public void Hide()
     {
         CameraSystem.Instance.EnableCamInputs();
         isShowing = false;
         fadeControllerUI.FadeOut(.2f);
     }
-    private void Show()
+    public void Show()
     {
         CameraSystem.Instance.DisableCamInputs();
         isShowing = true;

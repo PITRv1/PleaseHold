@@ -11,7 +11,6 @@ using UnityEngine.UIElements;
 public class ServiceField : MonoBehaviour {
 
     [SerializeField] private Transform flatPrefab;
-    [SerializeField] private Button serviceButton;
 
     private RectTransform rectTransform;
 
@@ -31,6 +30,8 @@ public class ServiceField : MonoBehaviour {
     private bool isShowing;
 
     private Transform givenGameObject;
+    private FadeControllerUI fadeControllerUI;
+
 
     public static ServiceField Instance {
         private set;
@@ -38,6 +39,8 @@ public class ServiceField : MonoBehaviour {
     }
 
     private void Awake() {
+        fadeControllerUI = GetComponent<FadeControllerUI>();
+
         Instance = this;
         exitButton.onClick.AddListener(() => {
             Hide();
@@ -67,30 +70,31 @@ public class ServiceField : MonoBehaviour {
 
             Hide();
         });
-        serviceButton.onClick.AddListener(() => {
-            if (isShowing == true) {
-                Hide();
-            } else {
-                Show();
-            }
-        });
     }
 
     private void Start() {
         rectTransform = GetComponent<RectTransform>();
-        Hide();
-    }
 
-    private void Hide() {
+        // Set self to inactive instantly upon start
+        CameraSystem.Instance.EnableCamInputs();
         isShowing = false;
         gameObject.SetActive(false);
+    }
+
+    public void Hide() {
+        isShowing = false;
+        CameraSystem.Instance.EnableCamInputs();
+        fadeControllerUI.FadeOut(.2f);
+
         serviceName.text = "";
         serviceType.text = "";
         serviceBuilding.text = "";
         serviceCost.text = "";
+
     }
-    private void Show() {
+    public void Show() {
         isShowing = true;
-        gameObject.SetActive(true);
+        CameraSystem.Instance.DisableCamInputs();
+        fadeControllerUI.FadeIn(.2f);
     }
 }

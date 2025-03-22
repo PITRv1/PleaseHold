@@ -11,6 +11,7 @@ public class HamburgerMenuUI : MonoBehaviour
     [SerializeField] private Button newProjectButton;
     [SerializeField] private Button hamburgerButton;
 
+
     private FadeControllerUI newServiceButtonFadeC;
     private FadeControllerUI delServiceButtonFadeC;
     private FadeControllerUI newProjectButtonFadeC;

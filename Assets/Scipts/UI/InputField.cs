@@ -14,7 +14,7 @@ public class InputFieldBackground : MonoBehaviour {
     private RectTransform rectTransform;
 
     [SerializeField] TMP_InputField buildingName;
-    [SerializeField] TMP_InputField buildingType;
+    [SerializeField] TMP_Dropdown buildingTypeDropdown;
     [SerializeField] TMP_InputField buildingArea;
     [SerializeField] TMP_InputField buildingTurnsToBuild;
 
@@ -44,11 +44,11 @@ public class InputFieldBackground : MonoBehaviour {
 
             string buildingNameText = buildingName.text;
             string buildingAreaText = buildingArea.text;
-            string buildingTypeText = buildingType.text;
+            string buildingTypeText = buildingTypeDropdown.options[buildingTypeDropdown.value].text;
             string buildingTurnsToBuildText = buildingTurnsToBuild.text;
 
             buildingName.text = "";
-            buildingType.text = "";
+            //buildingTypeDropdown.options[buildingTypeDropdown.value].text = "";
             buildingArea.text = "";
             buildingTurnsToBuild.text = "";
 
@@ -126,7 +126,7 @@ public class InputFieldBackground : MonoBehaviour {
         //CameraSystem.Instance.;
         gameObject.SetActive(false);
         buildingName.text = "";
-        buildingType.text = "";
+        //buildingTypeDropdown.options[0] = buildingTypeDropdown.options[0];
         buildingArea.text = "";
     }
     private void Show() {

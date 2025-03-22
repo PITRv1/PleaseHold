@@ -12,6 +12,7 @@ public class CameraSystem : MonoBehaviour {
     [SerializeField] private float moveSpeed = 0.1f;
     [SerializeField] private float orbitSpeed = 0.1f;
     [SerializeField] private float zoomSpeed = 1f;
+    [SerializeField] private float focusSpeed = 8f;
 
     [SerializeField] private CinemachineOrbitalFollow orbitCamera;
 
@@ -19,6 +20,10 @@ public class CameraSystem : MonoBehaviour {
     private bool isShiftHeld = false;
     private bool isMiddleMouseHeld = false;
     private Vector2 moveInput;
+
+    public Vector3 targetPosition;
+    private bool centeredOnTarget;
+    private bool focusing = false;
 
     //private CinemachineOrbitalFollow orbitalFollowComponent;
 
@@ -44,7 +49,7 @@ public class CameraSystem : MonoBehaviour {
         cameraInputActions.Camera.ZoomIn.performed += ctx => ZoomIn();
         cameraInputActions.Camera.ZoomOut.performed += ctx => ZoomOut();
 
-        cameraInputActions.Camera.Focus.performed += ctx => Focus();
+        cameraInputActions.Camera.Focus.performed += ctx => focusing = true;
 
         cameraInputActions.Camera.Enable();
     }
@@ -54,6 +59,18 @@ public class CameraSystem : MonoBehaviour {
 
     private void Update()
     {
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            focusing = false;
+            centeredOnTarget = true;
+        }
+        else { centeredOnTarget = false; }
+
+        if (!centeredOnTarget && focusing)
+        {
+            Focus();
+        }
+
         if (isShiftHeld && isMiddleMouseHeld)
         {
             MoveHorizontal();
@@ -62,6 +79,8 @@ public class CameraSystem : MonoBehaviour {
         {
             OrbitCamera();
         }
+
+
     }
 
     private void MoveHorizontal()
@@ -98,7 +117,7 @@ public class CameraSystem : MonoBehaviour {
 
     private void ZoomIn()
     {
-        if (orbitCamera.Radius > 5f) { 
+        if (orbitCamera.Radius + zoomSpeed > 20f) { 
             orbitCamera.Radius -= zoomSpeed;
         }
     }
@@ -109,6 +128,6 @@ public class CameraSystem : MonoBehaviour {
 
     private void Focus()
     {
-        Debug.Log("Focusing on selected object!");
+        transform.position = Vector3.Lerp(transform.position, targetPosition, focusSpeed * Time.deltaTime);
     }
 }

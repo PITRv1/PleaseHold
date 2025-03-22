@@ -108,8 +108,12 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         }
     }
     public void OnPointerClick(PointerEventData eventData) {
+        
         if (eventData.button == PointerEventData.InputButton.Right) {
             EventHandlerScript.Instance.SendOnFlatRightClick(this);
+        } else if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            CameraSystem.Instance.targetPosition = this.transform.position;
         }
     }
 

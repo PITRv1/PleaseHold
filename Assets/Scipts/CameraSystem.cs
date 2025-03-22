@@ -117,13 +117,14 @@ public class CameraSystem : MonoBehaviour {
 
     private void ZoomIn()
     {
-        if (orbitCamera.Radius + zoomSpeed > 20f) { 
+        if (orbitCamera.Radius - zoomSpeed > 20f) { 
             orbitCamera.Radius -= zoomSpeed;
         }
     }
     private void ZoomOut()
     {
-        orbitCamera.Radius += zoomSpeed;
+        if (orbitCamera.Radius + zoomSpeed < 1000f)
+            orbitCamera.Radius += zoomSpeed;
     }
 
     private void Focus()

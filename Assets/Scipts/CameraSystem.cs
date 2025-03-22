@@ -131,4 +131,8 @@ public class CameraSystem : MonoBehaviour {
     {
         transform.position = Vector3.Lerp(transform.position, targetPosition, focusSpeed * Time.deltaTime);
     }
+
+    public void DisableCamInputs() { cameraInputActions.Disable(); }
+    public void EnableCamInputs() { cameraInputActions.Enable(); }
+
 }

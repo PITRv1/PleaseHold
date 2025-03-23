@@ -34,4 +34,9 @@ public class ServiceInputUI : MonoBehaviour
     {
         return costInputField.text;
     }
+
+    public void SetCost(float value)
+    {
+        costInputField.text = value.ToString("F1");
+    }
 }

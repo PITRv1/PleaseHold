@@ -43,12 +43,4 @@ public class PlaySubMenu : SubMenu
             canvasFadeControllerUI.FadeOut(2f);
         }
     }
-
-    //private void Update()
-    //{
-    //    if (inputManager.CanGameStart())
-    //    {
-            
-    //    }
-    //}
 }

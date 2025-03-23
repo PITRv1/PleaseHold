@@ -146,7 +146,9 @@ public class PlaySubMenuInputManager : MonoBehaviour
             string.IsNullOrWhiteSpace(monthInputField.text) ||
             string.IsNullOrWhiteSpace(simulationLengthInputField.text) ||
             string.IsNullOrWhiteSpace(minPopulationHappinessInputField.text) ||
-            string.IsNullOrWhiteSpace(initialBudgetField.text))
+            string.IsNullOrWhiteSpace(initialBudgetField.text) ||
+            
+            !serviceContainerUI.AllServiceCostFilled())
         {
             gameCanStart = false;
             errorText.gameObject.SetActive(true);

@@ -1,13 +1,23 @@
 using System.Collections.Generic;
-using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.iOS;
+using UnityEngine.UI;
 
 public class ServiceContainerUI : MonoBehaviour
 {
     [SerializeField] private ServiceInputUI serviceTemplate;
+    [SerializeField] private Button randomizeCostButton;
+    [SerializeField] private TMP_InputField rangeFromInputField;
+    [SerializeField] private TMP_InputField rangeToInputField;
 
     private List<ServiceInputUI> serviceCostObject;
     private List<string> serviceCostList;
+
+    private void Awake()
+    {
+        randomizeCostButton.onClick.AddListener(RandomizeServiceCost);
+    }
 
     private void Start() {
         serviceCostObject = new List<ServiceInputUI>();
@@ -25,6 +35,29 @@ public class ServiceContainerUI : MonoBehaviour
         }
     }
 
+    private void RandomizeServiceCost()
+    {
+
+        float from, to;
+
+        if (!float.TryParse(rangeFromInputField.text, out from) ||
+            !float.TryParse(rangeToInputField.text, out to))
+        {
+            return;
+        }
+
+        if (from > to) {
+            return;
+        }
+
+        foreach (ServiceInputUI service in serviceCostObject)
+        {
+            float randomIndex = Random.Range(from, to);
+
+            service.SetCost(randomIndex);
+        }
+    }
+
     public string GetServiceCost() {
 
         serviceCostList = new List<string>();
@@ -35,5 +68,18 @@ public class ServiceContainerUI : MonoBehaviour
         }
         string stringServiceCost = string.Join(',', serviceCostList);
         return stringServiceCost;
+    }
+
+    public bool AllServiceCostFilled()
+    {
+        foreach (ServiceInputUI service in serviceCostObject) // Corrected loop condition
+        {
+            if (service.GetInputValue() == "")
+            {
+                return false;
+            }
+        }
+        
+        return true;
     }
 }

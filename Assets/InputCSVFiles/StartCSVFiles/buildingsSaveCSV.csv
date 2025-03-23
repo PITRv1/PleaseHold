@@ -1,11 +1,11 @@
 épület azonosító,név,típus,építés éve,hasznos terület,turns to finish,turns,status,plot,color
-1,Napfény Lakópark 1,lakóház,2026,100,0,0,Awful,947,blue
-2,Kossuth Gimnázium 2,iskola,2027,200,0,0,Awful,341,brown
-3,Panoráma Ház 3,tömbház,2028,300,0,0,Awful,1024,green
-4,Rózsa Villa 4,irodaház,2029,400,0,0,Awful,51,purple
-5,Duna Office Iroda 5,vendégház,2030,500,0,0,Awful,681,purple
-6,Szent István Általános Iskola 6,panzió,2031,600,0,0,Awful,900,green
-7,Béke Lakótelep 7,lakóház,2032,700,0,0,Awful,432,green
-8,Alkotás Udvar 8,iskola,2033,800,0,0,Awful,44,blue
-9,Hegyalja Vendégház 9,tömbház,2034,900,0,0,Awful,243,purple
-10,Aranypart Panzió 10,irodaház,2035,1000,0,0,Awful,541,blue
+1,Napfény Lakópark 1,lakóház,2026,100,0,0,Awful,449,blue
+2,Kossuth Gimnázium 2,iskola,2027,200,0,0,Perfect,796,yellow
+3,Panoráma Ház 3,tömbház,2028,300,0,0,Bad,1139,green
+4,Rózsa Villa 4,irodaház,2029,400,0,0,Average,862,purple
+5,Duna Office Iroda 5,vendégház,2030,500,0,0,Awful,1069,purple
+6,Szent István Általános Iskola 6,panzió,2031,600,0,0,Bad,1008,yellow
+7,Béke Lakótelep 7,lakóház,2032,700,0,0,Perfect,76,brown
+8,Alkotás Udvar 8,iskola,2033,800,0,0,Perfect,507,green
+9,Hegyalja Vendégház 9,tömbház,2034,900,0,0,Bad,868,brown
+10,Aranypart Panzió 10,irodaház,2035,1000,0,0,Good,987,yellow

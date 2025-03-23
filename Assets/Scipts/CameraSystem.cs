@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,8 @@ public class CameraSystem : MonoBehaviour {
         private set;
         get;
     }
+
+    public event EventHandler OnPauseKeyPressed;
 
     [SerializeField] private float moveSpeed = 0.1f;
     [SerializeField] private float orbitSpeed = 0.1f;
@@ -50,6 +53,8 @@ public class CameraSystem : MonoBehaviour {
         cameraInputActions.Camera.ZoomOut.performed += ctx => ZoomOut();
 
         cameraInputActions.Camera.Focus.performed += ctx => focusing = true;
+        
+        cameraInputActions.Camera.Pause.performed += ctx => OnPauseKeyPressed?.Invoke(this, EventArgs.Empty);
 
         cameraInputActions.Camera.Enable();
     }

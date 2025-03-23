@@ -32,6 +32,7 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] float newBuildingHappines;
     [SerializeField] float newServiceHappines;
     [SerializeField] float endServiceHappines;
+    [SerializeField] EndGameUI endGameUI; 
 
     private int turnCount = 0;
     private int simStartYear;
@@ -89,11 +90,11 @@ public class GameHandler : MonoBehaviour {
         HandleServices();
         NewMonthEvent?.Invoke(this, EventArgs.Empty);
         population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath());
-        CheckGameState();
         RandomEvent();
         populationHappiness = Mathf.Clamp(populationHappiness, populationMinHappiness, populationMaxHappiness); // Just make sure it works bruh
         UpdateHUD();
         SaveToJson();
+        CheckGameState();
     }
 
     private void RandomEvent() {
@@ -257,13 +258,16 @@ public class GameHandler : MonoBehaviour {
 
     private void CheckGameState() {
         if (budget <= 0) {
-            Debug.Log("It's so over, no budget");
+            endGameUI.SetStats("Exceeded budget constraints", budget.ToString(), populationHappiness.ToString(), turnCount.ToString(), simLength.ToString());
+            endGameUI.Show();
         }
         if (populationHappiness < populationMinHappiness) {
-            Debug.Log("It's so over, no happi");
+            endGameUI.SetStats("Happiness fell below the required minimum", budget.ToString(), populationHappiness.ToString(), turnCount.ToString(), simLength.ToString());
+            endGameUI.Show();
         }
-        if (endDate == date) {
-            Debug.Log("WIN");
+        if (turnCount >= simLength) {
+            endGameUI.SetStats("Simulation time period completed", budget.ToString(), populationHappiness.ToString(), turnCount.ToString(), simLength.ToString());
+            endGameUI.Show();
         }
     }
 
@@ -331,5 +335,10 @@ public class GameHandler : MonoBehaviour {
 
     public float GetBudget() {
         return budget;
+    }
+
+    public int SimulationLength()
+    {
+        return simLength;
     }
 }

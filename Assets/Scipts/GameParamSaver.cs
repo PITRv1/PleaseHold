@@ -30,7 +30,7 @@ public class GameParamSaver : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt", json);
 
         string oldSaveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
-        if (oldSaveFilePath != null)
+        if (File.Exists(oldSaveFilePath))
         {
             File.Delete(oldSaveFilePath);
         }

@@ -153,6 +153,15 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""8aa07f8e-78f0-4236-b064-a44df712d5e2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""addToTurn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbf3e511-88d8-4894-83c3-016e7c76dd05"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -247,6 +267,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         m_Camera_ZoomIn = m_Camera.FindAction("ZoomIn", throwIfNotFound: true);
         m_Camera_ZoomOut = m_Camera.FindAction("ZoomOut", throwIfNotFound: true);
         m_Camera_addToTurn = m_Camera.FindAction("addToTurn", throwIfNotFound: true);
+        m_Camera_Pause = m_Camera.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@CameraInput_Actions()
@@ -334,6 +355,7 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Camera_ZoomIn;
     private readonly InputAction m_Camera_ZoomOut;
     private readonly InputAction m_Camera_addToTurn;
+    private readonly InputAction m_Camera_Pause;
     /// <summary>
     /// Provides access to input actions defined in input action map "Camera".
     /// </summary>
@@ -373,6 +395,10 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Camera/addToTurn".
         /// </summary>
         public InputAction @addToTurn => m_Wrapper.m_Camera_addToTurn;
+        /// <summary>
+        /// Provides access to the underlying input action "Camera/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_Camera_Pause;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -420,6 +446,9 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @addToTurn.started += instance.OnAddToTurn;
             @addToTurn.performed += instance.OnAddToTurn;
             @addToTurn.canceled += instance.OnAddToTurn;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         /// <summary>
@@ -452,6 +481,9 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
             @addToTurn.started -= instance.OnAddToTurn;
             @addToTurn.performed -= instance.OnAddToTurn;
             @addToTurn.canceled -= instance.OnAddToTurn;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         /// <summary>
@@ -541,5 +573,12 @@ public partial class @CameraInput_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAddToTurn(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
 }

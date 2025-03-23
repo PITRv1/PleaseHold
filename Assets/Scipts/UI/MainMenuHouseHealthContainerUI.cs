@@ -2,14 +2,21 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MainMenuHouseHealthContainerUI : MonoBehaviour
 {
     [SerializeField] private MainMenuHouseHealthInputUI buildingTemplate;
+    [SerializeField] private Button randomizeHouseButton;
 
     private List<MainMenuHouseHealthInputUI> houseConditionArray;
     private List<string> houseConitions;
-    
+
+    private void Awake()
+    {
+        randomizeHouseButton.onClick.AddListener(RandomizeHouseIntegrity);
+    }
+
     private void Start()
     {
 
@@ -27,6 +34,16 @@ public class MainMenuHouseHealthContainerUI : MonoBehaviour
             houseConditionArray.Add(house);
         }
     }
+
+    private void RandomizeHouseIntegrity()
+    {
+        foreach (MainMenuHouseHealthInputUI house in houseConditionArray)
+        {
+            int randomIndex = Random.Range(0, 5);
+            house.SetDropdownValue(randomIndex);
+        }
+    }
+
     public string GetHouseContidions() {
 
         houseConitions = new List<string>();

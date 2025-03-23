@@ -15,4 +15,12 @@ public class MainMenuHouseHealthInputUI : MonoBehaviour
     public int GetSelectedDropdownItemIndex() {
         return dropdown != null ? dropdown.value : -1;
     }
+    public void SetDropdownValue(int index)
+    {
+        if (dropdown != null && index >= 0 && index < dropdown.options.Count)
+        {
+            dropdown.value = index;
+            dropdown.RefreshShownValue();
+        }
+    }
 }

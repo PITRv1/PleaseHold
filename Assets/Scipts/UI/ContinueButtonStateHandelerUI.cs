@@ -10,9 +10,8 @@ public class ContinueButtonStateHandelerUI : MonoBehaviour
 
     private void Start()
     {
-         saveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
+        saveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
 
-        print(File.Exists(saveFilePath));
 
         if (!File.Exists(saveFilePath))
         {

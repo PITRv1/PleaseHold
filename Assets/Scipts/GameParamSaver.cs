@@ -28,6 +28,12 @@ public class GameParamSaver : MonoBehaviour
         string json = JsonUtility.ToJson(saveObject);
 
         File.WriteAllText(Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt", json);
+
+        string oldSaveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
+        if (oldSaveFilePath != null)
+        {
+            File.Delete(oldSaveFilePath);
+        }
     }
 
     public class SaveObject

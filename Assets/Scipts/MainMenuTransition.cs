@@ -13,6 +13,12 @@ public class MainMenuTransition : MonoBehaviour
     private void Start()
     {
         playSubMenu.OnGameCanStart += PlaySubMenu_OnGameCanStart;
+        playSubMenu.OnGameCanContinue += PlaySubMenu_OnGameCanContinue;
+    }
+
+    private void PlaySubMenu_OnGameCanContinue(object sender, System.EventArgs e)
+    {
+        StartCoroutine(WaitForCameraTransition());
     }
 
     private void PlaySubMenu_OnGameCanStart(object sender, System.EventArgs e)

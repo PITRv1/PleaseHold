@@ -1,5 +1,6 @@
 using SFB;
 using System;
+using System.IO;
 using TMPro;
 using UnityEditor.UI;
 using UnityEngine;
@@ -43,6 +44,8 @@ public class PlaySubMenuInputManager : MonoBehaviour
 
     [SerializeField] private PlaySubMenu playSubMenu;
 
+    [SerializeField] private Button inputDefaultButton;
+
     [SerializeField] private Button inputBuildingsButton;
     [SerializeField] private Button inputPeopleButton;
     [SerializeField] private Button inputServicesButton;
@@ -73,10 +76,14 @@ public class PlaySubMenuInputManager : MonoBehaviour
     private bool gameCanStart = false;
     private void Awake()
     {
+
         inputBuildingsText = inputBuildingsButton.GetComponentInChildren<TMP_Text>();
         inputPeopleText = inputPeopleButton.GetComponentInChildren<TMP_Text>();
         inputServicesText = inputServicesButton.GetComponentInChildren<TMP_Text>();
 
+
+
+        inputDefaultButton.onClick.AddListener(SetDefaultFilePath);
 
         inputBuildingsButton.onClick.AddListener(OpenBuildingsFilePath);
         inputPeopleButton.onClick.AddListener(OpenPeopleFilePath);
@@ -166,6 +173,13 @@ public class PlaySubMenuInputManager : MonoBehaviour
         OnSimulationStarted?.Invoke(this, new GameParametersEventArgs(buildingsPath, peoplePath, servicesPath, startDate, simulationLength, minHappiness, startingHappiness, initialBudget, houseConditions, serviceCosts));
     }
 
+
+    private void SetDefaultFilePath()
+    {
+        inputBuildingsText.text = Application.dataPath + "/InputCSVFiles/SaveCSVFiles/buildingsCSV.csv";
+        inputPeopleText.text = Application.dataPath + "/InputCSVFiles/SaveCSVFiles/residentsCSV.csv";
+        inputServicesText.text = Application.dataPath + "/InputCSVFiles/SaveCSVFiles/servicesCSV.csv";
+    }
 
     private string GetSelectedFilePath()
     {

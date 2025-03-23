@@ -6,10 +6,12 @@ using System.Collections;
 
 public class PlaySubMenu : SubMenu
 {
+    public event EventHandler OnGameCanContinue;
+
     public event EventHandler OnSimStarted;
     public event EventHandler OnGameCanStart;
 
-
+    [SerializeField] private Button simulationContinueButton;
     [SerializeField] private Button simulationStartButton;
     [SerializeField] private PlaySubMenuInputManager inputManager;
     [SerializeField] private CameraChangeController cameraChangeController;
@@ -17,9 +19,18 @@ public class PlaySubMenu : SubMenu
 
     public void Awake()
     {
+        simulationContinueButton.onClick.AddListener(ContinueSimulation);
         simulationStartButton.onClick.AddListener(StartSimulation);
     }
 
+
+    private void ContinueSimulation()
+    {
+        OnGameCanContinue?.Invoke(this, EventArgs.Empty);
+
+        cameraChangeController.Transition();
+        canvasFadeControllerUI.FadeOut(2f);
+    }
 
     private void StartSimulation()
     {
@@ -29,14 +40,15 @@ public class PlaySubMenu : SubMenu
         {
             OnGameCanStart?.Invoke(this, EventArgs.Empty);
             cameraChangeController.Transition();
-        }
-    }
-
-    private void Update()
-    {
-        if (inputManager.CanGameStart())
-        {
             canvasFadeControllerUI.FadeOut(2f);
         }
     }
+
+    //private void Update()
+    //{
+    //    if (inputManager.CanGameStart())
+    //    {
+            
+    //    }
+    //}
 }

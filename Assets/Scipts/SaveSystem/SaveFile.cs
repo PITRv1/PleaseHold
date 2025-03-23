@@ -199,7 +199,7 @@ public class SaveCSV : MonoBehaviour {
             int sYear = Int32.Parse(startDate.Split('-')[0]);
 
             foreach (string line in ReadLinesFromCSV(fileBuildingPath)) {
-                if (sYear < line[(int)BuildingColumns.Year]) Debug.LogError("One of the building is built in the future");
+                if (sYear < line[(int)BuildingColumns.Year]) Debug.LogError("One of the buildings is built in the future");
             }
 
         } else {

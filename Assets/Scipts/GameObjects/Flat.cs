@@ -99,6 +99,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         buildingTurnsTillFinish = turnsTillFinish;
 
         switch (type) {
+            default:
             case "lakóház":
                 switch (color) {
                     case "blue":

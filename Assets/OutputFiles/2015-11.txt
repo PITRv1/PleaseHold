@@ -1,5 +1,5 @@
-Befejeződött egy projekt 5 néven
-Befejeződött egy projekt 5 néven
+Létrejött egy új projekt Kerberoszi Janos Residencia néven
+Létrejött egy új épület Kerberoszi Janos Residencia néven
 
 Épületek állapota:
 	-Napfény Lakópark 1: Good
@@ -12,8 +12,9 @@ Befejeződött egy projekt 5 néven
 	-Alkotás Udvar 8: Awful
 	-Hegyalja Vendégház 9: Good
 	-Aranypart Panzió 10: Awful
-	-5: in construction
-	-5: in construction
-	-5: in construction
+	-5: Perfect
+	-5: Perfect
+	-5: Perfect
+	-Kerberoszi Janos Residencia: in construction
 
-Budget: -477839
+Budget: -489859

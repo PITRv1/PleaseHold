@@ -6,6 +6,8 @@ public class Plot : MonoBehaviour, IPointerClickHandler {
 
 
     Transform Flat;
+    [SerializeField] private GameObject selectedVisual;
+
 
     public bool isReserved = false;
 

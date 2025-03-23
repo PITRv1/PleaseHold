@@ -1,3 +1,21 @@
 szolgáltatás azonosító,név,típus,kapcsolódó épület azonosítója,cost
-1,5,5,5,10000
-2,1,1,1,100000
+1,Hulladékszállítás,Közmű,16,1
+2,Útkarbantartás,Karbantartás,1;4;19;3;11,1
+3,Postaszolgáltatás,Közmű,4;11;3,1
+4,Tűzvédelem,Alapszolgáltatás,10;18,1
+5,Postaszolgáltatás,Vészhelyzeti,14;9;15;16,1
+6,Internet,Karbantartás,6;13;19;15,1
+7,Tűzvédelem,Közmű,5;17;4;6;16,1
+8,Internet,Alapszolgáltatás,1;13,1
+9,Tűzvédelem,Alapszolgáltatás,4;6;19;5;13,1
+10,Útkarbantartás,Alapszolgáltatás,7;14;2,1
+11,Közvilágítás,Vészhelyzeti,3;1;2,1
+12,Tűzvédelem,Alapszolgáltatás,10;8,1
+13,Hulladékszállítás,Karbantartás,8;5,1
+14,Gázszolgáltatás,Vészhelyzeti,7,1
+15,Vízellátás,Vészhelyzeti,4,1
+16,Közvilágítás,Karbantartás,9,1
+17,Közvilágítás,Karbantartás,8;18;3,1
+18,Vízellátás,Közmű,10;4;9;18,1
+19,Hulladékszállítás,Közmű,14,1
+20,Internet,Alapszolgáltatás,17;8;5;1;13,1

@@ -162,16 +162,16 @@ public class GameHandler : MonoBehaviour {
 
     }
 
-    public void CreateNewBuilding(string name, string type, string date, string usefulArea, string turnsToBuild, string turns, string status, Plot plot) {
+    public void CreateNewBuilding(string name, string type, string date, string usefulArea, string turnsToBuild, string turns, string status, Plot plot, string color) {
 
         List<Plot> plotList = PlotHandler.Instance.GetPlotList();
 
         string buildingsCSVPath = SaveCSV.Instance.GetBuildingFilePath();
         string id = SaveCSV.Instance.GetCSVLength(buildingsCSVPath).ToString();
-        string newLine = $"{id},{name},{type},{date.Split('-')[0]},{usefulArea},{turnsToBuild},{turns},in construction,{plotList.IndexOf(plot)}";
+        string newLine = $"{id},{name},{type},{date.Split('-')[0]},{usefulArea},{turnsToBuild},{turns},in construction,{plotList.IndexOf(plot)},{color}";
 
         SaveCSV.Instance.WriteNewLineIntoCSV(buildingsCSVPath, newLine);
-        CreateFlat(id, name, type, date, usefulArea, turnsToBuild, turns, status, plot);
+        CreateFlat(id, name, type, date, usefulArea, turnsToBuild, turns, status, plot, color);
     }
 
     private string GetEndDate(int currentYear, int currentMonth, int turnsToEnd) {
@@ -290,7 +290,7 @@ public class GameHandler : MonoBehaviour {
         UpperBarContainer.Instance.ChangeHappiness((populationHappiness - populationMinHappiness) / (populationMaxHappiness - populationMinHappiness));
     }
 
-    private void CreateFlat(string buildCSVLen, string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string turnsToBuild, string turns, string status, Plot plot) {
+    private void CreateFlat(string buildCSVLen, string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string turnsToBuild, string turns, string status, Plot plot, string color) {
 
         string buildingId = buildCSVLen;
         Flat flat = Instantiate(flatPrefab, plot.transform);
@@ -301,7 +301,7 @@ public class GameHandler : MonoBehaviour {
         int year = Int32.Parse(buildingYearText.Split('-')[0]);
         float area = float.Parse(buildingAreaText);
 
-        flat.Initialize(id, name, type, year, area, Int32.Parse(turnsToBuild), Int32.Parse(turns), status, plot.transform);
+        flat.Initialize(id, name, type, year, area, Int32.Parse(turnsToBuild), Int32.Parse(turns), status, plot.transform, color);
         plot.isReserved = true;
         GameEventSystem.Instance.AddToOutput("Létrejött egy új épület " + buildingNameText + " néven");
 

@@ -12,7 +12,14 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
     [SerializeField] Flat flat;
     [SerializeField] Image Timer;
     [SerializeField] Transform HeadsUpDisplay;
-    [SerializeField] Transform buildingMesh;
+    [SerializeField] Transform HospitalMesh;
+    [SerializeField] Transform BuildingBlueMesh;
+    [SerializeField] Transform BuildingBrownMesh;
+    [SerializeField] Transform BuildingGreenMesh;
+    [SerializeField] Transform BuildingPurpleMesh;
+    [SerializeField] Transform BuildingYellowMesh;
+    [SerializeField] Transform SchoolMesh;
+    Transform buildingMesh;
 
     private Transform buildingPlot;
 
@@ -80,7 +87,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         
     }
 
-    public void Initialize(int id, string name, string type, int year, float area, int turnsTillFinish, int turns, string status, Transform plot) {
+    public void Initialize(int id, string name, string type, int year, float area, int turnsTillFinish, int turns, string status, Transform plot, string color) {
         buildingid = id;
         buildingName = name;
         buildingType = type;
@@ -90,6 +97,34 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         buildingStatus = status;
         this.turns = turns;
         buildingTurnsTillFinish = turnsTillFinish;
+
+        switch (type) {
+            case "lakóház":
+                switch (color) {
+                    case "blue":
+                        buildingMesh = Instantiate(BuildingBlueMesh, transform);
+                        break;
+                    case "brown":
+                        buildingMesh = Instantiate(BuildingBrownMesh, transform);
+                        break;
+                    case "green":
+                        buildingMesh = Instantiate(BuildingGreenMesh, transform);
+                        break;
+                    case "purple":
+                        buildingMesh = Instantiate(BuildingPurpleMesh, transform);
+                        break;
+                    case "yellow":
+                        buildingMesh = Instantiate(BuildingYellowMesh, transform);
+                        break;
+                }
+                break;
+            case "kórház":
+                buildingMesh = Instantiate(HospitalMesh, transform);
+                break;
+            case "iskola":
+                buildingMesh = Instantiate(SchoolMesh, transform);
+                break;
+        }
 
         if (status == "in construction") {
 

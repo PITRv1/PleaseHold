@@ -24,6 +24,7 @@ public class SaveCSV : MonoBehaviour {
         Turns,
         Status,
         Plot,
+        Color,
     }
 
     public enum ServiceColumns {
@@ -156,6 +157,7 @@ public class SaveCSV : MonoBehaviour {
             AddValueToLine(0, "turns", fileBuildingPath);
             AddValueToLine(0, "status", fileBuildingPath);
             AddValueToLine(0, "plot", fileBuildingPath);
+            AddValueToLine(0, "color", fileBuildingPath);
             AddValueToLine(0, "cost", fileServicePath);
             AddValueToLine(0, "type", fileProjectsPath);
 
@@ -192,6 +194,7 @@ public class SaveCSV : MonoBehaviour {
             }
 
             AddHolderPlot(fileBuildingPath);
+            AddRandomColorPlot(fileBuildingPath);
 
             int sYear = Int32.Parse(startDate.Split('-')[0]);
 
@@ -251,6 +254,20 @@ public class SaveCSV : MonoBehaviour {
 
         ReloadAllCSV();
     }
+    private void AddRandomColorPlot(string filePath) {
+
+        int fileLength = GetCSVLength(filePath);
+
+        string[] colors = { "blue", "brown", "green", "purple", "yellow" };
+
+        for (int i = 0; i < fileLength; i++) {
+            if (i == 0) continue;
+            AddValueToLine(i, colors[UnityEngine.Random.Range(0, colors.Length)], filePath);
+        }
+
+        ReloadAllCSV();
+    }
+
 
     public List<string> ReadLinesFromCSV(string filePath) {
 

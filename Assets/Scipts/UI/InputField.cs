@@ -65,7 +65,9 @@ public class InputFieldBackground : MonoBehaviour {
                 SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString(),
                 "build");
 
-            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", plot);
+            string[] colors = { "blue", "brown", "green", "purple", "yellow" };
+
+            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", plot, colors[UnityEngine.Random.Range(0, colors.Length)]);
 
             Hide();
         });

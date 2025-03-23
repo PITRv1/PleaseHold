@@ -41,11 +41,8 @@ public class EndServicePrefabUI : MonoBehaviour
 
     private void DeleteSelf()
     {
-        OnServiceDeleted?.Invoke(this, new DeleteEventArgs(
-            nameText.text,
-            costText.text,
-            id
-            ));
+        GameHandler.Instance.DeleteService(SaveCSV.Instance.GetServiceFilePath(), Int32.Parse(id));
+        //GameHandler.Instance.UpdateHUD();
         Destroy(this.gameObject);
     }
 }

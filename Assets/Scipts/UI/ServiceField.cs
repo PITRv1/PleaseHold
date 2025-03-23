@@ -42,6 +42,16 @@ public class ServiceField : MonoBehaviour {
         fadeControllerUI = GetComponent<FadeControllerUI>();
 
         Instance = this;
+    }
+
+    private void Start() {
+        rectTransform = GetComponent<RectTransform>();
+
+        // Set self to inactive instantly upon start
+        CameraSystem.Instance.EnableCamInputs();
+        isShowing = false;
+        gameObject.SetActive(false);
+
         exitButton.onClick.AddListener(() => {
             Hide();
         });
@@ -72,17 +82,9 @@ public class ServiceField : MonoBehaviour {
         });
     }
 
-    private void Start() {
-        rectTransform = GetComponent<RectTransform>();
-
-        // Set self to inactive instantly upon start
-        CameraSystem.Instance.EnableCamInputs();
-        isShowing = false;
-        gameObject.SetActive(false);
-    }
-
     public void Hide() {
         isShowing = false;
+        SaveCSV.Instance.UpdateIds(SaveCSV.Instance.GetServiceFilePath());
         CameraSystem.Instance.EnableCamInputs();
         fadeControllerUI.FadeOut(.2f);
 

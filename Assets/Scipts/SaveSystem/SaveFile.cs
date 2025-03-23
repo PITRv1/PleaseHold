@@ -41,6 +41,7 @@ public class SaveCSV : MonoBehaviour {
         StartDate,
         EndDate,
         BuildingId,
+        Type,
     }
 
     public static SaveCSV Instance {
@@ -74,6 +75,8 @@ public class SaveCSV : MonoBehaviour {
         string residentPath = "";
         string servicePath = "";
 
+        bool isNew = false;
+
         string filePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
         if (File.Exists(filePath)) {
             //You need to run setup in main menu or manually change the path in the save file
@@ -99,6 +102,8 @@ public class SaveCSV : MonoBehaviour {
                 //You need to run setup in main menu or manually change the path in the save file
                 //since this now reads out of the SaveFile
 
+                isNew = true;
+
                 string json = File.ReadAllText(filePath);
                 GameParamSaver.SaveObject saveObject = JsonUtility.FromJson<GameParamSaver.SaveObject>(json);
 
@@ -118,7 +123,27 @@ public class SaveCSV : MonoBehaviour {
             }
         }
 
-        if (!Directory.EnumerateFileSystemEntries($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles").Any()) {
+        if (!Directory.EnumerateFileSystemEntries($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles").Any() || isNew == true) {
+
+            filePath = Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt";
+            if (File.Exists(filePath)) {
+                //You need to run setup in main menu or manually change the path in the save file
+                //since this now reads out of the SaveFile
+
+                isNew = true;
+
+                string json = File.ReadAllText(filePath);
+                GameParamSaver.SaveObject saveObject = JsonUtility.FromJson<GameParamSaver.SaveObject>(json);
+
+                buildPath = saveObject.buildingsPath;
+                residentPath = saveObject.residentsPath;
+                servicePath = saveObject.servicesPath;
+
+                houseConditions = saveObject.houseConditions;
+                serviceCosts = saveObject.serviceCosts;
+            } else {
+                Debug.LogError("Save file not found!");
+            }
 
             MakeEditableCSVs(residentPath, buildPath, servicePath, Application.dataPath + "/InputCSVFiles/SaveCSVFiles/projectsCSV.csv");
 
@@ -132,6 +157,7 @@ public class SaveCSV : MonoBehaviour {
             AddValueToLine(0, "status", fileBuildingPath);
             AddValueToLine(0, "plot", fileBuildingPath);
             AddValueToLine(0, "cost", fileServicePath);
+            AddValueToLine(0, "type", fileProjectsPath);
 
             AddTurnsToFinish(fileBuildingPath);
             AddTurnsToFinish(fileBuildingPath);
@@ -333,7 +359,16 @@ public class SaveCSV : MonoBehaviour {
 
         List<string> listLines = ReadLinesFromCSV(filePath);
 
-        listLines.RemoveAt(id);
+        for (int i = 0; i < listLines.Count; i++) {
+
+            string[] line = listLines[i].Split(',');
+            
+            if (line[0] == id.ToString()) {  // 0 is always the id, just to generalize
+
+                listLines.RemoveAt(i);
+
+            }
+        }
 
         File.WriteAllLines(filePath, listLines);
         ReloadAllCSV();

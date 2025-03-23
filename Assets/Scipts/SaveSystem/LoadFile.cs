@@ -73,26 +73,28 @@ public class LoadFile : MonoBehaviour {
 
             if (file[(int)Columns.Plot] == "-1") {
 
+                int randomPlot = UnityEngine.Random.Range(0, avaliablePlotList.Count);
+
                 string buildingId = file[(int)Columns.Id];
-                    Flat flat = Instantiate(flatPrefab, avaliablePlotList[0].transform);
-                    Plot plotScript = avaliablePlotList[0].GetComponent<Plot>();
+                Flat flat = Instantiate(flatPrefab, avaliablePlotList[randomPlot].transform);
+                Plot plotScript = avaliablePlotList[randomPlot].GetComponent<Plot>();
 
-                    int id = Int32.Parse(file[(int)Columns.Id]);
-                    string name = file[(int)Columns.Name];
-                    string type = file[(int)Columns.Type];
-                    int year = Int32.Parse(file[(int)Columns.Year]);
-                    float area = float.Parse(file[(int)Columns.Size]);
-                    string status = file[(int)Columns.Status];
+                int id = Int32.Parse(file[(int)Columns.Id]);
+                string name = file[(int)Columns.Name];
+                string type = file[(int)Columns.Type];
+                int year = Int32.Parse(file[(int)Columns.Year]);
+                float area = float.Parse(file[(int)Columns.Size]);
+                string status = file[(int)Columns.Status];
 
-                    int TurnsTillFinish = Int32.Parse(file[(int)Columns.TurnsToFinish]);
-                    int turns = Int32.Parse(file[(int)Columns.Turns]);
+                int TurnsTillFinish = Int32.Parse(file[(int)Columns.TurnsToFinish]);
+                int turns = Int32.Parse(file[(int)Columns.Turns]);
 
-                    flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, avaliablePlotList[0].transform);
-                    plotScript.isReserved = true;
+                flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, avaliablePlotList[randomPlot].transform);
+                plotScript.isReserved = true;
 
-                    SaveCSV.Instance.EditOneValueOnLine(Int32.Parse(buildingId), SaveCSV.BuildingColumns.Plot, SaveCSV.Instance.GetBuildingFilePath(), plotList.IndexOf(avaliablePlotList[0]).ToString());
+                SaveCSV.Instance.EditOneValueOnLine(Int32.Parse(buildingId), SaveCSV.BuildingColumns.Plot, SaveCSV.Instance.GetBuildingFilePath(), plotList.IndexOf(avaliablePlotList[randomPlot]).ToString());
 
-                    avaliablePlotList.RemoveAt(0);
+                avaliablePlotList.RemoveAt(randomPlot);
 
             }
         }

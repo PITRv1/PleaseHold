@@ -14,4 +14,5 @@ public class Plot : MonoBehaviour, IPointerClickHandler {
             EventHandlerScript.Instance.SendOnPlotRightClick(this);
         }
     }
+
 }

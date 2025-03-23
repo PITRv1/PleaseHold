@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -27,11 +28,17 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
+    [SerializeField] float repairHappines;
+    [SerializeField] float newBuildingHappines;
+    [SerializeField] float newServiceHappines;
+    [SerializeField] float endServiceHappines;
+
     private int turnCount = 0;
     private int simStartYear;
     private int simStartMonth;
     private float populationStartHappiness;
     private float populationMinHappiness;
+    private float populationMaxHappiness = 99.0f;
     private int initalBudget;
     private int population;
 
@@ -39,6 +46,7 @@ public class GameHandler : MonoBehaviour {
     private float populationHappiness;
     private float budget;
 
+    private string endDate;
     private string date;
 
     private string[] firstNames = { "Varga", "Molnár", "Kovács", "Takács", "Tóth", "Szabó", "Nagy" };
@@ -63,9 +71,13 @@ public class GameHandler : MonoBehaviour {
         initalBudget = (int) float.Parse(SaveCSV.Instance.GetInitialBudget());
         simLength = Int32.Parse(SaveCSV.Instance.GetSimulationLength());
 
+        populationHappiness = populationStartHappiness;
+
         population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath()) - 1;
 
         budget = initalBudget;
+
+        endDate = GetEndDate(simStartYear, simStartMonth, simLength);
 
         UpdateDate();
         UpdateHUD();
@@ -77,8 +89,27 @@ public class GameHandler : MonoBehaviour {
         HandleServices();
         NewMonthEvent?.Invoke(this, EventArgs.Empty);
         population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath());
+        CheckGameState();
+        RandomEvent();
+        populationHappiness = Mathf.Clamp(populationHappiness, populationMinHappiness, populationMaxHappiness); // Just make sure it works bruh
         UpdateHUD();
         SaveToJson();
+    }
+
+    private void RandomEvent() {
+        float chance = UnityEngine.Random.value;
+
+        if (chance <= 0.2f) {
+            Debug.Log("Something happens 1");
+        } else if (chance <= 0.4f){
+            Debug.Log("Something happens 2");
+        } else if (chance <= 0.6f) {
+            Debug.Log("Something happens 3");
+        } else if (chance <= 0.8f) {
+            Debug.Log("Something happens 4");
+        } else { // Basically the same as change <= 1.0
+            Debug.Log("Something happens 5");
+        }
     }
 
     private void SaveToJson() {
@@ -121,10 +152,10 @@ public class GameHandler : MonoBehaviour {
         SaveCSV.Instance.WriteNewLineIntoCSV(residentPath, newLine);
     }
 
-    public void CreateNewProject(string buildingNameText, string cost, string startingDate, string endDate, string buildingId) {
+    public void CreateNewProject(string buildingNameText, string cost, string startingDate, string endDate, string buildingId, string type) {
         string projectsCSVPath = SaveCSV.Instance.GetProjectsFilePath();
 
-        string newLine = $"{SaveCSV.Instance.GetCSVLength(projectsCSVPath).ToString()},{buildingNameText},{cost},{startingDate},{endDate},{{{buildingId}}}";
+        string newLine = $"{SaveCSV.Instance.GetCSVLength(projectsCSVPath).ToString()},{buildingNameText},{cost},{startingDate},{endDate},{{{buildingId}}},{type}";
         SaveCSV.Instance.WriteNewLineIntoCSV(projectsCSVPath, newLine);
 
         GameEventSystem.Instance.AddToOutput("Létrejött egy új projekt " + buildingNameText + " néven");
@@ -143,6 +174,24 @@ public class GameHandler : MonoBehaviour {
         CreateFlat(id, name, type, date, usefulArea, turnsToBuild, turns, status, plot);
     }
 
+    private string GetEndDate(int currentYear, int currentMonth, int turnsToEnd) {
+        int year = currentYear;
+        int month = currentMonth;
+
+        month += turnsToEnd;
+        int years = (month - 1) / 12;  // Subtract 1 to handle the 0th month issue
+        int leftoverMonths = (month - 1) % 12 + 1; // Ensure months are in range 1-12
+        year += years;
+        month = leftoverMonths;
+
+        if (month < 10) {
+            return year.ToString() + "-0" + month.ToString();
+        } else {
+            return year.ToString() + '-' + month.ToString();
+        }
+
+    }
+
     private void AddToTurn_performed(UnityEngine.InputSystem.InputAction.CallbackContext context) {
         turnCount += 1;
         changeTurnCountUI?.Invoke(this, new UI(turnCount));
@@ -159,7 +208,15 @@ public class GameHandler : MonoBehaviour {
             List<string> splitLine = projectCSV[i].Split(',').ToList();
 
             if (splitLine[(int)SaveCSV.ProjectColumns.EndDate] == date) {
-                GameEventSystem.Instance.AddToOutput("Befejeződött egy szolgáltatás " + SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetServiceFilePath())[i].Split(',')[(int)SaveCSV.ServiceColumns.Name] + " néven");
+                GameEventSystem.Instance.AddToOutput("Befejeződött egy projekt " + SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetProjectsFilePath())[i].Split(',')[(int)SaveCSV.ProjectColumns.Name] + " néven");
+                switch (splitLine[(int)SaveCSV.ProjectColumns.Type]){
+                    case "repair":
+                        populationHappiness += repairHappines;
+                        break;
+                    case "build":
+                        populationHappiness += newBuildingHappines;
+                        break;
+                }
                 SaveCSV.Instance.DeleteFromCSV(projectPath, i);
             } else {
                 budget -= float.Parse(splitLine[(int)SaveCSV.ProjectColumns.Cost]);
@@ -182,11 +239,32 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
-    private void DeleteService(string filePath, int id) {
-        GameEventSystem.Instance.AddToOutput("Befejeződött egy szolgáltatás " + SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetServiceFilePath())[id].Split(',')[(int)SaveCSV.ServiceColumns.Name] + " néven");
-        SaveCSV.Instance.DeleteFromCSV(filePath, id);
-        SaveCSV.Instance.UpdateIds(filePath);
+    public void DeleteService(string filePath, int id) {
+        List<string> lines = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetServiceFilePath());
 
+        foreach (string line in lines) {
+            string[] splitLine = line.Split(',');
+
+            if (splitLine[(int) SaveCSV.ServiceColumns.Id] == id.ToString()) {
+                GameEventSystem.Instance.AddToOutput("Befejeződött egy szolgáltatás " + splitLine[(int) SaveCSV.ServiceColumns.Name] + " néven");
+                break;
+            }   
+        }
+        SaveCSV.Instance.DeleteFromCSV(filePath, id);
+        populationHappiness -= endServiceHappines;
+
+    }
+
+    private void CheckGameState() {
+        if (budget <= 0) {
+            Debug.Log("It's so over, no budget");
+        }
+        if (populationHappiness < populationMinHappiness) {
+            Debug.Log("It's so over, no happi");
+        }
+        if (endDate == date) {
+            Debug.Log("WIN");
+        }
     }
 
     private void UpdateDate() {
@@ -206,9 +284,10 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
-    private void UpdateHUD() {
+    public void UpdateHUD() {
         UpperBarContainer.Instance.ChangeDate(date);
         UpperBarContainer.Instance.ChangeBudget(budget.ToString());
+        UpperBarContainer.Instance.ChangeHappiness((populationHappiness - populationMinHappiness) / (populationMaxHappiness - populationMinHappiness));
     }
 
     private void CreateFlat(string buildCSVLen, string buildingNameText, string buildingTypeText, string buildingYearText, string buildingAreaText, string turnsToBuild, string turns, string status, Plot plot) {
@@ -236,6 +315,8 @@ public class GameHandler : MonoBehaviour {
 
         SaveCSV.Instance.WriteNewLineIntoCSV(servicePath, newLine);
         GameEventSystem.Instance.AddToOutput("Létrejött egy új szolgáltatás " + name + " néven");
+
+        populationHappiness += newServiceHappines;
 
     }
 

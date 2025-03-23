@@ -1,0 +1,34 @@
+Befejeződött egy szolgáltatás Hulladékszállítás néven
+Befejeződött egy szolgáltatás Útkarbantartás néven
+Befejeződött egy szolgáltatás Postaszolgáltatás néven
+Befejeződött egy szolgáltatás Tűzvédelem néven
+Befejeződött egy szolgáltatás Postaszolgáltatás néven
+Befejeződött egy szolgáltatás Internet néven
+Befejeződött egy szolgáltatás Tűzvédelem néven
+Befejeződött egy szolgáltatás Internet néven
+Befejeződött egy szolgáltatás Tűzvédelem néven
+Befejeződött egy szolgáltatás Útkarbantartás néven
+Befejeződött egy szolgáltatás Közvilágítás néven
+Befejeződött egy szolgáltatás Tűzvédelem néven
+Befejeződött egy szolgáltatás Hulladékszállítás néven
+Befejeződött egy szolgáltatás Gázszolgáltatás néven
+Befejeződött egy szolgáltatás Vízellátás néven
+Befejeződött egy szolgáltatás Közvilágítás néven
+Befejeződött egy szolgáltatás Közvilágítás néven
+Befejeződött egy szolgáltatás Vízellátás néven
+Befejeződött egy szolgáltatás Hulladékszállítás néven
+Befejeződött egy szolgáltatás Internet néven
+
+Épületek állapota:
+	-Napfény Lakópark 1: Good
+	-Kossuth Gimnázium 2: Awful
+	-Panoráma Ház 3: Good
+	-Rózsa Villa 4: Awful
+	-Duna Office Iroda 5: Awful
+	-Szent István Általános Iskola 6: Good
+	-Béke Lakótelep 7: Awful
+	-Alkotás Udvar 8: Awful
+	-Hegyalja Vendégház 9: Good
+	-Aranypart Panzió 10: Awful
+
+Budget: 538261

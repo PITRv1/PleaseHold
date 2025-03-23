@@ -53,7 +53,8 @@ public class BuildingField : MonoBehaviour {
                 repairCostText,
                 GameHandler.Instance.GetDate(),
                 GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText)),
-                flatScript.GetBuildingId().ToString());
+                flatScript.GetBuildingId().ToString(),
+                "repair");
 
             List<string> lines = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath());
             SaveCSV.Instance.EditOneValueOnLine(flatScript.GetBuildingId(), SaveCSV.BuildingColumns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), buildingTurnsToBuildText);

@@ -62,7 +62,8 @@ public class InputFieldBackground : MonoBehaviour {
                 (averageBuildCostUK * Int32.Parse(buildingAreaText)).ToString(), 
                 GameHandler.Instance.GetDate(),
                 GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText)), 
-                SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString());
+                SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString(),
+                "build");
 
             GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", plot);
 

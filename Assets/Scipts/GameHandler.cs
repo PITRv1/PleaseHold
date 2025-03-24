@@ -32,6 +32,7 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] float newBuildingHappines;
     [SerializeField] float newServiceHappines;
     [SerializeField] float endServiceHappines;
+    [SerializeField] EventDisplay eventDisplay;
     [SerializeField] EndGameUI endGameUI; 
 
     private int turnCount = 0;
@@ -68,7 +69,7 @@ public class GameHandler : MonoBehaviour {
         simStartYear = Int32.Parse(SaveCSV.Instance.GetStartDate().Split('-')[0]);
         simStartMonth = Int32.Parse(SaveCSV.Instance.GetStartDate().Split('-')[1]);
         populationStartHappiness = float.Parse(SaveCSV.Instance.GetStartingPopulationHappiness());
-        populationMinHappiness = float.Parse(SaveCSV.Instance.GetMinPopulationHappiness());
+        populationMinHappiness = Mathf.Clamp(float.Parse(SaveCSV.Instance.GetMinPopulationHappiness()), 1, 99.99f);
         initalBudget = (int) float.Parse(SaveCSV.Instance.GetInitialBudget());
         simLength = Int32.Parse(SaveCSV.Instance.GetSimulationLength());
 
@@ -101,16 +102,52 @@ public class GameHandler : MonoBehaviour {
         float chance = UnityEngine.Random.value;
 
         if (chance <= 0.2f) {
-            Debug.Log("Something happens 1");
+            eventDisplay.SetEventName("City wide famine");
+            eventDisplay.SetEventText("A food shortage has hit the city. Lose 15% population happiness.");
+            eventDisplay.SetEventColor(Color.red);
+
+            GameEventSystem.Instance.AddToOutput("The city was hit by a famine and lost 15% population happiness.");
+
+
+            populationHappiness -= 15f;
+
         } else if (chance <= 0.4f){
-            Debug.Log("Something happens 2");
+            eventDisplay.SetEventName("Extra Government funding");
+            eventDisplay.SetEventText("The city by miracle has won an application for extra government funding that it applied for. Gain 100000$ extra budget.");
+            eventDisplay.SetEventColor(Color.green);
+
+            GameEventSystem.Instance.AddToOutput("The city has recived 100000$ extra funding.");
+
+            budget += 100000f;
+
         } else if (chance <= 0.6f) {
-            Debug.Log("Something happens 3");
+            eventDisplay.SetEventName("Water pipe disaster");
+            eventDisplay.SetEventText("A major water pipe in the city has raptured. You use 10000$ to fix it but people are 5% less happy.");
+            eventDisplay.SetEventColor(Color.red);
+
+            GameEventSystem.Instance.AddToOutput("A major pipe in the city ruptured and caused 10000$ in damages. The people are 5% less happy.");
+
+            budget -= 10000f;
+            populationHappiness -= 5f;
+
         } else if (chance <= 0.8f) {
-            Debug.Log("Something happens 4");
-        } else { // Basically the same as change <= 1.0
-            Debug.Log("Something happens 5");
+            eventDisplay.SetEventName("PlaceHolder");
+            eventDisplay.SetEventText("Make more events if you see this . . .");
+            eventDisplay.SetEventColor(Color.blue);
+
+            GameEventSystem.Instance.AddToOutput("Make more events if you see this . . .");
+
         }
+        else
+        {
+            eventDisplay.SetEventName("PlaceHolder");
+            eventDisplay.SetEventText("Make more events if you see this . . .");
+            eventDisplay.SetEventColor(Color.blue);
+
+            GameEventSystem.Instance.AddToOutput("Make more events if you see this . . .");
+        }
+
+        eventDisplay.ShowUI();
     }
 
     private void SaveToJson() {

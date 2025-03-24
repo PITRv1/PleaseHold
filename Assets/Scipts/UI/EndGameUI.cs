@@ -41,11 +41,12 @@ public class EndGameUI : MonoBehaviour
         string oldSaveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
         if (File.Exists(oldSaveFilePath))
         {
-            print(oldSaveFilePath);
             File.Delete(oldSaveFilePath);
         }
 
         CameraSystem.Instance.DisableCamInputs();
+        CameraSystem.Instance.DisableUIInputs();
+
         fadeController.FadeIn(.5f);
     }
 

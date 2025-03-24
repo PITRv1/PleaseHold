@@ -33,13 +33,13 @@ public class PauseMenuHandeler : MonoBehaviour
     private void Show()
     {
         isOpen = true;
-        //CameraSystem.Instance.DisableCamInputs();
+        CameraSystem.Instance.DisableCamInputs();
         fadeControllerUI.FadeIn(.075f);
     }
-    private void Hide()
+    public void Hide()
     {
         isOpen = false;
-        //CameraSystem.Instance.EnableCamInputs();
+        CameraSystem.Instance.EnableCamInputs();
         fadeControllerUI.FadeOut(.075f);
     }
 }

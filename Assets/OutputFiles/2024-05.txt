@@ -1,3 +1,4 @@
+The city has recived 100000$ extra funding.
 
 Épületek állapota:
 	-Napfény Lakópark 1: Awful
@@ -11,4 +12,4 @@
 	-Hegyalja Vendégház 9: Bad
 	-Aranypart Panzió 10: Good
 
-Budget: 1226608
+Budget: 1316608

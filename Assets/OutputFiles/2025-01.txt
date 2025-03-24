@@ -1,3 +1,4 @@
+The city was hit by a famine and lost 15% population happiness.
 
 Épületek állapota:
 	-Napfény Lakópark 1: Awful
@@ -11,4 +12,4 @@
 	-Hegyalja Vendégház 9: Bad
 	-Aranypart Panzió 10: Good
 
-Budget: 1217362
+Budget: 1387362

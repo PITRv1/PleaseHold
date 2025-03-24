@@ -54,7 +54,7 @@ public class CameraSystem : MonoBehaviour {
 
         cameraInputActions.Camera.Focus.performed += ctx => focusing = true;
         
-        cameraInputActions.Camera.Pause.performed += ctx => OnPauseKeyPressed?.Invoke(this, EventArgs.Empty);
+        cameraInputActions.UI.Pause.performed += ctx => OnPauseKeyPressed?.Invoke(this, EventArgs.Empty);
 
         cameraInputActions.Camera.Enable();
     }
@@ -137,7 +137,8 @@ public class CameraSystem : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, targetPosition, focusSpeed * Time.deltaTime);
     }
 
-    public void DisableCamInputs() { cameraInputActions.Disable(); }
-    public void EnableCamInputs() { cameraInputActions.Enable(); }
+    public void DisableCamInputs() { cameraInputActions.Camera.Disable(); }
+    public void EnableCamInputs() { cameraInputActions.Camera.Enable(); }
 
+    public void DisableUIInputs() { cameraInputActions.UI.Disable(); }
 }

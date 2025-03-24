@@ -11,4 +11,4 @@
 	-Hegyalja Vendégház 9: Bad
 	-Aranypart Panzió 10: Good
 
-Budget: 1194248
+Budget: 1394246

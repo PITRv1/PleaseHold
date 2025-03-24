@@ -32,7 +32,6 @@ public class ServiceField : MonoBehaviour {
     private Transform givenGameObject;
     private FadeControllerUI fadeControllerUI;
 
-
     public static ServiceField Instance {
         private set;
         get;

@@ -1,3 +1,4 @@
+A major pipe in the city ruptured and caused 10000$ in damages. The people are 5% less happy.
 
 Épületek állapota:
 	-Napfény Lakópark 1: Awful
@@ -11,4 +12,4 @@
 	-Hegyalja Vendégház 9: Bad
 	-Aranypart Panzió 10: Good
 
-Budget: 1225452
+Budget: 1305452

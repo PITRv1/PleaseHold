@@ -1,3 +1,4 @@
+Make more events if you see this . . .
 
 Épületek állapota:
 	-Napfény Lakópark 1: Awful
@@ -11,4 +12,4 @@
 	-Hegyalja Vendégház 9: Bad
 	-Aranypart Panzió 10: Good
 
-Budget: 1227764
+Budget: 1217764

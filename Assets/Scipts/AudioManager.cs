@@ -4,7 +4,9 @@ public enum MusicList
 {
     THEME_FULL,
     THEME_INTRO,
-    THEME_LOOP
+    THEME_LOOP,
+    THEME_LONG_INTRO,
+    THEME_SMALL_INTRO_SWITCH
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -26,6 +28,37 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayMusic(MusicList music, float volume = 1) 
     {
-        audioManagerInstance.audioSource.PlayOneShot(audioManagerInstance.musicList[(int)music], volume);
+        if (Exists()) {
+            audioManagerInstance.audioSource.PlayOneShot(audioManagerInstance.musicList[(int)music], volume);
+        }
+        
     }
+
+    public static void PlayMusicLoop(MusicList music, float volume = 1) 
+    {
+        if (Exists()) {
+            audioManagerInstance.audioSource.clip = audioManagerInstance.musicList[(int)music];
+            audioManagerInstance.audioSource.volume = volume;
+            audioManagerInstance.audioSource.loop = true;
+            audioManagerInstance.audioSource.Play();
+        }
+    }
+
+    public static bool IsPlaying()
+    {
+        if (Exists()) {
+            return audioManagerInstance.audioSource.isPlaying;
+        } else {
+            return false;
+        }
+    }
+
+    public static bool Exists() {
+        if (audioManagerInstance) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

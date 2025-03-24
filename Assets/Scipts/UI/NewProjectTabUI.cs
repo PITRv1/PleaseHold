@@ -63,6 +63,8 @@ public class NewProjectTabUI : MonoBehaviour
 
             //Project Creation Logic Here
 
+            //GameHandler.Instance.
+
             Hide();
         });
     }

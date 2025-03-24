@@ -197,7 +197,6 @@ public class GameHandler : MonoBehaviour {
         SaveCSV.Instance.WriteNewLineIntoCSV(projectsCSVPath, newLine);
 
         GameEventSystem.Instance.AddToOutput("Létrejött egy új projekt " + buildingNameText + " néven");
-
     }
 
     public void CreateNewBuilding(string name, string type, string date, string usefulArea, string turnsToBuild, string turns, string status, Plot plot, string color) {

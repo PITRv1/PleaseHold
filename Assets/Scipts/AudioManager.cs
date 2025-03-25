@@ -20,12 +20,10 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         audioManagerInstance = this;
-    }
-
-    private void Start()
-    {
         audioSource = GetComponent<AudioSource>();
     }
+
+    
 
     public static void PlayMusic(MusicList music, float volume = 1) 
     {
@@ -37,10 +35,7 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayMusicLoop(MusicList music, float volume = 1)
     {
-        print(audioManagerInstance);
-        print(audioManagerInstance.musicList[5]);
         if (Exists()) {
-            print("buh");
             audioManagerInstance.audioSource.clip = audioManagerInstance.musicList[(int)music];
             audioManagerInstance.audioSource.volume = volume;
             audioManagerInstance.audioSource.loop = true;

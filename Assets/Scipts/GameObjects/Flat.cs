@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
 
     [SerializeField] Flat flat;
     [SerializeField] Image Timer;
+    [SerializeField] TextMeshProUGUI IdText;
+    [SerializeField] Image Integrity;
     [SerializeField] Transform HeadsUpDisplay;
     [SerializeField] Transform HospitalMesh;
     [SerializeField] Transform BuildingBlueMesh;
@@ -54,6 +57,9 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                     SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
                 }
                 Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
+                Integrity.fillAmount = GetIntegrityFloat(buildingStatus);
+                
+
                 SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), (buildingTurnsTillFinish).ToString());
                 SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Turns, SaveCSV.Instance.GetBuildingFilePath(), (turns).ToString());
                 if (buildingTurnsTillFinish - turns > 0) {
@@ -77,6 +83,8 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                     SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
                 }
                 Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
+                Integrity.fillAmount = GetIntegrityFloat(buildingStatus);
+
                 SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), (buildingTurnsTillFinish).ToString());
                 SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Turns, SaveCSV.Instance.GetBuildingFilePath(), (turns).ToString());
                 if (buildingTurnsTillFinish - turns <= 0) {
@@ -97,6 +105,8 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         buildingStatus = status;
         this.turns = turns;
         buildingTurnsTillFinish = turnsTillFinish;
+
+        IdText.text = id.ToString();
 
         switch (type) {
             default:
@@ -126,6 +136,8 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                 buildingMesh = Instantiate(SchoolMesh, transform);
                 break;
         }
+
+        Integrity.fillAmount = GetIntegrityFloat(buildingStatus);
 
         if (status == "in construction") {
 
@@ -177,4 +189,24 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
     public int GetBuildingYear() { return buildingYear; }
     public float GetBuildingArea() { return buildingArea; }
     public string GetBuildingStatus() { return buildingStatus; }
+
+    private float GetIntegrityFloat(string integrity)
+    {
+        switch (integrity)
+        {
+            case "Perfect":
+                return 1f;
+            case "Good":
+                return .8f;
+            case "Average":
+                return .6f;
+            case "Bad":
+                return .4f;
+            case "Awful":
+                return .2f;
+            default:
+            case "in construction":
+                return 0f;
+        }
+    }
 }

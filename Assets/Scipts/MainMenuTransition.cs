@@ -14,8 +14,24 @@ public class MainMenuTransition : MonoBehaviour
     {
         playSubMenu.OnGameCanStart += PlaySubMenu_OnGameCanStart;
         playSubMenu.OnGameCanContinue += PlaySubMenu_OnGameCanContinue;
+
         AudioManager.PlayMusic(MusicList.THEME_SMALL_INTRO_SWITCH);
-        AudioManager.PlayMusicLoop(MusicList.THEME_LOOP);
+
+        //Invoke("PlayMainTheme", AudioManager.GetClipLength(MusicList.THEME_SMALL_INTRO_SWITCH) - 1f);
+
+    }
+
+    //private void playmaintheme()
+    //{
+    //    audiomanager.playmusicloop(musiclist.theme_loop);
+    //}
+
+    private void Update()
+    {
+        if (!AudioManager.IsPlaying())
+        {
+            AudioManager.PlayMusicLoop(MusicList.THEME_LOOP);
+        }
     }
 
     private void PlaySubMenu_OnGameCanContinue(object sender, System.EventArgs e)

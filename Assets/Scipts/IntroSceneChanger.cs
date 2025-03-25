@@ -12,9 +12,9 @@ public class IntroSceneChanger : MonoBehaviour
 
     void Update()
     {
-        if (!AudioManager.IsPlaying()) {
-            AudioManager.PlayMusic(MusicList.THEME_SMALL_INTRO_SWITCH);
-        }
+        //if (!AudioManager.IsPlaying()) {
+        //    AudioManager.PlayMusic(MusicList.THEME_SMALL_INTRO_SWITCH);
+        //}
         
         if (videoPlayer.frame >= (long)videoPlayer.frameCount-1) {
             SceneLoader.Load(SceneLoader.Scene.MainMenuScene);

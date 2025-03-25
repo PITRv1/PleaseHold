@@ -81,6 +81,8 @@ public class GameHandler : MonoBehaviour {
 
         endDate = GetEndDate(simStartYear, simStartMonth, simLength);
 
+        AudioManager.PlayMusicLoop(MusicList.MAIN_GAME_MUSIC_LOOP, 1f);
+
         UpdateDate();
         UpdateHUD();
     }
@@ -92,10 +94,10 @@ public class GameHandler : MonoBehaviour {
         NewMonthEvent?.Invoke(this, EventArgs.Empty);
         population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath());
         RandomEvent();
-        populationHappiness = Mathf.Clamp(populationHappiness, populationMinHappiness, populationMaxHappiness); // Just make sure it works bruh
-        UpdateHUD();
         SaveToJson();
         CheckGameState();
+        populationHappiness = Mathf.Clamp(populationHappiness, populationMinHappiness, populationMaxHappiness); // Just make sure it works bruh
+        UpdateHUD();
     }
 
     private void RandomEvent() {
@@ -293,16 +295,18 @@ public class GameHandler : MonoBehaviour {
     }
 
     private void CheckGameState() {
+        float happinesPercent = (populationHappiness - populationMinHappiness) / (populationMaxHappiness - populationMinHappiness);
+
         if (budget <= 0) {
-            endGameUI.SetStats("Exceeded budget constraints", budget.ToString(), populationHappiness.ToString(), turnCount.ToString(), simLength.ToString());
+            endGameUI.SetStats("Exceeded budget constraints", budget.ToString(), happinesPercent.ToString(), turnCount.ToString(), simLength.ToString());
             endGameUI.Show();
         }
         if (populationHappiness < populationMinHappiness) {
-            endGameUI.SetStats("Happiness fell below the required minimum", budget.ToString(), populationHappiness.ToString(), turnCount.ToString(), simLength.ToString());
+            endGameUI.SetStats("Happiness fell below the required minimum", budget.ToString(), happinesPercent.ToString(), turnCount.ToString(), simLength.ToString());
             endGameUI.Show();
         }
         if (turnCount >= simLength) {
-            endGameUI.SetStats("Simulation time period completed", budget.ToString(), populationHappiness.ToString(), turnCount.ToString(), simLength.ToString());
+            endGameUI.SetStats("Simulation time period completed", budget.ToString(), happinesPercent.ToString(), turnCount.ToString(), simLength.ToString());
             endGameUI.Show();
         }
     }

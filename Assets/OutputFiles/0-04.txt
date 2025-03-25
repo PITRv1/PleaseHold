@@ -1,0 +1,18 @@
+Befejeződött egy szolgáltatás Útkarbantartás néven
+Befejeződött egy szolgáltatás Postaszolgáltatás néven
+Befejeződött egy szolgáltatás Tűzvédelem néven
+Befejeződött egy szolgáltatás Postaszolgáltatás néven
+
+Épületek állapota:
+	-Napfény Lakópark 1: Bad
+	-Kossuth Gimnázium 2: Good
+	-Panoráma Ház 3: Good
+	-Rózsa Villa 4: Average
+	-Duna Office Iroda 5: Awful
+	-Szent István Általános Iskola 6: Awful
+	-Béke Lakótelep 7: Awful
+	-Alkotás Udvar 8: Average
+	-Hegyalja Vendégház 9: Bad
+	-Aranypart Panzió 10: Good
+
+Budget: 1.232089E+08

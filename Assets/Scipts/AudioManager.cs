@@ -6,7 +6,8 @@ public enum MusicList
     THEME_INTRO,
     THEME_LOOP,
     THEME_LONG_INTRO,
-    THEME_SMALL_INTRO_SWITCH
+    THEME_SMALL_INTRO_SWITCH,
+    MAIN_GAME_MUSIC_LOOP,
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -34,9 +35,12 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public static void PlayMusicLoop(MusicList music, float volume = 1) 
+    public static void PlayMusicLoop(MusicList music, float volume = 1)
     {
+        print(audioManagerInstance);
+        print(audioManagerInstance.musicList[5]);
         if (Exists()) {
+            print("buh");
             audioManagerInstance.audioSource.clip = audioManagerInstance.musicList[(int)music];
             audioManagerInstance.audioSource.volume = volume;
             audioManagerInstance.audioSource.loop = true;
@@ -61,4 +65,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
+    public static float GetClipLength(MusicList music)
+    {
+        return audioManagerInstance.musicList[(int)music].length;
+    }
 }

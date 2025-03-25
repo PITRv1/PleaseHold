@@ -15,7 +15,11 @@ public class MainMenuTransition : MonoBehaviour
         playSubMenu.OnGameCanStart += PlaySubMenu_OnGameCanStart;
         playSubMenu.OnGameCanContinue += PlaySubMenu_OnGameCanContinue;
 
-        AudioManager.PlayMusic(MusicList.THEME_SMALL_INTRO_SWITCH);
+
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        if (musicVolume == 0) { musicVolume = 100f; }
+
+        AudioManager.PlayMusic(MusicList.THEME_SMALL_INTRO_SWITCH, musicVolume);
 
         //Invoke("PlayMainTheme", AudioManager.GetClipLength(MusicList.THEME_SMALL_INTRO_SWITCH) - 1f);
 
@@ -30,7 +34,9 @@ public class MainMenuTransition : MonoBehaviour
     {
         if (!AudioManager.IsPlaying())
         {
-            AudioManager.PlayMusicLoop(MusicList.THEME_LOOP);
+            float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+            if (musicVolume == 0) { musicVolume = 100f; }
+            AudioManager.PlayMusicLoop(MusicList.THEME_LOOP, musicVolume);
         }
     }
 

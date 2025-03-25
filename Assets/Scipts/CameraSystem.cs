@@ -12,10 +12,15 @@ public class CameraSystem : MonoBehaviour {
 
     public event EventHandler OnPauseKeyPressed;
 
-    [SerializeField] private float moveSpeed = 0.1f;
-    [SerializeField] private float orbitSpeed = 0.1f;
-    [SerializeField] private float zoomSpeed = 1f;
-    [SerializeField] private float focusSpeed = 8f;
+    [SerializeField] private float moveSpeedMult = 0.1f;
+    [SerializeField] private float orbitSpeedMult = 0.1f;
+    [SerializeField] private float zoomSpeedMult = 1f;
+    [SerializeField] private float focusSpeedMult = 8f;
+
+    private float moveSpeed = 0.1f;
+    private float orbitSpeed = 0.1f;
+    private float zoomSpeed = 1f;
+    private float focusSpeed = 8f;
 
     [SerializeField] private CinemachineOrbitalFollow orbitCamera;
 
@@ -61,6 +66,17 @@ public class CameraSystem : MonoBehaviour {
 
     private void OnEnable() => cameraInputActions.Enable();
     private void OnDisable() => cameraInputActions.Disable();
+
+    private void Start()
+    {
+        float moveSensPref = PlayerPrefs.GetFloat("CameraMoveSens");
+        if (moveSensPref == 0f) { moveSensPref = 1f; }
+        moveSpeed = moveSensPref * moveSpeedMult;
+
+        float orbitSensPref = PlayerPrefs.GetFloat("CameraOrbitSens");
+        if (orbitSensPref == 0f) { orbitSensPref = 1f; }
+        orbitSpeed = orbitSensPref * orbitSpeedMult;
+    }
 
     private void Update()
     {

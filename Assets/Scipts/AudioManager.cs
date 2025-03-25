@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public static void PlayMusicLoop(MusicList music, float volume = 1)
+    public static void PlayMusicLoop(MusicList music, float volume =1f)
     {
         if (Exists()) {
             audioManagerInstance.audioSource.clip = audioManagerInstance.musicList[(int)music];
@@ -64,5 +64,10 @@ public class AudioManager : MonoBehaviour
     public static float GetClipLength(MusicList music)
     {
         return audioManagerInstance.musicList[(int)music].length;
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioManagerInstance.audioSource.volume = volume;
     }
 }

@@ -126,14 +126,14 @@ public class InputFieldBackground : MonoBehaviour {
     }
 
     private void Hide() {
-        //CameraSystem.Instance.;
+        CameraSystem.Instance.DisableCamInputs();
         gameObject.SetActive(false);
         buildingName.text = "";
         //buildingTypeDropdown.options[0] = buildingTypeDropdown.options[0];
         buildingArea.text = "";
     }
     private void Show() {
-        //CameraSystem.Instance.DisableInput();
+        CameraSystem.Instance.EnableCamInputs();
         gameObject.SetActive(true);
     }
 }

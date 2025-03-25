@@ -7,7 +7,9 @@ public class IntroSceneChanger : MonoBehaviour
 
     void Start()
     {
-        AudioManager.PlayMusic(MusicList.THEME_LONG_INTRO);
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        if (musicVolume == 0 ) { musicVolume = 100f; }
+        AudioManager.PlayMusic(MusicList.THEME_LONG_INTRO, musicVolume);
     }
 
     void Update()

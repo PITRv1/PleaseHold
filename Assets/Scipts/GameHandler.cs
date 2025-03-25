@@ -81,7 +81,9 @@ public class GameHandler : MonoBehaviour {
 
         endDate = GetEndDate(simStartYear, simStartMonth, simLength);
 
-        AudioManager.PlayMusicLoop(MusicList.MAIN_GAME_MUSIC_LOOP, 1f);
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        if (musicVolume == 0) { musicVolume = 100f; }
+        AudioManager.PlayMusicLoop(MusicList.MAIN_GAME_MUSIC_LOOP, musicVolume);
 
         UpdateDate();
         UpdateHUD();

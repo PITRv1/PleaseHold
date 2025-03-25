@@ -14,6 +14,10 @@ public class OptionsSubMenu : SubMenu
     [SerializeField] Slider cameraOrbitSensSlider;
     [SerializeField] TextMeshProUGUI cameraOrbitSensText;
 
+    [SerializeField] Slider cameraZoomSensSlider;
+    [SerializeField] TextMeshProUGUI cameraZoomSensText;
+
+
     [SerializeField] Button saveButton;
 
     [SerializeField] AudioManager audioManager;
@@ -23,6 +27,8 @@ public class OptionsSubMenu : SubMenu
         musicSlider.onValueChanged.AddListener(UpdateMusicValue);
         cameraMoveSenSlider.onValueChanged.AddListener(UpdateMoveSensValue);
         cameraOrbitSensSlider.onValueChanged.AddListener(UpdateOrbitValue);
+        cameraZoomSensSlider.onValueChanged.AddListener(UpdateZoomValue);
+
 
         saveButton.onClick.AddListener(SaveToPlayerPrefs);
     }
@@ -32,17 +38,19 @@ public class OptionsSubMenu : SubMenu
         float volumePref = PlayerPrefs.GetFloat("MusicVolume");
         if (volumePref == 0f) { volumePref = 1f;}
         musicSlider.value = volumePref;
-        UpdateMoveSensValue(volumePref);
+        UpdateMusicValue(volumePref);
 
         float moveSensPref = PlayerPrefs.GetFloat("CameraMoveSens");
-        if (moveSensPref == 0f) { moveSensPref = 1f; }
         cameraMoveSenSlider.value = moveSensPref;
         UpdateMoveSensValue(moveSensPref);
 
         float orbitSensPref = PlayerPrefs.GetFloat("CameraOrbitSens");
-        if (orbitSensPref == 0f) { orbitSensPref = 1f; }
         cameraOrbitSensSlider.value = orbitSensPref;
-        UpdateMoveSensValue(orbitSensPref);
+        UpdateOrbitValue(orbitSensPref);
+
+        float zoomSensPref = PlayerPrefs.GetFloat("CameraOrbitSens");
+        cameraZoomSensSlider.value = zoomSensPref;
+        UpdateZoomValue(zoomSensPref);
     }
 
     private void UpdateMusicValue(float value)
@@ -61,11 +69,19 @@ public class OptionsSubMenu : SubMenu
         cameraOrbitSensText.text = displayValue.ToString("F0");
     }
 
+    private void UpdateZoomValue(float value)
+    {
+        float displayValue = value * 100f;
+        cameraZoomSensText.text = displayValue.ToString("F0");
+    }
+
     private void SaveToPlayerPrefs()
     {
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
         PlayerPrefs.SetFloat("CameraMoveSens", cameraMoveSenSlider.value);
         PlayerPrefs.SetFloat("CameraOrbitSens", cameraOrbitSensSlider.value);
+        PlayerPrefs.SetFloat("CameraZoomSens", cameraZoomSensSlider.value);
+
 
         audioManager.SetVolume(musicSlider.value);
     }

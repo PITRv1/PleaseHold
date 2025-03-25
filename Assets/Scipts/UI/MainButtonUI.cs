@@ -6,19 +6,28 @@ public class MainButtonUI : MonoBehaviour
 {
     public static MainButtonUI Instance { get; private set; }
 
+    public event EventHandler OnGameCanContinue;
+
     public event EventHandler OnPlayMenuButtonClick;
     public event EventHandler OnOptionsMenuButtonClick;
     public event EventHandler OnCreditsMenuButtonClick;
 
+    [SerializeField] private Button simulationContinueButton;
 
     [SerializeField] private Button playMenuButton;
     [SerializeField] private Button optionsMenuButton;
     [SerializeField] private Button creditsMenuButton;
     [SerializeField] private Button exitButton;
 
+    [SerializeField] private CameraChangeController cameraChangeController;
+    [SerializeField] private FadeControllerUI canvasFadeControllerUI;
+
+
     private void Awake()
     {
         Instance = this;
+
+        simulationContinueButton.onClick.AddListener(ContinueSimulation);
 
         playMenuButton.onClick.AddListener(() =>
         {
@@ -40,5 +49,12 @@ public class MainButtonUI : MonoBehaviour
         {
             Application.Quit();
         });
+    }
+    private void ContinueSimulation()
+    {
+        OnGameCanContinue?.Invoke(this, EventArgs.Empty);
+
+        cameraChangeController.Transition();
+        canvasFadeControllerUI.FadeOut(2f);
     }
 }

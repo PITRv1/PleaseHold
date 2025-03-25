@@ -33,15 +33,12 @@ public class CameraSystem : MonoBehaviour {
     private bool centeredOnTarget;
     private bool focusing = false;
 
-    //private CinemachineOrbitalFollow orbitalFollowComponent;
-
     private const float minPitch = 10f;
     private const float maxPitch = 85f;
 
     private void Awake() {
         Instance = this;
         cameraInputActions = new CameraInput_Actions();
-        //orbitalFollowComponent = orbitCamera.GetComponent<CinemachineOrbitalFollow>();
 
         cameraInputActions.Camera.Move.started += ctx => isShiftHeld = true;
         cameraInputActions.Camera.Move.canceled += ctx => isShiftHeld = false;
@@ -70,12 +67,13 @@ public class CameraSystem : MonoBehaviour {
     private void Start()
     {
         float moveSensPref = PlayerPrefs.GetFloat("CameraMoveSens");
-        if (moveSensPref == 0f) { moveSensPref = 1f; }
         moveSpeed = moveSensPref * moveSpeedMult;
 
         float orbitSensPref = PlayerPrefs.GetFloat("CameraOrbitSens");
-        if (orbitSensPref == 0f) { orbitSensPref = 1f; }
         orbitSpeed = orbitSensPref * orbitSpeedMult;
+
+        float zoomSensPref = PlayerPrefs.GetFloat("CameraZoomSens");
+        zoomSpeed = zoomSensPref * zoomSpeedMult;
     }
 
     private void Update()
@@ -100,8 +98,6 @@ public class CameraSystem : MonoBehaviour {
         {
             OrbitCamera();
         }
-
-
     }
 
     private void MoveHorizontal()
@@ -109,41 +105,49 @@ public class CameraSystem : MonoBehaviour {
         Vector3 forward = orbitCamera.transform.forward;
         Vector3 right = orbitCamera.transform.right;
 
-        // Ignore vertical movement (Y-axis) to keep it on a horizontal plane
         forward.y = 0;
         right.y = 0;
 
-        // Normalize to avoid diagonal movement being faster
         forward.Normalize();
         right.Normalize();
 
-        // Move in the direction of mouse input
+        float moveSensPref = PlayerPrefs.GetFloat("CameraMoveSens");
+        moveSpeed = moveSensPref * moveSpeedMult;
+
         Vector3 moveDirection = (right * moveInput.x + forward * moveInput.y) * .1f * moveSpeed;
 
-        // Apply movement
         transform.position -= moveDirection;
     }
 
     private void OrbitCamera()
     {
+
+        float orbitSensPref = PlayerPrefs.GetFloat("CameraOrbitSens");
+        orbitSpeed = orbitSensPref * orbitSpeedMult;
+
         float yaw = moveInput.x * orbitSpeed;
         float pitch = -moveInput.y * orbitSpeed;
 
         orbitCamera.HorizontalAxis.Value += yaw;
 
-        // Apply Pitch with clamping (limits between 10° and 85°)
         float newPitch = orbitCamera.VerticalAxis.Value + pitch;
         orbitCamera.VerticalAxis.Value = Mathf.Clamp(newPitch, minPitch, maxPitch);
     }
 
     private void ZoomIn()
     {
+        float zoomSensPref = PlayerPrefs.GetFloat("CameraZoomSens");
+        zoomSpeed = zoomSensPref * zoomSpeedMult;
+
         if (orbitCamera.Radius - zoomSpeed > 20f) { 
             orbitCamera.Radius -= zoomSpeed;
         }
     }
     private void ZoomOut()
     {
+        float zoomSensPref = PlayerPrefs.GetFloat("CameraZoomSens");
+        zoomSpeed = zoomSensPref * zoomSpeedMult;
+
         if (orbitCamera.Radius + zoomSpeed < 1000f)
             orbitCamera.Radius += zoomSpeed;
     }

@@ -10,6 +10,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
 
+    [SerializeField] Canvas canvas;
     [SerializeField] Flat flat;
     [SerializeField] Image Timer;
     [SerializeField] TextMeshProUGUI IdText;
@@ -108,6 +109,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
 
         IdText.text = id.ToString();
 
+        float heightOffset = 25f;
         switch (type) {
             default:
             case "lakóház":
@@ -131,8 +133,12 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                 break;
             case "kórház":
                 buildingMesh = Instantiate(HospitalMesh, transform);
+                heightOffset = 25f;
+                canvas.transform.position += new Vector3(0, heightOffset, 0);
                 break;
             case "iskola":
+                heightOffset = -10f;
+                canvas.transform.position += new Vector3(0, heightOffset, 0);
                 buildingMesh = Instantiate(SchoolMesh, transform);
                 break;
         }

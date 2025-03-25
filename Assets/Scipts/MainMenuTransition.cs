@@ -13,7 +13,7 @@ public class MainMenuTransition : MonoBehaviour
     private void Start()
     {
         playSubMenu.OnGameCanStart += PlaySubMenu_OnGameCanStart;
-        playSubMenu.OnGameCanContinue += PlaySubMenu_OnGameCanContinue;
+        MainButtonUI.Instance.OnGameCanContinue += PlaySubMenu_OnGameCanContinue;
 
 
         float musicVolume = PlayerPrefs.GetFloat("MusicVolume");

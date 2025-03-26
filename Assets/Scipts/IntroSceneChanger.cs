@@ -8,8 +8,7 @@ public class IntroSceneChanger : MonoBehaviour
 
     private void Awake() {
         float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        if (musicVolume == 0) { musicVolume = 1000000f; }
-        musicVolume = 100f;
+        if (musicVolume == 0) { musicVolume = 1f; }
         IntroAudio.volume = musicVolume;
     }
 

@@ -13,10 +13,15 @@ Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megvár
 Ezt a játékot a Vadász Dénes Informatika Versenyre készítettük. A feladatról röviden:
 
 ### 1. Adatbázis
+<img src="https://imgs.search.brave.com/7dCTcjvsnCBTX-JiFSrTbGxqDNvF2OBUNpHc8irTBoc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi9mL2YxL01p/Y3Jvc29mdF9PZmZp/Y2VfQWNjZXNzXyUy/ODIwMTktcHJlc2Vu/dCUyOS5zdmcvMjIw/cHgtTWljcm9zb2Z0/X09mZmljZV9BY2Nl/c3NfJTI4MjAxOS1w/cmVzZW50JTI5LnN2/Zy5wbmc" style="width: 50px">
+
 - Létre kellett hozni egy adatbázist MS Access-ben különböző táblákkal  és integritási szabályokkal. A Rekordokat lekérdezésekben kellet megjeleníteni.
 - Minimum adatmennyiségek: 10 épület, 30 lakos, 10 szolgáltatás és 5 városfejlesztési projekt.
 
 ### 2. Statisztika
+
+<img src="https://imgs.search.brave.com/tDP1FFHMa_p_IhPueRD1KbzpoQo5f-BQBbZMqJSjbrk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi8zLzM0L01p/Y3Jvc29mdF9PZmZp/Y2VfRXhjZWxfJTI4/MjAxOSVFMiU4MCU5/M3ByZXNlbnQlMjku/c3ZnLzIyMHB4LU1p/Y3Jvc29mdF9PZmZp/Y2VfRXhjZWxfJTI4/MjAxOSVFMiU4MCU5/M3ByZXNlbnQlMjku/c3ZnLnBuZw" style="width: 50px">
+
 A táblákat be kellett importálni MS Excel-be, ahol statisztikát kellett készíteni a következő pontokról:
  - Az épülettípusok aránya a városban.
  - Lakosok korcsoportok szerinti megoszlása.

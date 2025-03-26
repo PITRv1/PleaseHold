@@ -7,7 +7,7 @@
 </p>
 
 ## A játékról
-Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megváratnak minket. Egyszer megunjuk és elkezdünk játszani a munkahelyünkön.
+Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megváratnak minket. Egyszer megunjuk és elkezdünk játszani a telefonunkon.
 
 ## A feladatról
 Ezt a játékot a Vadász Dénes Informatika Versenyre készítettük. A feladatról röviden:

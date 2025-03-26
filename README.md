@@ -12,10 +12,16 @@ Munkánk során sokszor kell felhívnunk a Kormányablakot, akiknek nem szokásu
 ## A feladatról
 Ezt a játékot a Vadász Dénes Informatika Versenyre készítettük. A feladatról röviden:
 ### 1. Adatbázis
-- Létre kellett hozni egy adatbázist MS Access-ben, ahol különböző táblákat kellett létrehozni és integritási szabályokat beállítani rajtuk. A Rekordokat lekérdezésekben kellet megjeleníteni.
-- Minimum adatok száma: 10 épület, 30 lakos, 10 szolgáltatás és 5 városfejlesztési projekt.
+- Létre kellett hozni egy adatbázist MS Access-ben különböző táblákkal  és integritási szabályokkal. A Rekordokat lekérdezésekben kellet megjeleníteni.
+- Minimum adatmennyiségek: 10 épület, 30 lakos, 10 szolgáltatás és 5 városfejlesztési projekt.
 
 ### 2. Statisztika
+A táblákat be kellett importálni MS Excel-be, ahol el kellett készíteni a statisztikát a következő pontokról:
+ - Az épülettípusok aránya a városban.
+ - Lakosok korcsoportok szerinti megoszlása.
+ - A fejlesztési költségek összesítése épület-típusonként csoportosítva.
 
 ### 3. Városfejlesztési szimulátor
+A program megtervezése előtt megllapodtunk abban
+
 ## Használat

@@ -29,7 +29,7 @@ A táblákat be kellett importálni MS Excel-be, ahol statisztikát kellett kés
 
 ### 3. Városfejlesztési szimulátor
 
-<img src="https://imgs.search.brave.com/skcf_DAStfWCngkl1QhR7AYwSEwbmpEAOlU1MnEPba0/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/dHUzZ3Q2eXNmeHE3/MS5wbmc_YXV0bz13/ZWJwJnM9MTBhYjU1/ZDlkYzA5ZTdlZDZl/YTU5YmQ1OTE2ODAw/YTUyNzJkNTk2OQ" style="width: 50px;">
+<img src="https://imgs.search.brave.com/skcf_DAStfWCngkl1QhR7AYwSEwbmpEAOlU1MnEPba0/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/dHUzZ3Q2eXNmeHE3/MS5wbmc_YXV0bz13/ZWJwJnM9MTBhYjU1/ZDlkYzA5ZTdlZDZl/YTU5YmQ1OTE2ODAw/YTUyNzJkNTk2OQ" style="width: 60px;">
 
 A program megtervezése előtt megállapodtunk abban, hogy ebből a feladatból egy játékot szeretnénk készíteni. A kivitelezéshez a C# programozási nyelvet és a Unity játékmotort választottuk.
 

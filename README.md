@@ -17,7 +17,7 @@ Ezt a játékot a Vadász Dénes Informatika Versenyre készítettük. A feladat
 - Minimum adatmennyiségek: 10 épület, 30 lakos, 10 szolgáltatás és 5 városfejlesztési projekt.
 
 ### 2. Statisztika
-A táblákat be kellett importálni MS Excel-be, ahol el kellett készíteni a statisztikát a következő pontokról:
+A táblákat be kellett importálni MS Excel-be, ahol statisztikát kellett készíteni a következő pontokról:
  - Az épülettípusok aránya a városban.
  - Lakosok korcsoportok szerinti megoszlása.
  - A fejlesztési költségek összesítése épület-típusonként csoportosítva.

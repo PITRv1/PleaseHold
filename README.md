@@ -1,2 +1,4 @@
 # Please Hold
- A game about playing a citybuilder while waiting for customer support to pick up
+<p>
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Assets/_Assets/Images/GameLogo.png?raw=true" style="width:200px">
+</p>

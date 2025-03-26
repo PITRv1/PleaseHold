@@ -34,6 +34,29 @@ public class BuildingField : MonoBehaviour {
         exitButton.onClick.AddListener(() => {
             Hide();
         });
+    }
+
+    private string GetEndDate(int currentYear, int currentMonth, int turnsToBuild) {
+        int year = currentYear;
+        int month = currentMonth;
+
+        month += turnsToBuild;
+        int years = (month - 1) / 12;  // Subtract 1 to handle the 0th month issue
+        int leftoverMonths = (month - 1) % 12 + 1; // Ensure months are in range 1-12
+        year += years;
+        month = leftoverMonths;
+
+        if (month < 10) {
+            return year.ToString() + "-0" + month.ToString();
+        } else {
+            return year.ToString() + '-' + month.ToString();
+        }
+
+    }
+
+    private void Start() {
+        EventHandlerScript.Instance.OnFlatRightClick += EventHandlerScript_OnFlatRightClick;
+        rectTransform = GetComponent<RectTransform>();
         acceptButton.onClick.AddListener(() => {
 
             repairCostText = repairCost.text;
@@ -62,28 +85,6 @@ public class BuildingField : MonoBehaviour {
 
             Hide();
         });
-    }
-    private string GetEndDate(int currentYear, int currentMonth, int turnsToBuild) {
-        int year = currentYear;
-        int month = currentMonth;
-
-        month += turnsToBuild;
-        int years = (month - 1) / 12;  // Subtract 1 to handle the 0th month issue
-        int leftoverMonths = (month - 1) % 12 + 1; // Ensure months are in range 1-12
-        year += years;
-        month = leftoverMonths;
-
-        if (month < 10) {
-            return year.ToString() + "-0" + month.ToString();
-        } else {
-            return year.ToString() + '-' + month.ToString();
-        }
-
-    }
-
-    private void Start() {
-        EventHandlerScript.Instance.OnFlatRightClick += EventHandlerScript_OnFlatRightClick;
-        rectTransform = GetComponent<RectTransform>();
         Hide();
     }
 

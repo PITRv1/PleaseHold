@@ -215,7 +215,7 @@ public class GameHandler : MonoBehaviour {
         CreateFlat(id, name, type, date, usefulArea, turnsToBuild, turns, status, plot, color);
     }
 
-    private string GetEndDate(int currentYear, int currentMonth, int turnsToEnd) {
+    public string GetEndDate(int currentYear, int currentMonth, int turnsToEnd) {
         int year = currentYear;
         int month = currentMonth;
 

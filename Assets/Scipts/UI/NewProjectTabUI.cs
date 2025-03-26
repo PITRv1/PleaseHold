@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
@@ -50,11 +51,11 @@ public class NewProjectTabUI : MonoBehaviour
             projectBuildingsText = projectBuildings.text;
             projectCostText = projectCost.text;
 
-            projectNameText = "";
-            projectTypeText = "";
-            projectTurnsToCompleteText = "";
-            projectBuildingsText = "";
-            projectCostText = "";
+            projectName.text = "";
+            projectType.text = "";
+            projectTurnsToComplete.text = "";
+            projectBuildings.text = "";
+            projectCost.text = "";
 
             string date = GameHandler.Instance.GetDate();
             int currentYear = Int32.Parse(date.Split('-')[0]);
@@ -63,6 +64,18 @@ public class NewProjectTabUI : MonoBehaviour
 
             //Project Creation Logic Here
 
+            GameHandler.Instance.CreateNewProject(projectNameText, projectCostText, date, GameHandler.Instance.GetEndDate(currentYear, currentMonth, Int32.Parse(projectTurnsToCompleteText)), projectBuildingsText, "repair");
+            List<string> lines = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath());
+            string[] buildingIds = projectBuildingsText.Split(';');
+            foreach (string id in buildingIds) {
+                int buildId = Int32.Parse(id);
+
+                if (buildId > SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath())) Debug.LogError("One of the building ids is invalid");
+
+                SaveCSV.Instance.EditOneValueOnLine(buildId, SaveCSV.BuildingColumns.TurnsToFinish, SaveCSV.Instance.GetBuildingFilePath(), projectTurnsToCompleteText);
+                SaveCSV.Instance.EditOneValueOnLine(buildId, SaveCSV.BuildingColumns.Turns, SaveCSV.Instance.GetBuildingFilePath(), "0");
+            }
+            
             Hide();
         });
     }

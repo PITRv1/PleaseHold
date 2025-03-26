@@ -20,7 +20,7 @@ public class OptionsSubMenu : SubMenu
 
     [SerializeField] Button saveButton;
 
-    [SerializeField] AudioManager audioManager;
+    [SerializeField] MainMenuAudioManager audioManager;
 
     private void Awake()
     {

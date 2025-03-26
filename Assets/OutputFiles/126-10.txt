@@ -1,0 +1,19 @@
+The city has recived 100000$ extra funding.
+
+Épületek állapota:
+	-Napfény Lakópark 1: Perfect
+	-Kossuth Gimnázium 2: Perfect
+	-Panoráma Ház 3: Awful
+	-Rózsa Villa 4: Perfect
+	-Duna Office Iroda 5: Awful
+	-Szent István Általános Iskola 6: Awful
+	-Béke Lakótelep 7: Perfect
+	-Alkotás Udvar 8: Average
+	-Hegyalja Vendégház 9: Good
+	-Aranypart Panzió 10: Perfect
+	-adasd: Perfect
+	-asd: Perfect
+	-JancsiLak: Perfect
+	-Haziko: Perfect
+
+Budget: 1.228733E+07

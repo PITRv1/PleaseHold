@@ -127,3 +127,28 @@ A burger menüre kattintva megjelenik 3 opció:
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
 </p>
+
+Szolgáltatás leállításhoz ki kell választania, hogy melyiket szeretné leáálítani.
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/11.png?raw=true" style="width:1000px">
+</p>
+
+Új projekt létrehozásához meg kell adnia a:
+ - projekt nevét
+ - projekt típusát
+ - projekt megvalósítására szánt hónapok számát
+ - kapcsolódó épületeket
+ - projekt költségvetését
+
+A játék közben váratlan események is történhetnek, amiket alul középen fog látni.
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/13.png?raw=true" style="width:1000px">
+</p>
+
+A következő képen láthatja azt a menüt, amikor véget ér a szimuláció.
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/14.png?raw=true" style="width:1000px">
+</p>

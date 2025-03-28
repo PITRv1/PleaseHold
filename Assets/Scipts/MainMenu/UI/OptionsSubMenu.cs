@@ -41,14 +41,17 @@ public class OptionsSubMenu : SubMenu
         UpdateMusicValue(volumePref);
 
         float moveSensPref = PlayerPrefs.GetFloat("CameraMoveSens");
+        if (moveSensPref == 0f) { moveSensPref = .1f;}
         cameraMoveSenSlider.value = moveSensPref;
         UpdateMoveSensValue(moveSensPref);
 
         float orbitSensPref = PlayerPrefs.GetFloat("CameraOrbitSens");
+        if (orbitSensPref == 0f) { orbitSensPref = .1f;}
         cameraOrbitSensSlider.value = orbitSensPref;
         UpdateOrbitValue(orbitSensPref);
 
         float zoomSensPref = PlayerPrefs.GetFloat("CameraOrbitSens");
+        if (zoomSensPref == 0f) { zoomSensPref = .1f;}
         cameraZoomSensSlider.value = zoomSensPref;
         UpdateZoomValue(zoomSensPref);
     }

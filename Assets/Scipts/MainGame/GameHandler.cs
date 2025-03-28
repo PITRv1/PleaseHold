@@ -34,6 +34,7 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] float endServiceHappines;
     [SerializeField] EventDisplay eventDisplay;
     [SerializeField] EndGameUI endGameUI; 
+    [SerializeField] NPCSpawner npcSpawner;
 
     private int turnCount = 0;
     private int simStartYear;
@@ -83,6 +84,7 @@ public class GameHandler : MonoBehaviour {
 
         UpdateDate();
         UpdateHUD();
+        npcSpawner.SpawnNPCs(population);
     }
     public void NewMonth() {
         turnCount += 1;
@@ -96,6 +98,7 @@ public class GameHandler : MonoBehaviour {
         CheckGameState();
         populationHappiness = Mathf.Clamp(populationHappiness, populationMinHappiness, populationMaxHappiness); // Just make sure it works bruh
         UpdateHUD();
+        npcSpawner.SpawnNPCs(population);
     }
 
     private void RandomEvent() {

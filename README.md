@@ -6,8 +6,14 @@
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Assets/_Assets/Images/undefined_team_logo.png?raw=true" style="width:200px">
 </p>
 
-## A játékról
+## A játék történetéről
 Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megváratnak minket. Egyszer megunjuk és elkezdünk játszani a telefonunkon.
+
+## Fontos programok és verzióik
+- Microsoft Office 2019
+- Unity Hub 3.11.1
+- Unity 6 (6000.0.40f1)
+- Dotnet 8
 
 ## A feladatról
 Ezt a játékot a Vadász Dénes Informatika Versenyre készítettük. A feladatról röviden:
@@ -34,3 +40,90 @@ A táblákat be kellett importálni MS Excel-be, ahol statisztikát kellett kés
 A program megtervezése előtt megállapodtunk abban, hogy ebből a feladatból egy játékot szeretnénk készíteni. A kivitelezéshez a C# programozási nyelvet és a Unity játékmotort választottuk.
 
 ## Használat
+A bevezető videó után a játék átvált a főmenüre, ahol:
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/1.png?raw=true" style="width:1000px">
+</p>
+
+ - a **[Continue]** gommbbal folytathatja a már megkezdett, de nem befejezett szimulációt
+ - a **[Play]** gombbal indíthat egy új szimulációt
+ - az **[Options]** gombbal megnyithatja a beállításokat
+ - a **[Credits]** gombbal olvashat a fejlesztői csapatról
+ - az **[Exit]** gombbal bezárhatja a programot
+
+A **[Play]** lenyomása után megjelenik jobb oldalon egy olyan menü, ahol megadhatja a szimuláció paramétereit:
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/2.png?raw=true" style="width:1000px">
+</p>
+
+> [!NOTE]  
+> A **[Load Default Test Files]** gomb lenyomására a program kiolvassa a csv állományokat a **(Játék mappája)/PleaseHold/Assets/CSV Files/** mappából. Ebbe a mappába a saját fájljait is elhelyezheti.
+
+Itt tudja megadni a:
+ - szimuláció kezdő évét és hónapját
+ - a szimuláció hosszát hónapokban
+ - a lakosok boldogságának minimum és kezdeti értékét
+ - a kezdő költségvetést
+ - az épületek állapotát
+ - a szolgáltatások fentartási költségét
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/3.png?raw=true" style="width:1000px">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/4.png?raw=true" style="width:1000px">
+</p>
+A szolgáltatásnál meg tudja adni manuálisan vagy a fenntartás minimum és maximum értékeit megadva randomizálni is tudja ezeket. 
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/5.png?raw=true" style="width:1000px">
+</p>
+
+A **[Start simulation]** gomb lenyomása után elindíthatja a szimulációt.
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/6.png?raw=true" style="width:1000px">
+</p>
+Bal felül láthatja az adott dátumot, középen a lakosok boldogságát és jobb oldalt a rendelkezésre álló pénzösszeget.
+Kamera irányítása:
+ - jobb shift + egér görgő nyomvatartása + egér mozgatása: a kamera mozgatása
+ - egér görgő nyomvatartása + egér mozgatésa: a kamera forgatása
+ - görgő: ráközelítés
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/7.png?raw=true" style="width:500px">
+</p>
+
+Az épületek adatait úgy tudja lekérni, ha ráviszi a kurzort.
+Ha jobb klikkel egy üres területre, akkor megnyiílik az épület építése menü. Itt meg kell adnia a(z):
+ - épület nevét
+ - típusát
+ - méretét
+ - megépítéshez szükséges hónapok száma
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/8.png?raw=true" style="width:500px">
+</p>
+
+Ha jobb klikkel egy épületre, akkor megjavíthatja azt. Meg kell adnia a:
+ - a felújításra szánt költségvetés
+ - a felújításhoz szükséges hónapok száma
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/9.png?raw=true" style="width:500px">
+</p>
+
+A burger menüre kattintva megjelenik 3 opció:
+ - új szolgáltatás létrehozása
+ - szolgáltatás törlése
+ - új projekt létrehozása
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
+</p>
+
+Új szolgáltatás létrehozásához a következő adataok szükségesek:
+ - szolgáltatás neve
+ - szolgáltatás típusa
+ - kapcsolódó épületek
+ - szolgáltatásra szánt költségvetés
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
+</p>

@@ -14,7 +14,7 @@ public class IntroSceneChanger : MonoBehaviour
 
     private void Update()
     { 
-        if ((VideoPlayer.frame >= (long)VideoPlayer.frameCount-1) || Input.GetKey(KeyCode.F)) {
+        if ((VideoPlayer.frame >= (long)VideoPlayer.frameCount-1) || Input.GetKey(KeyCode.Space)) {
             SceneLoader.Load(SceneLoader.Scene.MainMenuScene);
         }
     }

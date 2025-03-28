@@ -39,6 +39,10 @@ public class GameEventSystem : MonoBehaviour {
 
         fileLines.Add("");
 
+        fileLines.Add("City happiness: " + GameHandler.Instance.GetHappiness().ToString());
+
+        fileLines.Add("");
+
         fileLines.Add("Budget: " + GameHandler.Instance.GetBudget().ToString());
 
         File.WriteAllLines(filePath, fileLines);

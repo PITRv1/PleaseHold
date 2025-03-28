@@ -345,8 +345,6 @@ public class GameHandler : MonoBehaviour {
 
         flat.Initialize(id, name, type, year, area, Int32.Parse(turnsToBuild), Int32.Parse(turns), status, plot.transform, color);
         plot.isReserved = true;
-        GameEventSystem.Instance.AddToOutput("Létrejött egy új épület " + buildingNameText + " néven");
-
     }
 
     public void CreateNewService(string name, string type, string buildingIds, string cost) {
@@ -369,6 +367,10 @@ public class GameHandler : MonoBehaviour {
     
     public int GetTurnCount() {
         return turnCount;
+    }
+
+    public float GetHappiness() {
+        return populationHappiness;
     }
 
     public float GetBudget() {

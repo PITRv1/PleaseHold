@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -55,6 +55,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
 
                 if (turns >= buildingTurnsTillFinish) {
                     buildingStatus = "Perfect";
+                    GameEventSystem.Instance.AddToOutput("Létrejött egy új épület " + buildingName + " néven");
                     SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
                 }
                 Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
@@ -81,6 +82,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
 
                 if (turns >= buildingTurnsTillFinish) {
                     buildingStatus = "Perfect";
+                    GameEventSystem.Instance.AddToOutput("Befejeződött egy karbantartás, a ház neve: " + buildingName);
                     SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
                 }
                 Timer.fillAmount = (float)turns / buildingTurnsTillFinish;
@@ -112,7 +114,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         float heightOffset = 25f;
         switch (type) {
             default:
-            case "lak�h�z":
+            case "lakóház":
                 switch (color) {
                     case "blue":
                         buildingMesh = Instantiate(BuildingBlueMesh, transform);
@@ -131,7 +133,7 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                         break;
                 }
                 break;
-            case "k�rh�z":
+            case "kórház":
                 buildingMesh = Instantiate(HospitalMesh, transform);
                 heightOffset = 25f;
                 canvas.transform.position += new Vector3(0, heightOffset, 0);

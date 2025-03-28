@@ -57,6 +57,23 @@ A **[Play]** lenyomása után megjelenik jobb oldalon egy olyan menü, ahol mega
 </p>
 
 > [!NOTE]  
-> A **[Load Default Test Files]** gomb lenyomására a program kiolvassa a csv állományokat a [Játék mappája]\PleaseHold\Assets\CSV Filesmappából. Ebbe a mappába a saját fájljait is elhelyezheti.
+> A **[Load Default Test Files]** gomb lenyomására a program kiolvassa a csv állományokat a **(Játék mappája)/PleaseHold/Assets/CSV Files/** mappából. Ebbe a mappába a saját fájljait is elhelyezheti.
 
+Itt tudja megadni a:
+ - szimuláció kezdő évét és hónapját
+ - a szimuláció hosszát hónapokban
+ - a lakosok boldogságának minimum és kezdeti értékét
+ - a kezdő költségvetést
+ - az épületek állapotát
+ - a szolgáltatások fentartási költségét
 
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/3.png?raw=true" style="width:1000px">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/4.png?raw=true" style="width:1000px">
+</p>
+A szolgáltatásnál meg tudja adni manuálisan vagy a fenntartás minimum és maximum értékeit megadva randomizálni is tudja ezeket. 
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/5.png?raw=true" style="width:1000px">
+</p>
+
+A **[Start simulation]** gomb lenyomása után elindíthatja a szimulációt.

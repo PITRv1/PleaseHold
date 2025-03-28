@@ -6,6 +6,13 @@
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Assets/_Assets/Images/undefined_team_logo.png?raw=true" style="width:200px">
 </p>
 
+## Csapatunk
+ - Csapat neve: undefined
+ - Csapat tagjai: Borók Máté, Kovács Dániel Benedek, Tóth Péter Sándor
+ - Csapat elérhetősége: undefinedteam000@gmail.com
+ - Iskolánk: Debreceni SZC Mechwart András Gépipari és Informatikai Technikum
+ - Felkészítő tanár: Hagymási Gyula Levente
+
 ## A játék történetéről
 Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megváratnak minket. Egyszer megunjuk és elkezdünk játszani a telefonunkon.
 
@@ -51,7 +58,7 @@ A bevezető videó után a játék átvált a főmenüre, ahol:
  - a **[Credits]** gombbal olvashat a fejlesztői csapatról
  - az **[Exit]** gombbal bezárhatja a programot
 
-A **[Play]** lenyomása után megjelenik jobb oldalon egy olyan menü, ahol megadhatja a szimuláció paramétereit:
+A **[Play]** lenyomása után megjelenik a jobb oldalon egy olyan menü, ahol megadhatja a szimuláció paramétereit:
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/2.png?raw=true" style="width:1000px">
 </p>
@@ -102,8 +109,8 @@ Ha jobb klikkel egy üres területre, akkor megnyiílik az épület építése m
 </p>
 
 Ha jobb klikkel egy épületre, akkor megjavíthatja azt. Meg kell adnia a:
- - a felújításra szánt költségvetés
- - a felújításhoz szükséges hónapok száma
+ - felújításra szánt költségvetés
+ - felújításhoz szükséges hónapok száma
 
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/9.png?raw=true" style="width:500px">
@@ -118,12 +125,37 @@ A burger menüre kattintva megjelenik 3 opció:
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
 </p>
 
-Új szolgáltatás létrehozásához a következő adataok szükségesek:
+Új szolgáltatás létrehozásához a következő adatok szükségesek:
  - szolgáltatás neve
  - szolgáltatás típusa
  - kapcsolódó épületek
- - szolgáltatásra szánt költségvetés
+ - szolgáltatás kiépítésére szánt költségvetés
 
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
+</p>
+
+Egy szolgáltatás leállításához ki kell választania, hogy melyiket szeretné ezt tenni.
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/11.png?raw=true" style="width:1000px">
+</p>
+
+Új projekt létrehozásához meg kell adnia a:
+ - projekt nevét
+ - projekt típusát
+ - projekt megvalósítására szánt hónapok számát
+ - kapcsolódó épületeket
+ - projekt kivitelezéséhez szükséges költségvetést
+
+A játék közben váratlan események is történhetnek, amiket alul középen fog látni.
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/13.png?raw=true" style="width:1000px">
+</p>
+
+A következő képen láthatja azt a menüt, amikor véget ér a szimuláció.
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/14.png?raw=true" style="width:1000px">
 </p>

@@ -80,6 +80,7 @@ A **[Start simulation]** gomb lenyomása után elindíthatja a szimulációt.
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/6.png?raw=true" style="width:1000px">
 </p>
+
 Kamera irányítása:
  - jobb shift + egér görgő nyomvatartása + egér mozgatása: a kamera mozgatása
  - egér görgő nyomvatartása + egér mozgatésa: a kamera forgatása
@@ -88,6 +89,7 @@ Kamera irányítása:
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/7.png?raw=true" style="width:1000px">
 </p>
+
 Az épületek adatait úgy tudja lekérni, ha ráviszi a kurzort.
 Ha jobb klikkel egy üres területre, akkor megnyiílik az épület építése menü. Itt meg kell adnia a(z):
  - épület nevét
@@ -95,3 +97,6 @@ Ha jobb klikkel egy üres területre, akkor megnyiílik az épület építése m
  - méretét
  - megépítéshez szükséges hónapok száma
 
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/8.png?raw=true" style="width:1000px">
+</p>

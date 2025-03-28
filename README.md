@@ -51,7 +51,7 @@ A bevezető videó után a játék átvált a főmenüre, ahol:
  - a **[Credits]** gombbal olvashat a fejlesztői csapatról
  - az **[Exit]** gombbal bezárhatja a programot
 
-A **[Play]** lenyomása után megjelenik jobb oldalon egy olyan menü, ahol megadhatja a szimuláció paramétereit:
+A **[Play]** lenyomása után megjelenik a jobb oldalon egy olyan menü, ahol megadhatja a szimuláció paramétereit:
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/2.png?raw=true" style="width:1000px">
 </p>
@@ -102,8 +102,8 @@ Ha jobb klikkel egy üres területre, akkor megnyiílik az épület építése m
 </p>
 
 Ha jobb klikkel egy épületre, akkor megjavíthatja azt. Meg kell adnia a:
- - a felújításra szánt költségvetés
- - a felújításhoz szükséges hónapok száma
+ - felújításra szánt költségvetés
+ - felújításhoz szükséges hónapok száma
 
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/9.png?raw=true" style="width:500px">
@@ -118,17 +118,17 @@ A burger menüre kattintva megjelenik 3 opció:
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
 </p>
 
-Új szolgáltatás létrehozásához a következő adataok szükségesek:
+Új szolgáltatás létrehozásához a következő adatok szükségesek:
  - szolgáltatás neve
  - szolgáltatás típusa
  - kapcsolódó épületek
- - szolgáltatásra szánt költségvetés
+ - szolgáltatás kiépítésére szánt költségvetés
 
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
 </p>
 
-Szolgáltatás leállításhoz ki kell választania, hogy melyiket szeretné leáálítani.
+Egy szolgáltatás leállításához ki kell választania, hogy melyiket szeretné ezt tenni.
 
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/11.png?raw=true" style="width:1000px">
@@ -139,7 +139,7 @@ Szolgáltatás leállításhoz ki kell választania, hogy melyiket szeretné le�
  - projekt típusát
  - projekt megvalósítására szánt hónapok számát
  - kapcsolódó épületeket
- - projekt költségvetését
+ - projekt kivitelezéséhez szükséges költségvetést
 
 A játék közben váratlan események is történhetnek, amiket alul középen fog látni.
 

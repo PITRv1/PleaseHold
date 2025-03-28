@@ -115,5 +115,15 @@ A burger menüre kattintva megjelenik 3 opció:
  - új projekt létrehozása
 
 <p align="center">
-  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:500px">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
+</p>
+
+Új szolgáltatás létrehozásához a következő adataok szükségesek:
+ - szolgáltatás neve
+ - szolgáltatás típusa
+ - kapcsolódó épületek
+ - szolgáltatásra szánt költségvetés
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:1000px">
 </p>

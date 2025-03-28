@@ -1,13 +1,13 @@
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class NPCMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private float maxRange = 10.0f;
-    private float minRange = 30.0f;
+    [SerializeField] private float maxRange = 1000.0f;
+    [SerializeField] private float minRange = 10.0f;
     private float range;
+    private bool isWalking = false;
 
     void Start()
     {
@@ -16,10 +16,14 @@ public class NPCMovement : MonoBehaviour
 
     void Update()
     {
+        isWalking = true;
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
+            isWalking = false;
             Vector3 point;
+            
             if (RandomPoint(transform.position, out point)) {
+                
                 agent.SetDestination(point);
             }
         }
@@ -40,5 +44,10 @@ public class NPCMovement : MonoBehaviour
 
         result = Vector3.zero;
         return false;
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
     }
 }

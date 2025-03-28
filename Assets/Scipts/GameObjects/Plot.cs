@@ -42,7 +42,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler {
 
     public bool TryGetFlatOnPlot(out Flat flatOnPlot) {
         flatOnPlot = flatOn;
-        if (isReserved) {
+        if (isReserved && flatOn.GetBuildingStatus() != "in construction") {
             return true;
         } else {
             return false;

@@ -131,9 +131,9 @@ public class GameHandler : MonoBehaviour {
     public void NewMonth() {
         turnCount += 1;
         UpdateDate();
+        NewMonthEvent?.Invoke(this, EventArgs.Empty);
         HandleProjects();
         HandleServices();
-        NewMonthEvent?.Invoke(this, EventArgs.Empty);
         UpdateOldDate();
         UpdateOldBudget();
         UpdateOldHappiness();
@@ -446,18 +446,17 @@ public class GameHandler : MonoBehaviour {
             if (splitLine[(int)SaveCSV.ProjectColumns.EndDate] == date) {
                 GameEventSystem.Instance.AddToOutput("Befejeződött egy projekt " + SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetProjectsFilePath())[i].Split(',')[(int)SaveCSV.ProjectColumns.Name] + " néven");
                 switch (splitLine[(int)SaveCSV.ProjectColumns.Type]) {
-                    case "repair":
-                        populationHappiness += repairHappines;
-                        break;
                     case "build":
                         populationHappiness += newBuildingHappines;
                         break;
+                    default:
+                    case "repair":
+                        populationHappiness += repairHappines;
+                        break;
                 }
-
                 deleteFromCSV.Add(i);
-            } else {
-                budget -= float.Parse(splitLine[(int)SaveCSV.ProjectColumns.Cost]);
             }
+            budget -= float.Parse(splitLine[(int)SaveCSV.ProjectColumns.Cost]);
         }
         foreach (int index in deleteFromCSV) {
             SaveCSV.Instance.DeleteFromCSV(projectPath, index);

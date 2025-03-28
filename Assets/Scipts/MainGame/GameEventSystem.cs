@@ -25,7 +25,7 @@ public class GameEventSystem : MonoBehaviour {
 
         fileLines.Add("");
 
-        fileLines.Add("Épületek állapota:");
+        fileLines.Add("Hónap eleji Épületek állapota:");
 
         List<string> buildings = SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetBuildingFilePath());
 
@@ -39,11 +39,11 @@ public class GameEventSystem : MonoBehaviour {
 
         fileLines.Add("");
 
-        fileLines.Add("City happiness: " + Mathf.Clamp((GameHandler.Instance.GetOldHappinessPercetige() * 100), 0, 100).ToString("0.00") + "%");
+        fileLines.Add("Hónap eleji boldogság: " + Mathf.Clamp((GameHandler.Instance.GetOldHappinessPercetige() * 100), 0, 100).ToString("0.00") + "%");
 
         fileLines.Add("");
 
-        fileLines.Add("Budget: " + GameHandler.Instance.GetOldBudget().ToString() + "$");
+        fileLines.Add("Hónap eleji költségvetési keret: " + GameHandler.Instance.GetOldBudget().ToString() + "$");
 
         File.WriteAllLines(filePath, fileLines);
 
@@ -90,11 +90,11 @@ public class GameEventSystem : MonoBehaviour {
 
         fileLines.Add("");
 
-        fileLines.Add("City happiness: " + (GameHandler.Instance.GetHappinessPercentige() * 100).ToString("0.00") + "%");
+        fileLines.Add("Boldogság: " + (GameHandler.Instance.GetHappinessPercentige() * 100).ToString("0.00") + "%");
 
         fileLines.Add("");
 
-        fileLines.Add("Budget: " + GameHandler.Instance.GetBudget().ToString() + "$");
+        fileLines.Add("Költségvetési keret: " + GameHandler.Instance.GetBudget().ToString() + "$");
 
         File.WriteAllLines(filePath, fileLines);
 

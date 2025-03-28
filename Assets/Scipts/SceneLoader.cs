@@ -1,6 +1,3 @@
-using UnityEditor.Rendering.Universal;
-using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public static class SceneLoader

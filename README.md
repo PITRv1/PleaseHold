@@ -77,3 +77,7 @@ A szolgáltatásnál meg tudja adni manuálisan vagy a fenntartás minimum és m
 </p>
 
 A **[Start simulation]** gomb lenyomása után elindíthatja a szimulációt.
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/6.png?raw=true" style="width:1000px">
+</p>
+Kamera irányítása:

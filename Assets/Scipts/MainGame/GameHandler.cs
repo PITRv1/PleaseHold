@@ -34,6 +34,7 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] float endServiceHappines;
     [SerializeField] EventDisplay eventDisplay;
     [SerializeField] EndGameUI endGameUI; 
+    [SerializeField] NPCSpawner npcSpawner;
 
     private int turnCount = 0;
     private int simStartYear;
@@ -83,6 +84,7 @@ public class GameHandler : MonoBehaviour {
 
         UpdateDate();
         UpdateHUD();
+        npcSpawner.SpawnNPCs(population);
     }
     public void NewMonth() {
         turnCount += 1;
@@ -96,6 +98,7 @@ public class GameHandler : MonoBehaviour {
         CheckGameState();
         populationHappiness = Mathf.Clamp(populationHappiness, populationMinHappiness, populationMaxHappiness); // Just make sure it works bruh
         UpdateHUD();
+        npcSpawner.SpawnNPCs(population);
     }
 
     private void RandomEvent() {
@@ -131,20 +134,23 @@ public class GameHandler : MonoBehaviour {
             populationHappiness -= 5f;
 
         } else if (chance <= 0.8f) {
-            eventDisplay.SetEventName("PlaceHolder");
-            eventDisplay.SetEventText("Make more events if you see this . . .");
-            eventDisplay.SetEventColor(Color.blue);
+            eventDisplay.SetEventName("FIREEE");
+            eventDisplay.SetEventText("A fire breaks damaging nerby buildings in the process. The happiness falls by 10%.");
+            eventDisplay.SetEventColor(Color.red);
 
             GameEventSystem.Instance.AddToOutput("Make more events if you see this . . .");
 
+            // add house selection logic here it shuldnt be that hard
+
+            populationHappiness -= 10f;
         }
         else
         {
-            eventDisplay.SetEventName("PlaceHolder");
-            eventDisplay.SetEventText("Make more events if you see this . . .");
+            eventDisplay.SetEventName("Nothing happens");
+            eventDisplay.SetEventText("This month nothing happpened.");
             eventDisplay.SetEventColor(Color.blue);
 
-            GameEventSystem.Instance.AddToOutput("Make more events if you see this . . .");
+            GameEventSystem.Instance.AddToOutput("This month nothing happpened.");
         }
 
         eventDisplay.ShowUI();

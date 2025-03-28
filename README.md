@@ -80,14 +80,14 @@ A **[Start simulation]** gomb lenyomása után elindíthatja a szimulációt.
 <p align="center">
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/6.png?raw=true" style="width:1000px">
 </p>
-
+Bal felül láthatja az adott dátumot, középen a lakosok boldogságát és jobb oldalt a rendelkezésre álló pénzösszeget.
 Kamera irányítása:
  - jobb shift + egér görgő nyomvatartása + egér mozgatása: a kamera mozgatása
  - egér görgő nyomvatartása + egér mozgatésa: a kamera forgatása
  - görgő: ráközelítés
 
 <p align="center">
-  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/7.png?raw=true" style="width:1000px">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/7.png?raw=true" style="width:500px">
 </p>
 
 Az épületek adatait úgy tudja lekérni, ha ráviszi a kurzort.
@@ -98,5 +98,22 @@ Ha jobb klikkel egy üres területre, akkor megnyiílik az épület építése m
  - megépítéshez szükséges hónapok száma
 
 <p align="center">
-  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/8.png?raw=true" style="width:1000px">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/8.png?raw=true" style="width:500px">
+</p>
+
+Ha jobb klikkel egy épületre, akkor megjavíthatja azt. Meg kell adnia a:
+ - a felújításra szánt költségvetés
+ - a felújításhoz szükséges hónapok száma
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/9.png?raw=true" style="width:500px">
+</p>
+
+A burger menüre kattintva megjelenik 3 opció:
+ - új szolgáltatás létrehozása
+ - szolgáltatás törlése
+ - új projekt létrehozása
+
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/10.png?raw=true" style="width:500px">
 </p>

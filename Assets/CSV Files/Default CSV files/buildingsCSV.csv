@@ -1,11 +1,26 @@
 épület azonosító,név,típus,építés éve,hasznos terület
-1,Napfény Lakópark 1,lakóház,2026,100
-2,Kossuth Gimnázium 2,iskola,2027,200
-3,Panoráma Ház 3,tömbház,2028,300
-4,Rózsa Villa 4,irodaház,2029,400
-5,Duna Office Iroda 5,vendégház,2030,500
-6,Szent István Általános Iskola 6,panzió,2031,600
-7,Béke Lakótelep 7,lakóház,2032,700
-8,Alkotás Udvar 8,iskola,2033,800
-9,Hegyalja Vendégház 9,tömbház,2034,900
-10,Aranypart Panzió 10,irodaház,2035,1000
+1,"Napfény Lakópark","lakóház",1990,120
+2,"Dombalja Apartmanház","lakóház",1985,150
+3,"Béke Tér 12","lakóház",2000,180
+4,"Tölgyfa Rezidencia","lakóház",2015,130
+5,"Rózsakert Társasház","lakóház",1998,160
+6,"Aranypart Villa","lakóház",1975,140
+7,"Parkview Lakóház","lakóház",2005,110
+8,"Harmónia Otthon","lakóház",2010,170
+9,"Ady Endre Gimnázium","iskola",1980,400
+10,"Városi Általános Iskola","iskola",1995,420
+11,"Központi Kórház","kórház",1970,500
+12,"Rózsa Utcai Egészségház","kórház",2003,480
+13,"Pláza Bevásárlóközpont","üzlet",1992,250
+14,"Belvárosi Szupermarket","üzlet",2007,230
+15,"Acélgyár","gyár",1965,600
+16,"Városi Autógyár","gyár",1999,550
+17,"Központi Buszpályaudvar","közlekedési csomópont",2012,700
+18,"Fovárosi Rendorkapitányság","rendorség",1988,300
+19,"Központi Tuzoltóság","tuzoltóság",1993,310
+20,"Muvelodési Központ","kulturális",2011,450
+21,"Városháza","adminisztráció",1955,350
+22,"Galaxy Bevásárlóközpont","kereskedelem",2015,500
+23,"Napsugár Játszótér","szórakozás",2008,100
+24,"Aréna Sportkomplexum","szórakozás",2016,450
+25,"Grand Cinema","szórakozás",2000,320

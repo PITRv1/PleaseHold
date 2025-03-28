@@ -1,21 +1,21 @@
-szolgáltatás azonosító,név,típus,kapcsolódó épület azonosítója
-1,Hulladékszállítás,Közmű,16
-2,Útkarbantartás,Karbantartás,1;4;19;3;11
-3,Postaszolgáltatás,Közmű,4;11;3
-4,Tűzvédelem,Alapszolgáltatás,10;18
-5,Postaszolgáltatás,Vészhelyzeti,14;9;15;16
-6,Internet,Karbantartás,6;13;19;15
-7,Tűzvédelem,Közmű,5;17;4;6;16
-8,Internet,Alapszolgáltatás,1;13
-9,Tűzvédelem,Alapszolgáltatás,4;6;19;5;13
-10,Útkarbantartás,Alapszolgáltatás,7;14;2
-11,Közvilágítás,Vészhelyzeti,3;1;2
-12,Tűzvédelem,Alapszolgáltatás,10;8
-13,Hulladékszállítás,Karbantartás,8;5
-14,Gázszolgáltatás,Vészhelyzeti,7
-15,Vízellátás,Vészhelyzeti,4
-16,Közvilágítás,Karbantartás,9
-17,Közvilágítás,Karbantartás,8;18;3
-18,Vízellátás,Közmű,10;4;9;18
-19,Hulladékszállítás,Közmű,14
-20,Internet,Alapszolgáltatás,17;8;5;1;13
+szolgáltatás azonosító,név,típus,kapcsolódó épület azonosítója,
+1,"Kórház","egészségügy","11;12"
+2,"Buszpályaudvar","közlekedés","17"
+3,"Városi Könyvtár","oktatás","20"
+4,"Rendorségi Ügyfélszolgálat","adminisztráció","18"
+5,"Tuzoltósági Diszpécser","adminisztráció","19"
+6,"Szupermarket","kereskedelem","13;14;22"
+7,"Fitness Központ","szórakozás","24"
+8,"Uszoda Jegypénztár","szórakozás","24"
+9,"Gyorsétterem","kereskedelem","13;22"
+10,"Patika","egészségügy","11"
+11,"Orvosi Rendelo","egészségügy","11;12"
+12,"Garázs Szerviz","közlekedés","17"
+13,"Autómosó","közlekedés","17"
+14,"Óvoda","oktatás","9"
+15,"Középiskola","oktatás","10"
+16,"Nyugdíjas Klub","szórakozás","23"
+17,"Mozi","szórakozás","25"
+18,"Bankfiók","adminisztráció","21"
+19,"Postahivatal","adminisztráció","21"
+20,"Ortopédiai Központ","egészségügy","12"

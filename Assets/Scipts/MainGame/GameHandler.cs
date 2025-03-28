@@ -131,20 +131,23 @@ public class GameHandler : MonoBehaviour {
             populationHappiness -= 5f;
 
         } else if (chance <= 0.8f) {
-            eventDisplay.SetEventName("PlaceHolder");
-            eventDisplay.SetEventText("Make more events if you see this . . .");
-            eventDisplay.SetEventColor(Color.blue);
+            eventDisplay.SetEventName("FIREEE");
+            eventDisplay.SetEventText("A fire breaks damaging nerby buildings in the process. The happiness falls by 10%.");
+            eventDisplay.SetEventColor(Color.red);
 
             GameEventSystem.Instance.AddToOutput("Make more events if you see this . . .");
 
+            // add house selection logic here it shuldnt be that hard
+
+            populationHappiness -= 10f;
         }
         else
         {
-            eventDisplay.SetEventName("PlaceHolder");
-            eventDisplay.SetEventText("Make more events if you see this . . .");
+            eventDisplay.SetEventName("Nothing happens");
+            eventDisplay.SetEventText("This month nothing happpened.");
             eventDisplay.SetEventColor(Color.blue);
 
-            GameEventSystem.Instance.AddToOutput("Make more events if you see this . . .");
+            GameEventSystem.Instance.AddToOutput("This month nothing happpened.");
         }
 
         eventDisplay.ShowUI();

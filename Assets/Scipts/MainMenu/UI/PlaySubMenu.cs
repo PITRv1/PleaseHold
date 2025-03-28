@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using Unity.Cinemachine;
 using System.Collections;
+using System.IO;
 
 public class PlaySubMenu : SubMenu
 {
@@ -30,6 +31,20 @@ public class PlaySubMenu : SubMenu
             OnGameCanStart?.Invoke(this, EventArgs.Empty);
             cameraChangeController.Transition();
             canvasFadeControllerUI.FadeOut(2f);
+
+            string folderPath = Application.dataPath + "/OutputFiles"; // Deletes Logs
+
+            if (Directory.Exists(folderPath)) {
+                // Delete all files
+                foreach (string file in Directory.GetFiles(folderPath)) {
+                    File.Delete(file);
+                }
+            }
+
+            string oldSaveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
+            if (File.Exists(oldSaveFilePath)) {
+                File.Delete(oldSaveFilePath);
+            }
         }
     }
 }

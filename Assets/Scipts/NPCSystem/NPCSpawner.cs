@@ -10,7 +10,6 @@ public class NPCSpawner : MonoBehaviour
         if (amount > previousAmount) {
             int difference = amount - previousAmount;
             for (int i = 0; i < difference; i++) {
-                Debug.Log(Convert.ToString(amount)+"/"+Convert.ToString(i));
                 Instantiate(NPC, transform.position, Quaternion.identity);
             }
             previousAmount = amount;

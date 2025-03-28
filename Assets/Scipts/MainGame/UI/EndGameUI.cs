@@ -27,24 +27,28 @@ public class EndGameUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetStats(string cause, string budget, string happiness, string turn, string simlength)
+    public void SetStats(string cause, string budget, float happiness, string turn, string simlength)
     {
         causeText.text = cause;
         endBudgetText.text = budget;
-        endHappinessText.text = happiness;
+        endHappinessText.text = (happiness * 100).ToString("0.00") + "%";
         turnsSimulatedText.text = turn;
         simulationLengthText.text = simlength;
     }
 
     public void Show()
     {
-        string oldSaveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
+        string oldSaveFilePath = Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt";
+        if (File.Exists(oldSaveFilePath)) {
+            File.Delete(oldSaveFilePath);
+        }
+        oldSaveFilePath = Application.dataPath + "/SaveFiles/NewGameParametersSaveFile.txt";
         if (File.Exists(oldSaveFilePath))
         {
             File.Delete(oldSaveFilePath);
         }
 
-        string folderPath = Application.dataPath + "/InputCSVFiles/StartCSVFiles"; // Change to your folder path
+        string folderPath = Application.dataPath + "/CSV Files/StartCSVFiles"; // Change to your folder path
 
         if (Directory.Exists(folderPath)) {
             // Delete all files

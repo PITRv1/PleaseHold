@@ -8,6 +8,7 @@ public class PlotHandler : MonoBehaviour {
 
     private List<Plot> plotList = new List<Plot>();
     private List<Plot> availablePlotList = new List<Plot>();
+    private List<Plot> reversedPlotList = new List<Plot>();
     public static PlotHandler Instance {
         private set;
         get;
@@ -23,8 +24,9 @@ public class PlotHandler : MonoBehaviour {
     public void ReloadLists() {
         plotList = new List<Plot>();
         availablePlotList = new List<Plot>();
+        reversedPlotList = new List<Plot>();
 
-        Plot[] plotArray = transform.GetComponentsInChildren<Plot>();
+    Plot[] plotArray = transform.GetComponentsInChildren<Plot>();
 
         foreach (Plot plot in plotArray) {
             plotList.Add(plot);
@@ -41,8 +43,11 @@ public class PlotHandler : MonoBehaviour {
         }
 
         foreach (Plot plot in plotList) {
-            if (plot.isReserved == true) continue;
-               availablePlotList.Add(plot);
+            if (plot.isReserved == true) {
+                reversedPlotList.Add(plot);
+                continue;
+            }
+            availablePlotList.Add(plot);
         }
     }
 
@@ -53,6 +58,11 @@ public class PlotHandler : MonoBehaviour {
     public List<Plot> GetAvailablePlotList() {
         ReloadLists();
         return availablePlotList;
+    }
+
+    public List<Plot> GetRevervedPlotList() {
+        ReloadLists();
+        return reversedPlotList;
     }
 
 }

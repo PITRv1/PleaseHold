@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -69,9 +70,11 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
                 } else {
                     buildingMesh.gameObject.SetActive(true);
                     HeadsUpDisplay.gameObject.SetActive(false);
-                    int newResidents = (int)buildingArea / 30;
-                    for (int i = 0; i < newResidents; i++) {
-                        GameHandler.Instance.NewResident(buildingid.ToString());
+                    if (buildingType == "lakóház") {
+                        int newResidents = (int)buildingArea / 30;
+                        for (int i = 0; i < newResidents; i++) {
+                            GameHandler.Instance.NewResident(buildingid.ToString());
+                        }
                     }
                 }
             }
@@ -191,14 +194,48 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
         buildingPlot = plot;
     }
 
+    public void SetStatus(string status) {
+        buildingStatus = status;
+        Integrity.fillAmount = GetIntegrityFloat(buildingStatus);
+        SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
+    }
+
+    public void SetStatus(int status) {
+        switch (status) {
+            case 1:
+                buildingStatus = "Perfect";
+                break;
+            case 2:
+                buildingStatus = "Good";
+                break;
+            case 3:
+                buildingStatus = "Average";
+                break;
+            case 4:
+                buildingStatus = "Bad";
+                break;
+            default:
+            case 5:
+                buildingStatus = "Awful";
+                break;
+        }
+        Integrity.fillAmount = GetIntegrityFloat(buildingStatus);
+        SaveCSV.Instance.EditOneValueOnLine(buildingid, SaveCSV.BuildingColumns.Status, SaveCSV.Instance.GetBuildingFilePath(), buildingStatus);
+    }
+
     public int GetBuildingId() { return buildingid; }
     public string GetBuildingName() { return buildingName; }
     public string GetBuildingType() { return buildingType; }
     public int GetBuildingYear() { return buildingYear; }
     public float GetBuildingArea() { return buildingArea; }
     public string GetBuildingStatus() { return buildingStatus; }
+    public int GetBuildingStatusInt() { return GetIntegrityInt(buildingStatus); }
 
-    private float GetIntegrityFloat(string integrity)
+    public bool IsBuilt() {
+        return buildingStatus != "in construction";
+    }
+
+    public float GetIntegrityFloat(string integrity)
     {
         switch (integrity)
         {
@@ -215,6 +252,22 @@ public class Flat : Buildings, IPointerDownHandler, IPointerUpHandler, IPointerC
             default:
             case "in construction":
                 return 0f;
+        }
+    }
+
+    public int GetIntegrityInt(string integrity) {
+        switch (integrity) {
+            case "Perfect":
+                return 1;
+            case "Good":
+                return 2;
+            case "Average":
+                return 3;
+            case "Bad":
+                return 4;
+            default:
+            case "Awful":
+                return 5;
         }
     }
 }

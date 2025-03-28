@@ -131,8 +131,6 @@ public class SaveCSV : MonoBehaviour {
                 //You need to run setup in main menu or manually change the path in the save file
                 //since this now reads out of the SaveFile
 
-                isNew = true;
-
                 string json = File.ReadAllText(filePath);
                 GameParamSaver.SaveObject saveObject = JsonUtility.FromJson<GameParamSaver.SaveObject>(json);
 

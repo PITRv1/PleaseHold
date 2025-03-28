@@ -1,0 +1,11 @@
+épület azonosító,név,típus,építés éve,hasznos terület,turns to finish,turns,status,plot,color
+1,Napfény Lakópark 1,lakóház,2026,100,0,0,Awful,607,blue
+2,Kossuth Gimnázium 2,iskola,2027,200,0,0,Bad,432,green
+3,Panoráma Ház 3,tömbház,2028,300,0,0,Bad,129,brown
+4,Rózsa Villa 4,irodaház,2029,400,0,0,Good,697,blue
+5,Duna Office Iroda 5,vendégház,2030,500,0,0,Bad,320,yellow
+6,Szent István Általános Iskola 6,panzió,2031,600,0,0,Perfect,886,purple
+7,Béke Lakótelep 7,lakóház,2032,700,0,0,Good,1124,purple
+8,Alkotás Udvar 8,iskola,2033,800,0,0,Perfect,668,green
+9,Hegyalja Vendégház 9,tömbház,2034,900,0,0,Perfect,1058,yellow
+10,Aranypart Panzió 10,irodaház,2035,1000,0,0,Perfect,98,green

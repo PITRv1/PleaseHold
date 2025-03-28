@@ -26,8 +26,6 @@ public class BuildingInputField : MonoBehaviour {
     private string buildingAreaText;
     private string buildingTurnsToBuildText;
 
-    private int averageBuildCostUK = 2400;
-
     private Plot plot;
 
     public static BuildingInputField Instance {
@@ -37,40 +35,6 @@ public class BuildingInputField : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
-        exitButton.onClick.AddListener(() => {
-            Hide();
-        });
-        acceptButton.onClick.AddListener(() => {
-
-            string buildingNameText = buildingName.text;
-            string buildingAreaText = buildingArea.text;
-            string buildingTypeText = buildingTypeDropdown.options[buildingTypeDropdown.value].text;
-            string buildingTurnsToBuildText = buildingTurnsToBuild.text;
-
-            buildingName.text = "";
-            //buildingTypeDropdown.options[buildingTypeDropdown.value].text = "";
-            buildingArea.text = "";
-            buildingTurnsToBuild.text = "";
-
-            string date = GameHandler.Instance.GetDate();
-            int currentYear = Int32.Parse(date.Split('-')[0]);
-            int currentMonth = Int32.Parse(date.Split('-')[1]);
-            float currentDate = currentYear + currentMonth / 100;
-
-            GameHandler.Instance.CreateNewProject(
-                buildingNameText, 
-                (averageBuildCostUK * Int32.Parse(buildingAreaText)).ToString(), 
-                GameHandler.Instance.GetDate(),
-                GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText)), 
-                SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString(),
-                "build");
-
-            string[] colors = { "blue", "brown", "green", "purple", "yellow" };
-
-            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", plot, colors[UnityEngine.Random.Range(0, colors.Length)]);
-
-            Hide();
-        });
     }
     private string GetEndDate(int currentYear, int currentMonth, int turnsToBuild) {
         int year = currentYear;
@@ -93,6 +57,40 @@ public class BuildingInputField : MonoBehaviour {
     private void Start() {
         EventHandlerScript.Instance.OnPlotRightClick += EventHandlerScript_OnPlotRightClick;
         rectTransform = GetComponent<RectTransform>();
+        exitButton.onClick.AddListener(() => {
+            Hide();
+        });
+        acceptButton.onClick.AddListener(() => {
+
+            string buildingNameText = buildingName.text;
+            string buildingAreaText = buildingArea.text;
+            string buildingTypeText = buildingTypeDropdown.options[buildingTypeDropdown.value].text;
+            string buildingTurnsToBuildText = buildingTurnsToBuild.text;
+
+            buildingName.text = "";
+            //buildingTypeDropdown.options[buildingTypeDropdown.value].text = "";
+            buildingArea.text = "";
+            buildingTurnsToBuild.text = "";
+
+            string date = GameHandler.Instance.GetDate();
+            int currentYear = Int32.Parse(date.Split('-')[0]);
+            int currentMonth = Int32.Parse(date.Split('-')[1]);
+            float currentDate = currentYear + currentMonth / 100;
+
+            GameHandler.Instance.CreateNewProject(
+                buildingNameText,
+                (GameHandler.Instance.GetBuildingCost() * Int32.Parse(buildingAreaText)).ToString(),
+                GameHandler.Instance.GetDate(),
+                GetEndDate(currentYear, currentMonth, Int32.Parse(buildingTurnsToBuildText)),
+                SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetBuildingFilePath()).ToString(),
+                "build");
+
+            string[] colors = { "blue", "brown", "green", "purple", "yellow" };
+
+            GameHandler.Instance.CreateNewBuilding(buildingNameText, buildingTypeText, GameHandler.Instance.GetDate().ToString(), buildingAreaText, buildingTurnsToBuildText, "0", "in construction", plot, colors[UnityEngine.Random.Range(0, colors.Length)]);
+
+            Hide();
+        });
         Hide();
     }
 

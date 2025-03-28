@@ -60,6 +60,8 @@ public class LoadFile : MonoBehaviour {
                 string color = file[(int)Columns.Color];
 
                 flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, plotList[index].transform, color);
+                FlatHandler.Instance.AddToFlatList(flat);
+                plotScript.SetPlot(flat);
                 plotScript.isReserved = true;
 
             }
@@ -94,6 +96,9 @@ public class LoadFile : MonoBehaviour {
 
                 flat.Initialize(id, name, type, year, area, TurnsTillFinish, turns, status, avaliablePlotList[randomPlot].transform, color);
                 plotScript.isReserved = true;
+
+                FlatHandler.Instance.AddToFlatList(flat);
+                plotScript.SetPlot(flat);
 
                 SaveCSV.Instance.EditOneValueOnLine(Int32.Parse(buildingId), SaveCSV.BuildingColumns.Plot, SaveCSV.Instance.GetBuildingFilePath(), plotList.IndexOf(avaliablePlotList[randomPlot]).ToString());
 

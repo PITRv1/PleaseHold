@@ -1,11 +1,13 @@
 using System;
+using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Plot : MonoBehaviour, IPointerClickHandler {
 
-    Transform Flat;
     [SerializeField] private GameObject selectedVisual;
+
+    private Flat flatOn;
 
 
     private bool _isReserved = false; // Default is false
@@ -32,6 +34,19 @@ public class Plot : MonoBehaviour, IPointerClickHandler {
     private void gotReserved()
     {
         selectedVisual.SetActive(false);
+    }
+
+    public void SetPlot(Flat flat) {
+        flatOn = flat;
+    }
+
+    public bool TryGetFlatOnPlot(out Flat flatOnPlot) {
+        flatOnPlot = flatOn;
+        if (isReserved) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

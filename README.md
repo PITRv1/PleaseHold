@@ -45,5 +45,10 @@ A bevezető videó után a játék átvált a főmenüre, ahol:
  - a **[Credits]** gombbal olvashat a fejlesztői csapatról
  - az **[Exit]** gombbal bezárhatja a programot
 
- 
+A **[Play]** lenyomása után megjelenik jobb oldalon egy olyan menü, ahol megadhatja a szimuláció paramétereit:
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/2.png?raw=true" style="width:1000px">
+</p>
 
+> [!NOTE]  
+> A "Load Default Test Files" gomb lenyomására a program kiolvassa a csv állományokat a XXX mappából. Ebbe a mappába a saját fájljait is elhelyezheti.

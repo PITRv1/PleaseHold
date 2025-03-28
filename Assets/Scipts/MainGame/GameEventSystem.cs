@@ -21,7 +21,7 @@ public class GameEventSystem : MonoBehaviour {
     }
 
     private void GameHandler_NewMonthEvent(object sender, System.EventArgs e) {
-        string filePath = Application.dataPath + $@"\OutputFiles\{GameHandler.Instance.GetOldDate()}.txt";
+        string filePath = Application.dataPath + $@"\Output Files\{GameHandler.Instance.GetOldDate()}.txt";
 
         fileLines.Add("");
 
@@ -39,11 +39,11 @@ public class GameEventSystem : MonoBehaviour {
 
         fileLines.Add("");
 
-        fileLines.Add("City happiness: " + (GameHandler.Instance.GetHappinessPercentige() * 100).ToString("0.00") + "%");
+        fileLines.Add("City happiness: " + Mathf.Clamp((GameHandler.Instance.GetOldHappinessPercetige() * 100), 0, 100).ToString("0.00") + "%");
 
         fileLines.Add("");
 
-        fileLines.Add("Budget: " + GameHandler.Instance.GetBudget().ToString());
+        fileLines.Add("Budget: " + GameHandler.Instance.GetOldBudget().ToString() + "$");
 
         File.WriteAllLines(filePath, fileLines);
 
@@ -72,7 +72,7 @@ public class GameEventSystem : MonoBehaviour {
                 break;
         }
 
-        string filePath = Application.dataPath + $@"\OutputFiles\{GameHandler.Instance.GetDate()}.txt";
+        string filePath = Application.dataPath + $@"\Output Files\{GameHandler.Instance.GetDate()}.txt";
 
         fileLines.Add("");
 
@@ -94,7 +94,7 @@ public class GameEventSystem : MonoBehaviour {
 
         fileLines.Add("");
 
-        fileLines.Add("Budget: " + GameHandler.Instance.GetBudget().ToString());
+        fileLines.Add("Budget: " + GameHandler.Instance.GetBudget().ToString() + "$");
 
         File.WriteAllLines(filePath, fileLines);
 

@@ -48,15 +48,6 @@ public class EndGameUI : MonoBehaviour
             File.Delete(oldSaveFilePath);
         }
 
-        string folderPath = Application.dataPath + "/CSV Files/StartCSVFiles"; // Change to your folder path
-
-        if (Directory.Exists(folderPath)) {
-            // Delete all files
-            foreach (string file in Directory.GetFiles(folderPath)) {
-                File.Delete(file);
-            }
-        }
-
         CameraSystem.Instance.DisableCamInputs();
         CameraSystem.Instance.DisableUIInputs();
 

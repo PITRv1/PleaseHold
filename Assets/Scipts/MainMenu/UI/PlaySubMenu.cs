@@ -32,7 +32,16 @@ public class PlaySubMenu : SubMenu
             cameraChangeController.Transition();
             canvasFadeControllerUI.FadeOut(2f);
 
-            string folderPath = Application.dataPath + "/OutputFiles"; // Deletes Logs
+            string folderPath = Application.dataPath + "/Output Files"; // Deletes Logs
+
+            if (Directory.Exists(folderPath)) {
+                // Delete all files
+                foreach (string file in Directory.GetFiles(folderPath)) {
+                    File.Delete(file);
+                }
+            }
+
+            folderPath = Application.dataPath + "/CSV Files/Save Files"; // Deletes Logs
 
             if (Directory.Exists(folderPath)) {
                 // Delete all files

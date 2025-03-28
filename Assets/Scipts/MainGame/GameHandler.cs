@@ -31,10 +31,10 @@ public class GameHandler : MonoBehaviour {
     [SerializeField] float newBuildingHappines;
     [SerializeField] float newServiceHappines;
     [SerializeField] float endServiceHappines;
-    [Range(0,1)]
+    [Range(0, 1)]
     [SerializeField] float governmentFundingNormal;
     [SerializeField] EventDisplay eventDisplay;
-    [SerializeField] EndGameUI endGameUI; 
+    [SerializeField] EndGameUI endGameUI;
     [SerializeField] NPCSpawner npcSpawner;
 
     [SerializeField] float BuildingCost = 2.4f;
@@ -86,6 +86,8 @@ public class GameHandler : MonoBehaviour {
     private string endDate;
     private string date;
     private string oldDate;
+    private float oldPopulationHappiness;
+    private float oldBudget;
 
     [SerializeField] private string[] firstNames = { "Varga", "Molnár", "Kovács", "Takács", "Tóth", "Szabó", "Nagy" };
     [SerializeField] private string[] lastNames = { "Varga", "Molnár", "Kovács", "Takács", "Tóth", "Szabó", "Nagy" };
@@ -107,7 +109,7 @@ public class GameHandler : MonoBehaviour {
         simStartMonth = Int32.Parse(SaveCSV.Instance.GetStartDate().Split('-')[1]);
         populationStartHappiness = float.Parse(SaveCSV.Instance.GetStartingPopulationHappiness());
         populationMinHappiness = Mathf.Clamp(float.Parse(SaveCSV.Instance.GetMinPopulationHappiness()), 1, 99.99f);
-        initalBudget = (int) float.Parse(SaveCSV.Instance.GetInitialBudget());
+        initalBudget = (int)float.Parse(SaveCSV.Instance.GetInitialBudget());
         simLength = Int32.Parse(SaveCSV.Instance.GetSimulationLength());
 
         populationHappiness = populationStartHappiness;
@@ -120,6 +122,8 @@ public class GameHandler : MonoBehaviour {
 
         UpdateDate();
         UpdateOldDate();
+        UpdateOldBudget();
+        UpdateOldHappiness();
         UpdateHUD();
         npcSpawner.SpawnNPCs(population);
         SaveToJson();
@@ -131,6 +135,8 @@ public class GameHandler : MonoBehaviour {
         HandleServices();
         NewMonthEvent?.Invoke(this, EventArgs.Empty);
         UpdateOldDate();
+        UpdateOldBudget();
+        UpdateOldHappiness();
         population = SaveCSV.Instance.GetCSVLength(SaveCSV.Instance.GetResidentFilePath());
         RandomEvent();
         GovernmentFunding();
@@ -165,11 +171,22 @@ public class GameHandler : MonoBehaviour {
     public string GetOldDate() {
         return oldDate;
     }
+    public float GetOldBudget() {
+        return oldBudget;
+    }
+    public float GetOldHappiness() {
+        return oldPopulationHappiness;
+    }
 
     private void UpdateOldDate() {
         oldDate = date;
     }
-
+    private void UpdateOldBudget() {
+        oldBudget = budget;
+    }
+    private void UpdateOldHappiness() {
+        oldPopulationHappiness = populationHappiness;
+    }
     private void RandomEvent() {
         float chance = UnityEngine.Random.value;
 
@@ -225,6 +242,8 @@ public class GameHandler : MonoBehaviour {
             int plotIndexLeft = twoDir;
             int plotIndexRight = twoDir;
 
+            List<string> indexes = new();
+
             if (lastDir == 0) plotIndexLeft += lastHouse; else plotIndexRight += lastHouse;
 
             int currIndex = plotIndex;
@@ -235,6 +254,7 @@ public class GameHandler : MonoBehaviour {
 
                 flatOnPlotFirst.SetStatus(5);
                 burnedHauseCount++;
+                indexes.Add(flatOnPlotFirst.GetBuildingId().ToString());
             }
 
             for (int index = 1; index < plotIndexLeft + 1; index++) {
@@ -251,6 +271,7 @@ public class GameHandler : MonoBehaviour {
 
                 houseStatus = Mathf.Clamp(houseStatus, 2, 5);
 
+                indexes.Add(flatOnPlot.GetBuildingId().ToString());
                 if (flatOnPlot.GetBuildingStatusInt() < houseStatus) flatOnPlot.SetStatus(houseStatus);
                 burnedHauseCount++;
             }
@@ -267,7 +288,7 @@ public class GameHandler : MonoBehaviour {
                 int houseStatus = 6 - index;
 
                 houseStatus = Mathf.Clamp(houseStatus, 2, 5);
-
+                indexes.Add(flatOnPlot.GetBuildingId().ToString());
                 if (flatOnPlot.GetBuildingStatusInt() < houseStatus) flatOnPlot.SetStatus(houseStatus);
                 burnedHauseCount++;
             }
@@ -278,46 +299,46 @@ public class GameHandler : MonoBehaviour {
 
             populationHappiness -= (populationMaxHappiness - populationMinHappiness) * decrease;
 
+            string strIndexes = string.Join(", ", indexes);
+
             eventDisplay.SetEventName("FIREEE");
-            eventDisplay.SetEventText($"A fire breaks damaging {burnedHauseCount} buildings in the process. The happiness falls by {decrease * 100f}%.");
+            eventDisplay.SetEventText($"A fire breaks damaging {burnedHauseCount} buildings ({strIndexes}) in the process. The happiness falls by {decrease * 100f}%.");
             eventDisplay.SetEventColor(Color.red);
 
-            GameEventSystem.Instance.AddToOutput($"A fire breaks damaging {burnedHauseCount} buildings in the process. The happiness falls by {decrease * 100f}%.");
+            GameEventSystem.Instance.AddToOutput($"Egy tűz kitört, megsebezve {burnedHauseCount} épületet ({strIndexes}). A boldogság {decrease * 100f}%-al csökkent.");
 
-        } else if (chance <= famineChance + fireChance){
+        } else if (chance <= famineChance + fireChance) {
             eventDisplay.SetEventName("City wide famine");
             eventDisplay.SetEventText("A food shortage has hit the city. Lose 15% population happiness.");
             eventDisplay.SetEventColor(Color.red);
 
-            GameEventSystem.Instance.AddToOutput("The city was hit by a famine and lost 15% population happiness.");
+            GameEventSystem.Instance.AddToOutput("A várost éhínség sújtotta, és elvesztette a lakosság a boldogságának 15%-át.");
 
             populationHappiness -= (populationMaxHappiness - populationMinHappiness) * 0.15f;
         } else if (chance <= pipeBreakChance + famineChance + fireChance) {
             eventDisplay.SetEventName("Water pipe disaster");
-            eventDisplay.SetEventText("A major water pipe in the city has raptured. You use 10000$ to fix it but people are 5% less happy.");
+            eventDisplay.SetEventText("A major water pipe in the city has raptured. You use 10.000$ to fix it but people are 5% less happy.");
             eventDisplay.SetEventColor(Color.red);
 
-            GameEventSystem.Instance.AddToOutput("A major pipe in the city ruptured and caused 10000$ in damages. The people are 5% less happy.");
+            GameEventSystem.Instance.AddToOutput("A városban elszakadt egy nagy cső, ami 10.000 dolláros kárt okozott. Az emberek 5%-kal kevésbé boldogak.");
 
             budget -= 10000f;
             populationHappiness -= (populationMaxHappiness - populationMinHappiness) * 0.05f;
 
         } else if (chance <= fundingChance + pipeBreakChance + famineChance + fireChance) {
             eventDisplay.SetEventName("Extra Government funding");
-            eventDisplay.SetEventText("The city by miracle has won an application for extra government funding that it applied for. Gain 100000$ extra budget.");
+            eventDisplay.SetEventText("The city by miracle has won an application for extra government funding that it applied for. Gain 100.000$ extra budget.");
             eventDisplay.SetEventColor(Color.green);
 
-            GameEventSystem.Instance.AddToOutput("The city has recived 100000$ extra funding.");
+            GameEventSystem.Instance.AddToOutput("A város 100.000 dollár plusz támogatást kapott.");
 
             budget += 100000f;
-        }
-        else
-        {
+        } else {
             eventDisplay.SetEventName("Nothing happens");
-            eventDisplay.SetEventText("This month nothing happpened.");
+            eventDisplay.SetEventText("This month nothing happened.");
             eventDisplay.SetEventColor(Color.blue);
 
-            GameEventSystem.Instance.AddToOutput("This month nothing happpened.");
+            GameEventSystem.Instance.AddToOutput("Ebben a hónapban nem történt semmi.");
         }
 
         eventDisplay.ShowUI();
@@ -424,7 +445,7 @@ public class GameHandler : MonoBehaviour {
 
             if (splitLine[(int)SaveCSV.ProjectColumns.EndDate] == date) {
                 GameEventSystem.Instance.AddToOutput("Befejeződött egy projekt " + SaveCSV.Instance.ReadLinesFromCSV(SaveCSV.Instance.GetProjectsFilePath())[i].Split(',')[(int)SaveCSV.ProjectColumns.Name] + " néven");
-                switch (splitLine[(int)SaveCSV.ProjectColumns.Type]){
+                switch (splitLine[(int)SaveCSV.ProjectColumns.Type]) {
                     case "repair":
                         populationHappiness += repairHappines;
                         break;
@@ -463,10 +484,10 @@ public class GameHandler : MonoBehaviour {
         foreach (string line in lines) {
             string[] splitLine = line.Split(',');
 
-            if (splitLine[(int) SaveCSV.ServiceColumns.Id] == id.ToString()) {
-                GameEventSystem.Instance.AddToOutput("Befejeződött egy szolgáltatás " + splitLine[(int) SaveCSV.ServiceColumns.Name] + " néven");
+            if (splitLine[(int)SaveCSV.ServiceColumns.Id] == id.ToString()) {
+                GameEventSystem.Instance.AddToOutput("Befejeződött egy szolgáltatás " + splitLine[(int)SaveCSV.ServiceColumns.Name] + " néven");
                 break;
-            }   
+            }
         }
         SaveCSV.Instance.DeleteFromCSV(filePath, id);
         populationHappiness -= endServiceHappines;
@@ -512,7 +533,7 @@ public class GameHandler : MonoBehaviour {
         year += years;
         month = leftoverMonths;
 
-        if (month < 10){
+        if (month < 10) {
             date = year.ToString() + "-0" + month.ToString();
         } else {
             date = year.ToString() + '-' + month.ToString();
@@ -559,13 +580,17 @@ public class GameHandler : MonoBehaviour {
         UpdateDate();
         return date;
     }
-    
+
     public int GetTurnCount() {
         return turnCount;
     }
 
     public float GetHappiness() {
         return populationHappiness;
+    }
+
+    public float GetOldHappinessPercetige() {
+        return ((oldPopulationHappiness - populationMinHappiness) / (populationMaxHappiness - populationMinHappiness)) >= 0f ? ((oldPopulationHappiness - populationMinHappiness) / (populationMaxHappiness - populationMinHappiness)) : 0f;
     }
 
     public float GetHappinessPercentige() {
@@ -576,8 +601,7 @@ public class GameHandler : MonoBehaviour {
         return budget;
     }
 
-    public int SimulationLength()
-    {
+    public int SimulationLength() {
         return simLength;
     }
 }

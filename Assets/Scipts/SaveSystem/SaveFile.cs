@@ -124,7 +124,7 @@ public class SaveCSV : MonoBehaviour {
             }
         }
 
-        if (!Directory.EnumerateFileSystemEntries($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles").Any() || isNew == true) {
+        if (!Directory.EnumerateFileSystemEntries($@"{Application.dataPath}\CSV Files\Save Files").Any() || isNew == true) {
 
             filePath = Application.dataPath + "/SaveFiles/GameParametersSaveFile.txt";
             if (File.Exists(filePath)) {
@@ -144,12 +144,12 @@ public class SaveCSV : MonoBehaviour {
                 Debug.LogError("Save file not found!");
             }
 
-            MakeEditableCSVs(residentPath, buildPath, servicePath, Application.dataPath + "/InputCSVFiles/SaveCSVFiles/projectsCSV.csv");
+            MakeEditableCSVs(residentPath, buildPath, servicePath, Application.dataPath + "/CSV Files/Default CSV files/projectsCSV.csv");
 
-            SetResidentFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv");
-            SetBuildingFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv");
-            SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv");
-            SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
+            SetResidentFilePath($@"{Application.dataPath}\CSV Files\Save Files\residentsSaveCSV.csv");
+            SetBuildingFilePath($@"{Application.dataPath}\CSV Files\Save Files\buildingsSaveCSV.csv");
+            SetServiceFilePath($@"{Application.dataPath}\CSV Files\Save Files\servicesSaveCSV.csv");
+            SetProjectsFilePath($@"{Application.dataPath}\CSV Files\Save Files\projectsSaveCSV.csv");
 
             AddValueToLine(0, "turns to finish", fileBuildingPath);
             AddValueToLine(0, "turns", fileBuildingPath);
@@ -202,10 +202,10 @@ public class SaveCSV : MonoBehaviour {
 
         } else {
 
-            SetResidentFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv");
-            SetBuildingFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv");
-            SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv");
-            SetProjectsFilePath($@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv");
+            SetResidentFilePath($@"{Application.dataPath}\CSV Files\Save Files\residentsSaveCSV.csv");
+            SetBuildingFilePath($@"{Application.dataPath}\CSV Files\Save Files\buildingsSaveCSV.csv");
+            SetServiceFilePath($@"{Application.dataPath}\CSV Files\Save Files\servicesSaveCSV.csv");
+            SetProjectsFilePath($@"{Application.dataPath}\CSV Files\Save Files\projectsSaveCSV.csv");
 
         }
 
@@ -303,10 +303,10 @@ public class SaveCSV : MonoBehaviour {
         string projectsPath = $@"{projPath}";
 
 
-        File.Copy(residentPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\residentsSaveCSV.csv", true);
-        File.Copy(buildingPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\buildingsSaveCSV.csv", true);
-        File.Copy(servicePath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\servicesSaveCSV.csv", true);
-        File.Copy(projectsPath, $@"{Application.dataPath}\InputCSVFiles\StartCSVFiles\projectsSaveCSV.csv", true);
+        File.Copy(residentPath, $@"{Application.dataPath}\CSV Files\Save Files\residentsSaveCSV.csv", true);
+        File.Copy(buildingPath, $@"{Application.dataPath}\CSV Files\Save Files\buildingsSaveCSV.csv", true);
+        File.Copy(servicePath, $@"{Application.dataPath}\CSV Files\Save Files\servicesSaveCSV.csv", true);
+        File.Copy(projectsPath, $@"{Application.dataPath}\CSV Files\Save Files\projectsSaveCSV.csv", true);
     }
 
     public void ReadFromBuildingCSV() {

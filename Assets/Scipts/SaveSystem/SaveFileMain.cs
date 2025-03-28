@@ -44,8 +44,8 @@ public class SaveCSVMainMenu : MonoBehaviour {
     private void Awake()
     {
         Instance = this;
-        SetBuildingFilePath($@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\buildingsCSV.csv");
-        SetServiceFilePath($@"{Application.dataPath}\InputCSVFiles\SaveCSVFiles\servicesCSV.csv");
+        SetBuildingFilePath($@"{Application.dataPath}\CSV Files\Default CSV files\buildingsCSV.csv");
+        SetServiceFilePath($@"{Application.dataPath}\CSV Files\Default CSV files\servicesCSV.csv");
         ReloadAllCSV();
     }
 

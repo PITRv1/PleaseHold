@@ -178,9 +178,9 @@ public class PlaySubMenuInputManager : MonoBehaviour
 
     private void SetDefaultFilePath()
     {
-        inputBuildingsText.text = Application.dataPath + "/InputCSVFiles/SaveCSVFiles/buildingsCSV.csv";
-        inputPeopleText.text = Application.dataPath + "/InputCSVFiles/SaveCSVFiles/residentsCSV.csv";
-        inputServicesText.text = Application.dataPath + "/InputCSVFiles/SaveCSVFiles/servicesCSV.csv";
+        inputBuildingsText.text = Application.dataPath + "/CSV Files/Default CSV files/buildingsCSV.csv";
+        inputPeopleText.text = Application.dataPath + "/CSV Files/Default CSV files/residentsCSV.csv";
+        inputServicesText.text = Application.dataPath + "/CSV Files/Default CSV files/servicesCSV.csv";
     }
 
     private string GetSelectedFilePath()

@@ -6,7 +6,7 @@
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Assets/_Assets/Images/undefined_team_logo.png?raw=true" style="width:200px">
 </p>
 
-## A játékról
+## A játék történetéről
 Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megváratnak minket. Egyszer megunjuk és elkezdünk játszani a telefonunkon.
 
 ## A feladatról

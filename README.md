@@ -35,13 +35,14 @@ A program megtervezése előtt megállapodtunk abban, hogy ebből a feladatból 
 
 ## Használat
 A bevezető videó után a játék átvált a főmenüre, ahol:
+<p align="center">
+  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/1.png?raw=true" style="width:1000px">
+</p>
  - a **[Continue]** gommbbal folytathatja a már megkezdett, de nem befejezett szimulációt
  - a **[Play]** gombbal indíthat egy új szimulációt
  - az **[Options]** gombbal megnyithatja a beállításokat
  - a **[Credits]** gombbal olvashat a fejlesztői csapatról
  - az **[Exit]** gombbal bezárhatja a programot
-<p align="center">
-  <img src="https://github.com/PITRv1/PleaseHold/blob/master/Tutorial%20images/1.png?raw=true" style="width:200px">
-</p>
+
  
 

@@ -9,14 +9,11 @@
 ## A játék történetéről
 Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megváratnak minket. Egyszer megunjuk és elkezdünk játszani a telefonunkon.
 
-## Tech Stack
+## Fontos programok és verzióik
 - Microsoft Office 2019
 - Unity Hub 3.11.1
 - Unity 6 (6000.0.40f1)
-- Visual Studio Code
-- Visual Studio
-- Github
-- Github Desktop
+- Dotnet 8
 
 ## A feladatról
 Ezt a játékot a Vadász Dénes Informatika Versenyre készítettük. A feladatról röviden:
@@ -60,4 +57,6 @@ A **[Play]** lenyomása után megjelenik jobb oldalon egy olyan menü, ahol mega
 </p>
 
 > [!NOTE]  
-> A **[Load Default Test Files]** gomb lenyomására a program kiolvassa a csv állományokat a XXX mappából. Ebbe a mappába a saját fájljait is elhelyezheti.
+> A **[Load Default Test Files]** gomb lenyomására a program kiolvassa a csv állományokat a [Játék mappája]\PleaseHold\Assets\CSV Filesmappából. Ebbe a mappába a saját fájljait is elhelyezheti.
+
+

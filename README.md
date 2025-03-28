@@ -6,6 +6,13 @@
   <img src="https://github.com/PITRv1/PleaseHold/blob/master/Assets/_Assets/Images/undefined_team_logo.png?raw=true" style="width:200px">
 </p>
 
+## Csapatunk
+ - Csapat neve: undefined
+ - Csapat tagjai: Borók Máté, Kovács Dániel Benedek, Tóth Péter Sándor
+ - Csapat elérhetősége: undefinedteam000@gmail.com
+ - Iskolánk: Debreceni SZC Mechwart András Gépipari és Informatikai Technikum
+ - Felkészítő tanár: Hagymási Gyula Levente
+
 ## A játék történetéről
 Munkánk során gyakran kell felhívnunk a Kormányablakot, akik sokszor megváratnak minket. Egyszer megunjuk és elkezdünk játszani a telefonunkon.
 

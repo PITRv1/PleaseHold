@@ -35,10 +35,10 @@ A program megtervezése előtt megállapodtunk abban, hogy ebből a feladatból 
 
 ## Használat
 A bevezető videó után a játék átvált a főmenüre, ahol:
- - a [**Continue**] gommbbal folytathatja a már megkezdett, de nem befejezett szimulációt
- - a **Play** gombbal indíthat egy új szimulációt
- - az **Options** gombbal megnyithatjuk a beállításokat
- - a **Credits** gombbal olvashat a fejlesztői csapatról
- - az **Exit** gombbal bezárhatja a programot
+ - a **[Continue]** gommbbal folytathatja a már megkezdett, de nem befejezett szimulációt
+ - a **[Play]** gombbal indíthat egy új szimulációt
+ - az **[Options]** gombbal megnyithatjuk a beállításokat
+ - a **[Credits]** gombbal olvashat a fejlesztői csapatról
+ - az **[Exit]** gombbal bezárhatja a programot
  
 
